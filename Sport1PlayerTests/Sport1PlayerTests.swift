@@ -1,15 +1,15 @@
 //
-//  Squad1PlayerTests.swift
-//  Squad1PlayerTests
+//  Sport1PlayerTests.swift
+//  Sport1PlayerTests
 //
 //  Created by Oliver Stowell on 27/08/2019.
 //  Copyright © 2019 Applicaster Ltd. All rights reserved.
 //
 
 import XCTest
-@testable import Squad1Player
+@testable import Sport1Player
 
-class Squad1PlayerTests: XCTestCase {
+class Sport1PlayerTests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.

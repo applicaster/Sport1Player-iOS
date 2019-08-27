@@ -13,11 +13,11 @@ def shared_pods
 	pod 'JWPlayerPlugin', '= 3.1.1'
 end
 
-target 'Squad1Player' do
+target 'Sport1Player' do
 	shared_pods
 end
 
- target 'Squad1PlayerTests' do
+ target 'Sport1PlayerTests' do
     inherit! :search_paths
     shared_pods
   end
