@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02DD6CED44F07ACF168BA9F3 /* Pods_Squad1PlayerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBEB601CC645E43709406C49 /* Pods_Squad1PlayerTests.framework */; };
 		52497E0F2315339E0065A6DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52497E0E2315339E0065A6DF /* AppDelegate.swift */; };
 		52497E112315339E0065A6DF /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52497E102315339E0065A6DF /* DocumentBrowserViewController.swift */; };
 		52497E132315339E0065A6DF /* DocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52497E122315339E0065A6DF /* DocumentViewController.swift */; };
@@ -15,6 +16,7 @@
 		52497E1A231533A00065A6DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52497E19231533A00065A6DF /* Assets.xcassets */; };
 		52497E1D231533A00065A6DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52497E1B231533A00065A6DF /* LaunchScreen.storyboard */; };
 		52497E28231533A00065A6DF /* Squad1PlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52497E27231533A00065A6DF /* Squad1PlayerTests.swift */; };
+		91CDDB689FF80372D8C251CB /* Pods_Squad1Player.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21AC796B8E77950EAD14EECD /* Pods_Squad1Player.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,6 +30,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		21AC796B8E77950EAD14EECD /* Pods_Squad1Player.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Squad1Player.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		375FD2F3E96E1AF4326E566C /* Pods-Squad1Player.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Squad1Player.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Squad1Player/Pods-Squad1Player.debug.xcconfig"; sourceTree = "<group>"; };
 		52497E0B2315339E0065A6DF /* Squad1Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Squad1Player.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52497E0E2315339E0065A6DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52497E102315339E0065A6DF /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
@@ -40,6 +44,10 @@
 		52497E23231533A00065A6DF /* Squad1PlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Squad1PlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		52497E27231533A00065A6DF /* Squad1PlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Squad1PlayerTests.swift; sourceTree = "<group>"; };
 		52497E29231533A00065A6DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		57E5D6B9BB97801D607FB24A /* Pods-Squad1Player.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Squad1Player.release.xcconfig"; path = "Pods/Target Support Files/Pods-Squad1Player/Pods-Squad1Player.release.xcconfig"; sourceTree = "<group>"; };
+		DBEB601CC645E43709406C49 /* Pods_Squad1PlayerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Squad1PlayerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB80E8F7AA7649E1B5D8BDB6 /* Pods-Squad1PlayerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Squad1PlayerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Squad1PlayerTests/Pods-Squad1PlayerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		ED02F9712F0592F02039A538 /* Pods-Squad1PlayerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Squad1PlayerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Squad1PlayerTests/Pods-Squad1PlayerTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91CDDB689FF80372D8C251CB /* Pods_Squad1Player.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,18 +63,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02DD6CED44F07ACF168BA9F3 /* Pods_Squad1PlayerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C0473970C0C691F18DB794D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				21AC796B8E77950EAD14EECD /* Pods_Squad1Player.framework */,
+				DBEB601CC645E43709406C49 /* Pods_Squad1PlayerTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		52497E022315339E0065A6DF = {
 			isa = PBXGroup;
 			children = (
 				52497E0D2315339E0065A6DF /* Squad1Player */,
 				52497E26231533A00065A6DF /* Squad1PlayerTests */,
 				52497E0C2315339E0065A6DF /* Products */,
+				AEF59AED996876574D8723F8 /* Pods */,
+				0C0473970C0C691F18DB794D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -102,6 +123,17 @@
 			path = Squad1PlayerTests;
 			sourceTree = "<group>";
 		};
+		AEF59AED996876574D8723F8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				375FD2F3E96E1AF4326E566C /* Pods-Squad1Player.debug.xcconfig */,
+				57E5D6B9BB97801D607FB24A /* Pods-Squad1Player.release.xcconfig */,
+				EB80E8F7AA7649E1B5D8BDB6 /* Pods-Squad1PlayerTests.debug.xcconfig */,
+				ED02F9712F0592F02039A538 /* Pods-Squad1PlayerTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -109,9 +141,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 52497E2C231533A00065A6DF /* Build configuration list for PBXNativeTarget "Squad1Player" */;
 			buildPhases = (
+				25659DCE5673440E61FC262A /* [CP] Check Pods Manifest.lock */,
 				52497E072315339E0065A6DF /* Sources */,
 				52497E082315339E0065A6DF /* Frameworks */,
 				52497E092315339E0065A6DF /* Resources */,
+				2FC869E2310BD84C4747E333 /* [CP] Embed Pods Frameworks */,
+				6F341E4DBE205CE7EA4AE9FE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -126,9 +161,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 52497E2F231533A00065A6DF /* Build configuration list for PBXNativeTarget "Squad1PlayerTests" */;
 			buildPhases = (
+				8AB8168243A53244E9C6C122 /* [CP] Check Pods Manifest.lock */,
 				52497E1F231533A00065A6DF /* Sources */,
 				52497E20231533A00065A6DF /* Frameworks */,
 				52497E21231533A00065A6DF /* Resources */,
+				A1EF27119AC673117C955F80 /* [CP] Embed Pods Frameworks */,
+				3EC8BFF0E9580A82E914524C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -197,6 +235,205 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		25659DCE5673440E61FC262A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Squad1Player-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2FC869E2310BD84C4747E333 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Squad1Player/Pods-Squad1Player-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${PODS_ROOT}/ApplicasterSDK/ApplicasterSDK.framework",
+				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
+				"${PODS_ROOT}/JWPlayer-SDK/JWPlayer_iOS_SDK.framework",
+				"${BUILT_PRODUCTS_DIR}/JWPlayerPlugin/JWPlayerPlugin.framework",
+				"${BUILT_PRODUCTS_DIR}/SSZipArchive/SSZipArchive.framework",
+				"${BUILT_PRODUCTS_DIR}/TTTAttributedLabel/TTTAttributedLabel.framework",
+				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework",
+				"${BUILT_PRODUCTS_DIR}/ZappAnalyticsPluginsSDK/ZappAnalyticsPluginsSDK.framework",
+				"${BUILT_PRODUCTS_DIR}/ZappGeneralPluginsSDK/ZappGeneralPluginsSDK.framework",
+				"${BUILT_PRODUCTS_DIR}/ZappLoginPluginsSDK/ZappLoginPluginsSDK.framework",
+				"${PODS_ROOT}/ZappPlugins/Frameworks/iOS/ZappPlugins.framework",
+				"${BUILT_PRODUCTS_DIR}/ZappPushPluginsSDK/ZappPushPluginsSDK.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ApplicasterSDK.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JWPlayer_iOS_SDK.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JWPlayerPlugin.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SSZipArchive.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TTTAttributedLabel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZappAnalyticsPluginsSDK.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZappGeneralPluginsSDK.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZappLoginPluginsSDK.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZappPlugins.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZappPushPluginsSDK.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Squad1Player/Pods-Squad1Player-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3EC8BFF0E9580A82E914524C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Squad1PlayerTests/Pods-Squad1PlayerTests-resources.sh",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterKitResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Squad1PlayerTests/Pods-Squad1PlayerTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6F341E4DBE205CE7EA4AE9FE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Squad1Player/Pods-Squad1Player-resources.sh",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterKitResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Squad1Player/Pods-Squad1Player-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8AB8168243A53244E9C6C122 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Squad1PlayerTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A1EF27119AC673117C955F80 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Squad1PlayerTests/Pods-Squad1PlayerTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${PODS_ROOT}/ApplicasterSDK/ApplicasterSDK.framework",
+				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
+				"${PODS_ROOT}/JWPlayer-SDK/JWPlayer_iOS_SDK.framework",
+				"${BUILT_PRODUCTS_DIR}/JWPlayerPlugin/JWPlayerPlugin.framework",
+				"${BUILT_PRODUCTS_DIR}/SSZipArchive/SSZipArchive.framework",
+				"${BUILT_PRODUCTS_DIR}/TTTAttributedLabel/TTTAttributedLabel.framework",
+				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework",
+				"${BUILT_PRODUCTS_DIR}/ZappAnalyticsPluginsSDK/ZappAnalyticsPluginsSDK.framework",
+				"${BUILT_PRODUCTS_DIR}/ZappGeneralPluginsSDK/ZappGeneralPluginsSDK.framework",
+				"${BUILT_PRODUCTS_DIR}/ZappLoginPluginsSDK/ZappLoginPluginsSDK.framework",
+				"${PODS_ROOT}/ZappPlugins/Frameworks/iOS/ZappPlugins.framework",
+				"${BUILT_PRODUCTS_DIR}/ZappPushPluginsSDK/ZappPushPluginsSDK.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ApplicasterSDK.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JWPlayer_iOS_SDK.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JWPlayerPlugin.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SSZipArchive.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TTTAttributedLabel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZappAnalyticsPluginsSDK.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZappGeneralPluginsSDK.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZappLoginPluginsSDK.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZappPlugins.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZappPushPluginsSDK.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Squad1PlayerTests/Pods-Squad1PlayerTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		52497E072315339E0065A6DF /* Sources */ = {
@@ -366,6 +603,7 @@
 		};
 		52497E2D231533A00065A6DF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 375FD2F3E96E1AF4326E566C /* Pods-Squad1Player.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -384,6 +622,7 @@
 		};
 		52497E2E231533A00065A6DF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 57E5D6B9BB97801D607FB24A /* Pods-Squad1Player.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -402,6 +641,7 @@
 		};
 		52497E30231533A00065A6DF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EB80E8F7AA7649E1B5D8BDB6 /* Pods-Squad1PlayerTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -423,6 +663,7 @@
 		};
 		52497E31231533A00065A6DF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ED02F9712F0592F02039A538 /* Pods-Squad1PlayerTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
