@@ -2,6 +2,9 @@ platform :ios, '10.0'
 source 'git@github.com:CocoaPods/Specs.git'
 source 'git@github.com:applicaster/CocoaPods-Private.git'
 source 'git@github.com:applicaster/CocoaPods.git'
+source 'git@github.com:applicaster/PluginPresenter-iOS.git'
+source 'git@github.com:applicaster/GermanAgeVerification-iOS.git'
+
 use_frameworks!
 
  pre_install do |installer|
@@ -10,7 +13,11 @@ use_frameworks!
 end
 
 def shared_pods
-	pod 'JWPlayerPlugin', '= 3.1.1'
+	pod 'JWPlayerPlugin', :path => '../JWPlayer-Plugin-iOS/JWPlayerPlugin.podspec'
+	pod 'ZappPlugins', '~> 8.0'
+	pod 'ApplicasterSDK', '~> 9.6.0'
+	pod 'PluginPresenter', :path => '../PluginPresenter-iOS/PluginPresenter.podspec'
+	pod 'GermanAgeVerification'
 end
 
 target 'Sport1Player' do
