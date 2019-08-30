@@ -11,13 +11,12 @@
 @import PluginPresenter;
 #import "Sport1PlayerAdapter.h"
 #import <JWPlayer_iOS_SDK/JWPlayerController.h>
-
-//TODO: maybe extend ZPJWPlayerAdapter.h rather than change?
+#import "Sport1PlayerLivestreamAge.h"
 
 static NSString *const kTrackingInfoKey = @"tracking_info";
 static NSString *const kAgeRatingKey = @"age_rating";
 static NSString *const kPlayableItemsKey = @"playable_items";
-static int kWatershedAge = 16; //TODO: change to 16, maybe include in the plugin configurations
+static int kWatershedAge = 16;
 
 @implementation Sport1PlayerAdapter
 
@@ -37,9 +36,56 @@ static int kWatershedAge = 16; //TODO: change to 16, maybe include in the plugin
     instance.currentPlayableItem = items.firstObject;
     instance.currentPlayableItems = items;
     
+    [[Sport1PlayerLivestreamAge sharedManager] setConfigurationJSON:configurationJSON];
+    [[Sport1PlayerLivestreamAge sharedManager] setCurrentPlayerAdapter:instance];
+    
     return instance;
 }
 
+- (void)pluggablePlayerAddInline:(UIViewController * _Nonnull)rootViewController container:(UIView * _Nonnull)container {
+    [self pluggablePlayerAddInline:rootViewController
+                         container:container
+                     configuration:nil];
+}
+
+- (void)pluggablePlayerAddInline:(UIViewController *)rootViewController container:(UIView *)container configuration:(ZPPlayerConfiguration *)configuration {
+    if ([self.currentPlayableItem isFree] == NO) {
+        NSObject<ZPLoginProviderUserDataProtocol> *loginPlugin = [[ZPLoginManager sharedInstance] createWithUserData];
+        NSDictionary *extensions = [NSDictionary dictionaryWithObject:self.currentPlayableItems
+                                                               forKey:kPlayableItemsKey];
+        if ([loginPlugin respondsToSelector:@selector(isUserComplyWithPolicies:)]) {
+            [self handleUserComply:[loginPlugin isUserComplyWithPolicies:extensions]
+                       loginPlugin:loginPlugin
+                rootViewController:rootViewController
+                         container:container
+                     configuration:configuration
+                        completion:nil];
+        } else if ([loginPlugin respondsToSelector:@selector(isUserComplyWithPolicies:completion:)]) {
+            __block typeof(self) blockSelf = self;
+            [loginPlugin isUserComplyWithPolicies:extensions
+                                       completion:^(BOOL isUserComply) {
+                                           [blockSelf handleUserComply:isUserComply
+                                                           loginPlugin:loginPlugin
+                                                    rootViewController:rootViewController
+                                                             container:container
+                                                         configuration:configuration
+                                                            completion:nil];
+                                       }];
+        } else {
+            // login protocol doesn't handle the checks - let the player go
+            [self shouldPresentPinFor:self.currentPlayableItem
+                            container:container
+                   rootViewController:rootViewController
+                  playerConfiguration:configuration];
+        }
+    } else {
+        // item is free
+        [self shouldPresentPinFor:self.currentPlayableItem
+                        container:container
+               rootViewController:rootViewController
+              playerConfiguration:configuration];
+    }
+}
 
 - (void)presentPlayerFullScreen:(UIViewController * _Nonnull)rootViewController configuration:(ZPPlayerConfiguration * _Nullable)configuration {
     [self presentPlayerFullScreen:rootViewController configuration:configuration completion:nil];
@@ -116,6 +162,24 @@ static int kWatershedAge = 16; //TODO: change to 16, maybe include in the plugin
     NSDictionary *trackingInfo = currentPlayableItem.extensionsDictionary[kTrackingInfoKey];
     
     if (![trackingInfo.allKeys containsObject:kAgeRatingKey]) {
+        [[Sport1PlayerLivestreamAge sharedManager] updateLivestreamAgeData];
+        
+        if ([[Sport1PlayerLivestreamAge sharedManager] shouldDisplayPin]) {
+            [self presentPinOn:rootViewController
+                     container:container
+           playerConfiguration:configuration];
+        } else {
+            if (container == nil) {
+                [super playFullScreen:rootViewController
+                        configuration:configuration
+                           completion:nil];
+            } else {
+                [super playInline:rootViewController
+                        container:container
+                    configuration:configuration
+                       completion:nil];
+            }
+        }
         return;
     }
     
@@ -126,9 +190,16 @@ static int kWatershedAge = 16; //TODO: change to 16, maybe include in the plugin
                  container:container
        playerConfiguration:configuration];
     } else {
-        [super presentPlayerFullScreen:rootViewController
-                         configuration:configuration
-                            completion:nil];
+        if (container == nil) {
+            [super playFullScreen:rootViewController
+                    configuration:configuration
+                       completion:nil];
+        } else {
+            [super playInline:rootViewController
+                    container:container
+                configuration:configuration
+                   completion:nil];
+        }
     }
 }
 
@@ -141,10 +212,15 @@ static int kWatershedAge = 16; //TODO: change to 16, maybe include in the plugin
         if ([plugin conformsToProtocol:@protocol(PluginPresenterProtocol)]) {
             [plugin presentPluginWithParentViewController:rootViewController
                                                 extraData:nil completion:^(BOOL success, id _Nullable data) {
-                                                    if (success) {
-                                                        [super presentPlayerFullScreen:rootViewController
-                                                                         configuration:nil
-                                                                            completion:nil];
+                                                    if (success && container == nil) {
+                                                        [super playFullScreen:rootViewController
+                                                                configuration:configuration
+                                                                   completion:nil];
+                                                    } else if (success) {
+                                                        [super playInline:rootViewController
+                                                                container:container
+                                                            configuration:configuration
+                                                               completion:nil];
                                                     }
                                                 }];
         }

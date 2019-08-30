@@ -13,8 +13,8 @@ use_frameworks!
 end
 
 def shared_pods
-	pod 'JWPlayerPlugin', :path => '../JWPlayer-Plugin-iOS/JWPlayerPlugin.podspec'
-	pod 'ZappPlugins', '~> 8.0'
+	pod 'JWPlayerPlugin'
+    pod 'ZappPlugins'
 	pod 'ApplicasterSDK', '~> 9.6.0'
 	pod 'PluginPresenter', :path => '../PluginPresenter-iOS/PluginPresenter.podspec'
 	pod 'GermanAgeVerification'

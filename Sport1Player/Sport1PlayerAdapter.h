@@ -7,19 +7,11 @@
 //
 
 #import <JWPlayerPlugin/JWPlayerPlugin.h>
-#import <JWPlayerPlugin/ZappJWPlayerAdapter.h>
+#import "ZappJWPlayer+Public.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Sport1PlayerAdapter : ZappJWPlayerAdapter
-
-- (void)playInline:(UIViewController *)rootViewController
-         container:(UIView *)container
-     configuration:(ZPPlayerConfiguration *)configuration
-        completion:(void (^)(void))completion;
-- (void)playFullScreen:(UIViewController *)rootViewController
-         configuration:(ZPPlayerConfiguration *)configuration
-            completion:(void (^)(void))completion;
 
 @end
 
