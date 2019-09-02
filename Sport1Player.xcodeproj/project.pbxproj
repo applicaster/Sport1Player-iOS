@@ -12,8 +12,6 @@
 		5280B5D12316A2C40095CFBF /* Sport1Player.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5280B5C72316A2C30095CFBF /* Sport1Player.framework */; };
 		5280B5D62316A2C40095CFBF /* Sport1PlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5280B5D52316A2C40095CFBF /* Sport1PlayerTests.m */; };
 		5280B5D82316A2C40095CFBF /* Sport1Player.h in Headers */ = {isa = PBXBuildFile; fileRef = 5280B5CA2316A2C30095CFBF /* Sport1Player.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5294E4B823197CF700184245 /* Sport1PlayerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 5294E4B623197CF700184245 /* Sport1PlayerController.h */; };
-		5294E4B923197CF700184245 /* Sport1PlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5294E4B723197CF700184245 /* Sport1PlayerController.m */; };
 		529D8E672316BF780091A875 /* Sport1PlayerAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 529D8E652316BF780091A875 /* Sport1PlayerAdapter.h */; };
 		529D8E682316BF780091A875 /* Sport1PlayerAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 529D8E662316BF780091A875 /* Sport1PlayerAdapter.m */; };
 		8FBD18F8AC020F18E32F9690 /* Pods_Sport1PlayerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58FF56D1499BECF2DDC5A463 /* Pods_Sport1PlayerTests.framework */; };
@@ -40,9 +38,6 @@
 		5280B5D02316A2C40095CFBF /* Sport1PlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Sport1PlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5280B5D52316A2C40095CFBF /* Sport1PlayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sport1PlayerTests.m; sourceTree = "<group>"; };
 		5280B5D72316A2C40095CFBF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5294E4B523197CAB00184245 /* JWPlayerViewController+Public.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JWPlayerViewController+Public.h"; sourceTree = "<group>"; };
-		5294E4B623197CF700184245 /* Sport1PlayerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sport1PlayerController.h; sourceTree = "<group>"; };
-		5294E4B723197CF700184245 /* Sport1PlayerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sport1PlayerController.m; sourceTree = "<group>"; };
 		529D8E652316BF780091A875 /* Sport1PlayerAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sport1PlayerAdapter.h; sourceTree = "<group>"; };
 		529D8E662316BF780091A875 /* Sport1PlayerAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sport1PlayerAdapter.m; sourceTree = "<group>"; };
 		52B2BB5D2319279A00842E2A /* ZappJWPlayer+Public.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZappJWPlayer+Public.h"; sourceTree = "<group>"; };
@@ -110,9 +105,6 @@
 			children = (
 				5280B5CA2316A2C30095CFBF /* Sport1Player.h */,
 				52B2BB5D2319279A00842E2A /* ZappJWPlayer+Public.h */,
-				5294E4B523197CAB00184245 /* JWPlayerViewController+Public.h */,
-				5294E4B623197CF700184245 /* Sport1PlayerController.h */,
-				5294E4B723197CF700184245 /* Sport1PlayerController.m */,
 				529D8E652316BF780091A875 /* Sport1PlayerAdapter.h */,
 				529D8E662316BF780091A875 /* Sport1PlayerAdapter.m */,
 				5221B5162319330A006DD39B /* Sport1PlayerLivestreamAge.h */,
@@ -147,7 +139,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5294E4B823197CF700184245 /* Sport1PlayerController.h in Headers */,
 				5221B5182319330A006DD39B /* Sport1PlayerLivestreamAge.h in Headers */,
 				529D8E672316BF780091A875 /* Sport1PlayerAdapter.h in Headers */,
 				5280B5D82316A2C40095CFBF /* Sport1Player.h in Headers */,
@@ -415,7 +406,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				529D8E682316BF780091A875 /* Sport1PlayerAdapter.m in Sources */,
-				5294E4B923197CF700184245 /* Sport1PlayerController.m in Sources */,
 				5221B5192319330A006DD39B /* Sport1PlayerLivestreamAge.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

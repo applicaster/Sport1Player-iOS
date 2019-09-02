@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
                   'OTHER_CFLAGS'  => '-fembed-bitcode'
                   }
 
-  s.dependency 'ZappPlugins', '~> 8.0'
+  s.dependency 'ZappPlugins'
   s.dependency 'JWPlayerPlugin'
   s.dependency 'ApplicasterSDK', '~> 9.6.0'
   s.dependency 'PluginPresenter'

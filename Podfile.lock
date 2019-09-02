@@ -32,12 +32,12 @@ PODS:
     - FBSDKCoreKit
   - FBSDKShareKit (4.38.0):
     - FBSDKCoreKit
-  - GermanAgeVerification (0.1.2):
+  - GermanAgeVerification (0.1.3):
     - PluginPresenter
     - ZappGeneralPluginsSDK
     - ZappPlugins
   - JWPlayer-SDK (3.6.1)
-  - JWPlayerPlugin (3.1.2):
+  - JWPlayerPlugin (3.2.0):
     - ApplicasterSDK
     - JWPlayer-SDK (~> 3.0)
     - ZappLoginPluginsSDK
@@ -65,12 +65,13 @@ PODS:
 DEPENDENCIES:
   - ApplicasterSDK (~> 9.6.0)
   - GermanAgeVerification
-  - JWPlayerPlugin (from `../JWPlayer-Plugin-iOS/JWPlayerPlugin.podspec`)
+  - JWPlayerPlugin
   - PluginPresenter (from `../PluginPresenter-iOS/PluginPresenter.podspec`)
-  - ZappPlugins (~> 8.0)
+  - ZappPlugins
 
 SPEC REPOS:
   "git@github.com:applicaster/CocoaPods-Private.git":
+    - JWPlayerPlugin
     - ZappAnalyticsPluginsSDK
     - ZappGeneralPluginsSDK
     - ZappLoginPluginsSDK
@@ -96,8 +97,6 @@ SPEC REPOS:
     - TwitterKit
 
 EXTERNAL SOURCES:
-  JWPlayerPlugin:
-    :path: "../JWPlayer-Plugin-iOS/JWPlayerPlugin.podspec"
   PluginPresenter:
     :path: "../PluginPresenter-iOS/PluginPresenter.podspec"
 
@@ -110,9 +109,9 @@ SPEC CHECKSUMS:
   FBSDKCoreKit: 2ab7fdbf600dc6b628ba7a49aa29d357a7b4c74e
   FBSDKLoginKit: 634fa27e72e33620eb6389253337342c03d4a407
   FBSDKShareKit: 00290e3db446eed603ff80ac629dcc5e80cf8b74
-  GermanAgeVerification: c342a133de9f90c7098625b5f10c56bd915b2be5
+  GermanAgeVerification: e42513ad5ea7ba8773ad7f95dfc9c4ad43e0a5a5
   JWPlayer-SDK: 23169dc5ebbf9e0f35ef470b4634f5fc85394596
-  JWPlayerPlugin: b5277ee4799165714041fe5300b74be0b81fcdf7
+  JWPlayerPlugin: 78054ba0c66333e3196c85deee904a6f7360597c
   PluginPresenter: 33d6cb107964d49a05b8270c5d150e2669c2e8e2
   SSZipArchive: 1e8e53dcb11bca3ded4738958dc49fc467320a14
   Toaster: 7464b87db5bd9453043bd3cf0fc79219cc9803f1
@@ -125,6 +124,6 @@ SPEC CHECKSUMS:
   ZappPlugins: 22fad1f8afba01d35de8ca4b1a132bde12a07cf5
   ZappPushPluginsSDK: 6784337a1037be3fb43a084adced71423c868042
 
-PODFILE CHECKSUM: 9dacef22f9f96bb70bdc3df13886aa3520e2ba5b
+PODFILE CHECKSUM: 45c4156a976ab3f50a625fecf86d1be2fbaba236
 
 COCOAPODS: 1.5.3

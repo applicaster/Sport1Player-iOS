@@ -16,11 +16,13 @@
 static NSString *const kTrackingInfoKey = @"tracking_info";
 static NSString *const kAgeRatingKey = @"age_rating";
 static NSString *const kPlayableItemsKey = @"playable_items";
+static NSString *const kPluginName = @"age_verification_plugin_id";
 static int kWatershedAge = 16;
 
 @implementation Sport1PlayerAdapter
 
 + (id<ZPPlayerProtocol>)pluggablePlayerInitWithPlayableItems:(NSArray<id<ZPPlayable>> *)items configurationJSON:(NSDictionary *)configurationJSON {
+    NSLog(@"[!]: Sport1Player.");
     NSString *playerKey = configurationJSON[@"playerKey"];
     
     if (![playerKey isNotEmptyOrWhiteSpaces]) {
@@ -204,7 +206,7 @@ static int kWatershedAge = 16;
 }
 
 -(void)presentPinOn:(UIViewController*)rootViewController container:(UIView*)container playerConfiguration:(ZPPlayerConfiguration * _Nullable)configuration {
-    ZPPluginModel *pluginModel = [ZPPluginManager pluginModelById:@"german_age_verification"];
+    ZPPluginModel *pluginModel = [ZPPluginManager pluginModelById:self.configurationJSON[kPluginName]];
     Class pluginClass = [ZPPluginManager adapterClass:pluginModel];
     if ([pluginClass conformsToProtocol:@protocol(ZPAdapterProtocol)]) {
         NSObject <PluginPresenterProtocol> *plugin = [[pluginClass alloc] initWithConfigurationJSON:[pluginModel configurationJSON]];

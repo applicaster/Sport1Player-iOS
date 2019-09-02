@@ -1,0 +1,94 @@
+{
+  "api": {
+    "require_startup_execution": false,
+    "class_name": "Sport1Player",
+    "modules": [
+
+    ]
+  },
+  "dependency_repository_url": [
+
+  ],
+  "platform": "ios",
+  "author_name": "Oliver Stowell",
+  "author_email": "o.stowell@applicaster.co.uk",
+  "manifest_version": "1.0.0",
+  "name": "Sport1Player",
+  "description": "A JA JWPlayer wrapper for Sport1.",
+  "type": "player",
+  "screen": true,
+  "identifier": "sport1player",
+  "ui_builder_support": true,
+  "dependency_name": "Sport1Player-iOS",
+  "dependency_version": "1.0.0",
+  "whitelisted_account_ids": [
+    "5d1b6753564117000de4bb60"
+  ],
+  "min_zapp_sdk": "11.3.0",
+  "deprecated_since_zapp_sdk": "",
+  "unsupported_since_zapp_sdk": "",
+  "react_native": false,
+  "custom_configuration_fields": [
+    {
+      "type": "text",
+      "key": "age_verification_plugin_id",
+      "tooltip_text": "The identifier for the age verification plugin to be used."
+    },
+    {
+        "type": "text",
+        "key": "playerKey",
+        "tooltip_text": "License key for JWPlayer"
+    },
+    {
+        "type": "text",
+        "key": "live_preroll_ad_url",
+        "tooltip_text": "Live prerol ad URL"
+    },
+    {
+        "type": "text",
+        "key": "live_midroll_ad_url",
+        "tooltip_text": "Live midroll ad URL"
+    },
+    {
+        "type": "text",
+        "key": "live_midroll_offset",
+        "tooltip_text": "Live midroll ad offset"
+    },
+    {
+        "type": "text",
+        "key": "live_ad_type",
+        "tooltip_text": "Live ad type"
+    },
+    {
+        "type": "text",
+        "key": "vod_preroll_ad_url",
+        "tooltip_text": "VOD prerol ad URL"
+    },
+    {
+        "type": "text",
+        "key": "vod_midroll_ad_url",
+        "tooltip_text": "VOD midroll ad URL"
+    },
+    {
+        "type": "text",
+        "key": "vod_midroll_offset",
+        "tooltip_text": "VOD midroll ad offset"
+    },
+    {
+        "type": "text",
+        "key": "vod_ad_type",
+        "tooltip_text": "VOD ad type"
+    },
+    {
+        "type": "text",
+        "key": "jw_skin_url",
+        "tooltip_text": "JW Player skin URL"
+    },
+    {
+        "type": "checkbox",
+        "key": "lock_landscape",
+        "tooltip_text": "Setting this to true, will cause the player to be opened in landscape mode",
+        "default": 0
+    }
+  ]
+}
