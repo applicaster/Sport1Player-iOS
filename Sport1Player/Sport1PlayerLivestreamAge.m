@@ -40,9 +40,6 @@ static NSString *const kLivestreamStart = @"start";
 }
 
 - (void)updateLivestreamAgeData {
-    NSLog(@"[!]: update livestream");
-    //TODO: remove hardcoding
-    self.livestreamURL = @"https://stage-oz.sport1.de/api/ottv1/1/livestream/teaser";
     NSURL *url = [NSURL URLWithString:self.livestreamURL];
     NSData *data = [NSData dataWithContentsOfURL:url];
     NSError *error = nil;
@@ -56,29 +53,21 @@ static NSString *const kLivestreamStart = @"start";
     
     NSDictionary *current = [self currentLivestreamFromJSON:livestreamJSON];
     if (current) {
-        NSLog(@"[!]: current.title: %@", current[@"title"]);
         self.livestreamEnd = [self dateFromString:current[kLivestreamEnd]];
-        NSLog(@"[!]: livestreamEnd: %@", self.livestreamEnd);
-        self.livestreamEnd = [NSDate dateWithTimeIntervalSinceNow:30];
-        NSLog(@"[!]: livestreamEnd: %@", self.livestreamEnd);
         
         if (self.timer != nil) {
-            NSLog(@"[!]: invalidating previous timer.");
             [self.timer invalidate];
             self.timer = nil;
             
             if (self.currentPlayerAdapter == nil || self.currentPlayerAdapter.currentPlayerState == ZPPlayerStateStopped) {
-                NSLog(@"[!]: player adapter stopped or nil - removing timer.");
                 return;
             }
-            NSLog(@"[!]: playerState: %li", self.currentPlayerAdapter.currentPlayerState);
         }
         __block typeof(self) blockSelf = self;
         self.timer = [[NSTimer alloc] initWithFireDate:self.livestreamEnd
                                               interval:0
                                                repeats:NO
                                                  block:^(NSTimer * _Nonnull timer) {
-                                                     NSLog(@"[!]: timer run!");
                                                      [blockSelf updateLivestreamAgeData];
                                                  }];
         [[NSRunLoop mainRunLoop] addTimer:self.timer

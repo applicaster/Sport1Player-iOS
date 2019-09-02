@@ -22,7 +22,6 @@ static int kWatershedAge = 16;
 @implementation Sport1PlayerAdapter
 
 + (id<ZPPlayerProtocol>)pluggablePlayerInitWithPlayableItems:(NSArray<id<ZPPlayable>> *)items configurationJSON:(NSDictionary *)configurationJSON {
-    NSLog(@"[!]: Sport1Player.");
     NSString *playerKey = configurationJSON[@"playerKey"];
     
     if (![playerKey isNotEmptyOrWhiteSpaces]) {

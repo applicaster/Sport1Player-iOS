@@ -36,6 +36,11 @@
     },
     {
         "type": "text",
+        "key": "livestream_url",
+        "tooltip_text": "The url to fetch the livestream data."
+    },
+    {
+        "type": "text",
         "key": "playerKey",
         "tooltip_text": "License key for JWPlayer"
     },
