@@ -8,8 +8,8 @@ platform :ios do
   lane :test do
     fastlane_require 'dotenv'
     scan(
-      workspace: "#{ENV['PROJECT_NAME']}.xcworkspace",
-      scheme: ENV['PROJECT_NAME'],
+      workspace: "Sport1Player.xcworkspace",
+      scheme: "Sport1Player",
       output_directory: "CircleArtifacts/test-results",
       device: "iPhone SE",
       xcargs: "-quiet",
