@@ -5,3 +5,4 @@ Player for Sport1, based off JWPlayer.
 ### Parameters
 
 plugin_presenter_id
+player_key
