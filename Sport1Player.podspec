@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Sport1Player"
-  s.version          = '0.1.0-objc'
+  s.version          = '0.1.0'
   s.summary          = "Sport1Player"
   s.description      = <<-DESC
                         Player for Sport1, based off JWPlayer.
@@ -22,7 +22,6 @@ Pod::Spec.new do |s|
 
   s.xcconfig =  { 'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES',
                   'ENABLE_BITCODE' => 'YES',
-                  'SWIFT_VERSION' => '4.2',
                   'OTHER_CFLAGS'  => '-fembed-bitcode'
                   }
 
