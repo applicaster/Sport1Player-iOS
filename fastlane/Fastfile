@@ -1,0 +1,19 @@
+require 'dotenv'
+Dotenv.load
+
+default_platform :ios
+
+platform :ios do
+
+  lane :test do
+    fastlane_require 'dotenv'
+    scan(
+      workspace: "Sport1Player.xcworkspace",
+      scheme: "Sport1Player",
+      output_directory: "CircleArtifacts/test-results",
+      device: "iPhone SE",
+      xcargs: "-quiet",
+      code_coverage: true
+    )
+  end
+end
