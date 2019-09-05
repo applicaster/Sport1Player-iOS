@@ -17,7 +17,17 @@ jobs:
       PROJECT_NAME: "Sport1Player"
 
     steps:
+      
       - checkout
+      - run:
+          name: Git - submodules update
+          command: |
+            git fetch
+            git checkout .
+            git submodule sync --recursive
+            git submodule update --init
+
+            echo 'export SUBMODULES_MD5_STRING=$(git submodule status | openssl md5)' >> $BASH_ENV
 
       # Git
       - restore_cache:
