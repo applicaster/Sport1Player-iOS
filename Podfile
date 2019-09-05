@@ -14,8 +14,7 @@ end
 
 def shared_pods
 	supports_swift_versions '>=4.2'
-    pod 'ZappPlugins', :path => 'Submodules/ZappPlugins-iOS/ZappPlugins.podspec'
-
+    pod 'ZappPlugins'
 	pod 'JWPlayerPlugin'
 	pod 'PluginPresenter'
 end
