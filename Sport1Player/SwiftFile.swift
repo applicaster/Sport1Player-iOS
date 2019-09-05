@@ -1,3 +1,4 @@
+// LEAVE THIS FILE - CocoaPods was throwing Swift compile errors without it
 //
 //  SwiftFile.swift
 //  Sport1Player
@@ -7,3 +8,4 @@
 //
 
 import Foundation
+
