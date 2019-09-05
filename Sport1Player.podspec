@@ -28,7 +28,6 @@ Pod::Spec.new do |s|
 
   s.dependency 'ZappPlugins'
   s.dependency 'JWPlayerPlugin'
-  s.dependency 'ApplicasterSDK', '~> 9.6.0'
   s.dependency 'PluginPresenter'
 
 end
