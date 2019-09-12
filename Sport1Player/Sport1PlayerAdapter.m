@@ -19,7 +19,12 @@ static NSString *const kPlayableItemsKey = @"playable_items";
 static NSString *const kPluginName = @"age_verification_plugin_id";
 static int kWatershedAge = 16;
 
+@interface Sport1PlayerAdapter ()
+@property (nonatomic) Sport1PlayerLivestreamPin *livestreamPinValidation;
+@end
+
 @implementation Sport1PlayerAdapter
+@synthesize livestreamPinValidation = _livestreamPinValidation;
 
 + (id<ZPPlayerProtocol>)pluggablePlayerInitWithPlayableItems:(NSArray<id<ZPPlayable>> *)items configurationJSON:(NSDictionary *)configurationJSON {
     NSString *playerKey = configurationJSON[@"playerKey"];
@@ -37,8 +42,8 @@ static int kWatershedAge = 16;
     instance.currentPlayableItem = items.firstObject;
     instance.currentPlayableItems = items;
     
-    [[Sport1PlayerLivestreamAge sharedManager] setConfigurationJSON:configurationJSON];
-    [[Sport1PlayerLivestreamAge sharedManager] setCurrentPlayerAdapter:instance];
+    self.livestreamPinValidation = [[Sport1PlayerLivestreamPin alloc] initWithConfigurationJSON:configurationJSON
+                                                                           currentPlayerAdapter:instance];
     
     return instance;
 }
@@ -163,9 +168,9 @@ static int kWatershedAge = 16;
     NSDictionary *trackingInfo = currentPlayableItem.extensionsDictionary[kTrackingInfoKey];
     
     if (![trackingInfo.allKeys containsObject:kAgeRatingKey]) {
-        [[Sport1PlayerLivestreamAge sharedManager] updateLivestreamAgeData];
+        [self.livestreamPinValidation updateLivestreamAgeData];
         
-        if ([[Sport1PlayerLivestreamAge sharedManager] shouldDisplayPin]) {
+        if ([self.livestreamPinValidation shouldDisplayPin]) {
             [self presentPinOn:rootViewController
                      container:container
            playerConfiguration:configuration];

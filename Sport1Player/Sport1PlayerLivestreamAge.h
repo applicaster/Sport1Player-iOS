@@ -11,13 +11,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Sport1PlayerLivestreamAge : NSObject
+@interface Sport1PlayerLivestreamPin : NSObject
 
 @property (nonatomic, weak) Sport1PlayerAdapter *currentPlayerAdapter;
 
-+(id)sharedManager;
--(void)setConfigurationJSON:(NSDictionary *)configurationJSON;
--(void)setCurrentPlayerController:(Sport1PlayerAdapter * _Nullable)currentPlayerAdapter;
+-(instancetype)initWithConfigurationJSON:(NSDictionary*)configurationJSON currentPlayerAdapter:(Sport1PlayerAdapter* _Nullable)currentPlayerAdapter;
 -(void)updateLivestreamAgeData;
 -(BOOL)shouldDisplayPin;
 

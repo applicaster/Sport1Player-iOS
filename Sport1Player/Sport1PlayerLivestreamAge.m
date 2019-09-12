@@ -23,20 +23,14 @@ static NSString *const kLivestreamStart = @"start";
 @property (nonatomic) NSDate *livestreamEnd;
 @end
 
-@implementation Sport1PlayerLivestreamAge
+@implementation Sport1PlayerLivestreamPin
 
-+ (id)sharedManager {
-    static Sport1PlayerLivestreamAge *sharedMyManager = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedMyManager = [[self alloc] init];
-    });
-    return sharedMyManager;
-}
-
-- (void)setConfigurationJSON:(NSDictionary *)configurationJSON
-{
-    self.livestreamURL = configurationJSON[kLivestreamURL];
+-(instancetype)initWithConfigurationJSON:(NSDictionary *)configurationJSON currentPlayerAdapter:(Sport1PlayerAdapter *)currentPlayerAdapter {
+    if (self = [super init]) {
+        self.livestreamURL = configurationJSON[kLivestreamURL];
+        self.currentPlayerAdapter = currentPlayerAdapter;
+    }
+    return self;
 }
 
 - (void)updateLivestreamAgeData {
