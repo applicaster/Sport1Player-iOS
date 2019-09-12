@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Sport1PlayerAdapter : ZappJWPlayerAdapter
 
+-(void)shouldPresentPin;
+
 @end
 
 NS_ASSUME_NONNULL_END

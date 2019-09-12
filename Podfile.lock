@@ -27,8 +27,8 @@ PODS:
     - FBSDKCoreKit (~> 5.0)
   - FBSDKShareKit (5.2.3):
     - FBSDKCoreKit (~> 5.0)
-  - JWPlayer-SDK (3.6.1)
-  - JWPlayerPlugin (3.2.1):
+  - JWPlayer-SDK (3.6.2)
+  - JWPlayerPlugin (3.2.3):
     - ApplicasterSDK
     - JWPlayer-SDK (~> 3.0)
     - ZappLoginPluginsSDK
@@ -43,10 +43,10 @@ PODS:
     - ZappPlugins
   - ZappGeneralPluginsSDK (8.1.0):
     - ZappPlugins
-  - ZappLoginPluginsSDK (8.0.1):
+  - ZappLoginPluginsSDK (8.0.2):
     - Alamofire
     - ZappPlugins
-  - ZappPlugins (9.2.1)
+  - ZappPlugins (9.2.4)
   - ZappPushPluginsSDK (8.0.2):
     - ZappPlugins
 
@@ -86,8 +86,8 @@ SPEC CHECKSUMS:
   FBSDKCoreKit: 5154c35d9058fd7dfa0445ba19e194c4b172fc32
   FBSDKLoginKit: dc98b6bf12334f1a42f28d0457fffc9aa3d1eca5
   FBSDKShareKit: 6f9c622f9a5d051f43f2dab6f753d5198422b89c
-  JWPlayer-SDK: 23169dc5ebbf9e0f35ef470b4634f5fc85394596
-  JWPlayerPlugin: 5868633ab97036f3b132bc636faeffc25b15c545
+  JWPlayer-SDK: c99b17eb4bda08626569ff91c82caa30bc077e58
+  JWPlayerPlugin: 52cd52bf3de88bc55741b07dfb795649b7de8f21
   PluginPresenter: 1b3d0234c164216dae92b6cd81e79521b929adaa
   SSZipArchive: 1e8e53dcb11bca3ded4738958dc49fc467320a14
   TTTAttributedLabel: f8c7f1dbc7b8f7168e23e8b4764dda2e3b74aae8
@@ -95,8 +95,8 @@ SPEC CHECKSUMS:
   TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
   ZappAnalyticsPluginsSDK: 6f8edcddc12ae4001098a3fa6fe87e6fe1a013bd
   ZappGeneralPluginsSDK: 7e91f6030d9f1b81b4781e823b0197bfad351bde
-  ZappLoginPluginsSDK: d3205f72e2fa2ddb24d2ba240591f41fbb8644d8
-  ZappPlugins: ddb6f77dfafaff23ec09675fedd94d0872b5011f
+  ZappLoginPluginsSDK: 7afb61fa738f1f73666a8250bd14b5dda8cc8f87
+  ZappPlugins: 054b44992825289d362cf5543ff7ce28e48b346f
   ZappPushPluginsSDK: 2062e2487f3ac877c0ab1a807d1a7f8d357bd333
 
 PODFILE CHECKSUM: bd13c32e3cec6c1325630eeff1bd6c7f57df6d91

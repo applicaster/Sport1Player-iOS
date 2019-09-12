@@ -15,7 +15,7 @@ static NSString *const kEPG = @"epg";
 static NSString *const kLivestreamEnd = @"end";
 static NSString *const kLivestreamStart = @"start";
 
-@interface Sport1PlayerLivestreamAge ()
+@interface Sport1PlayerLivestreamPin ()
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) NSString *livestreamURL;
 @property (nonatomic) NSDate *ageRestrictionEnd;
@@ -57,14 +57,14 @@ static NSString *const kLivestreamStart = @"start";
                 return;
             }
         }
-        __block typeof(self) blockSelf = self;
-        self.timer = [[NSTimer alloc] initWithFireDate:self.livestreamEnd
+        __weak Sport1PlayerLivestreamPin *weakSelf = self;
+        self.timer = [[NSTimer alloc] initWithFireDate:weakSelf.livestreamEnd
                                               interval:0
                                                repeats:NO
                                                  block:^(NSTimer * _Nonnull timer) {
-                                                     [blockSelf updateLivestreamAgeData];
+                                                     [weakSelf.currentPlayerAdapter shouldPresentPin];
                                                  }];
-        [[NSRunLoop mainRunLoop] addTimer:self.timer
+        [[NSRunLoop mainRunLoop] addTimer:weakSelf.timer
                                      forMode:NSRunLoopCommonModes];
     }
 }
