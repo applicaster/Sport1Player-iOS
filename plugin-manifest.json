@@ -1,7 +1,7 @@
 {
   "api": {
     "require_startup_execution": false,
-    "class_name": "Sport1Player",
+    "class_name": "Sport1PlayerAdapter",
     "modules": [
 
     ]
@@ -12,15 +12,15 @@
   "platform": "ios",
   "author_name": "Oliver Stowell",
   "author_email": "o.stowell@applicaster.co.uk",
-  "manifest_version": "1.0.0",
+  "manifest_version": "1.0.1",
   "name": "Sport1 Player",
   "description": "Sport1 wrapper for JWPlayer",
   "type": "player",
   "screen": true,
   "identifier": "sport1player",
   "ui_builder_support": true,
-  "dependency_name": "Sport1Player-iOS",
-  "dependency_version": "1.0.0",
+  "dependency_name": "Sport1Player",
+  "dependency_version": "1.0.1",
   "whitelisted_account_ids": [
     "5d1b6753564117000de4bb60"
   ],
@@ -31,8 +31,8 @@
   "custom_configuration_fields": [
     {
       "type": "text",
-      "key": "age_verification_plugin_id",
-      "tooltip_text": "The identifier for the age verification plugin to be used."
+      "key": "pin_validation_plugin_id",
+      "tooltip_text": "The identifier for the pin validation plugin to be used."
     },
     {
         "type": "text",

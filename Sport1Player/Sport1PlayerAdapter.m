@@ -16,7 +16,7 @@
 static NSString *const kTrackingInfoKey = @"tracking_info";
 static NSString *const kAgeRatingKey = @"age_rating";
 static NSString *const kPlayableItemsKey = @"playable_items";
-static NSString *const kPluginName = @"age_verification_plugin_id";
+static NSString *const kPluginName = @"pin_validation_plugin_id";
 static int kWatershedAge = 16;
 
 @interface Sport1PlayerAdapter ()
@@ -47,7 +47,7 @@ static int kWatershedAge = 16;
     
     return instance;
 }
-
+#pragma mark - Add Player
 - (void)pluggablePlayerAddInline:(UIViewController * _Nonnull)rootViewController container:(UIView * _Nonnull)container {
     [self pluggablePlayerAddInline:rootViewController
                          container:container
@@ -92,7 +92,7 @@ static int kWatershedAge = 16;
               playerConfiguration:configuration];
     }
 }
-
+#pragma mark - Present Player
 - (void)presentPlayerFullScreen:(UIViewController * _Nonnull)rootViewController configuration:(ZPPlayerConfiguration * _Nullable)configuration {
     [self presentPlayerFullScreen:rootViewController configuration:configuration completion:nil];
 }
@@ -136,7 +136,7 @@ static int kWatershedAge = 16;
               playerConfiguration:configuration];
     }
 }
-
+#pragma mark - Login & Pin
 - (void)handleUserComply:(BOOL)isUserComply
              loginPlugin:(NSObject<ZPLoginProviderUserDataProtocol> *)plugin
       rootViewController:(UIViewController *)rootViewController
@@ -211,6 +211,11 @@ static int kWatershedAge = 16;
 
 -(void)presentPinOn:(UIViewController*)rootViewController container:(UIView*)container playerConfiguration:(ZPPlayerConfiguration * _Nullable)configuration {
     ZPPluginModel *pluginModel = [ZPPluginManager pluginModelById:self.configurationJSON[kPluginName]];
+    
+    if (pluginModel == nil) {
+        return;
+    }
+    
     Class pluginClass = [ZPPluginManager adapterClass:pluginModel];
     if ([pluginClass conformsToProtocol:@protocol(ZPAdapterProtocol)]) {
         NSObject <PluginPresenterProtocol> *plugin = [[pluginClass alloc] initWithConfigurationJSON:[pluginModel configurationJSON]];
