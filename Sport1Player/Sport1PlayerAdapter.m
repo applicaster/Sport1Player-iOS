@@ -12,12 +12,19 @@
 #import "Sport1PlayerAdapter.h"
 #import <JWPlayer_iOS_SDK/JWPlayerController.h>
 #import "Sport1PlayerLivestreamAge.h"
+#import "JWPlayerViewController+Public.h"
 
 static NSString *const kTrackingInfoKey = @"tracking_info";
 static NSString *const kAgeRatingKey = @"age_rating";
 static NSString *const kPlayableItemsKey = @"playable_items";
 static NSString *const kPluginName = @"pin_validation_plugin_id";
 static int kWatershedAge = 16;
+
+@interface Sport1PlayerAdapter ()
+@property (nonatomic, strong) Sport1PlayerLivestreamPin *livestreamPinValidation;
+@property (nonatomic, weak) UIView * container;
+@property (nonatomic, strong) ZPPlayerConfiguration * playerConfiguration;
+@end
 
 @implementation Sport1PlayerAdapter
 
@@ -37,19 +44,33 @@ static int kWatershedAge = 16;
     instance.currentPlayableItem = items.firstObject;
     instance.currentPlayableItems = items;
     
-    [[Sport1PlayerLivestreamAge sharedManager] setConfigurationJSON:configurationJSON];
-    [[Sport1PlayerLivestreamAge sharedManager] setCurrentPlayerAdapter:instance];
-    
     return instance;
 }
+#pragma mark - Livestream
+-(void)createLivestreamPinCheck {
+    self.livestreamPinValidation = [[Sport1PlayerLivestreamPin alloc] initWithConfigurationJSON:self.configurationJSON
+                                                                           currentPlayerAdapter:self];
+}
+
+-(void)setContainer:(UIView*)container andPlayerConfiguration:(ZPPlayerConfiguration*)playerConfiguration {
+    self.container = container;
+    self.playerConfiguration = playerConfiguration;
+}
+
 #pragma mark - Add Player
 - (void)pluggablePlayerAddInline:(UIViewController * _Nonnull)rootViewController container:(UIView * _Nonnull)container {
+    [self createLivestreamPinCheck];
+    [self setContainer:container
+andPlayerConfiguration:nil];
     [self pluggablePlayerAddInline:rootViewController
                          container:container
                      configuration:nil];
 }
 
 - (void)pluggablePlayerAddInline:(UIViewController *)rootViewController container:(UIView *)container configuration:(ZPPlayerConfiguration *)configuration {
+    [self createLivestreamPinCheck];
+    [self setContainer:container
+andPlayerConfiguration:configuration];
     if ([self.currentPlayableItem isFree] == NO) {
         NSObject<ZPLoginProviderUserDataProtocol> *loginPlugin = [[ZPLoginManager sharedInstance] createWithUserData];
         NSDictionary *extensions = [NSDictionary dictionaryWithObject:self.currentPlayableItems
@@ -89,10 +110,16 @@ static int kWatershedAge = 16;
 }
 #pragma mark - Present Player
 - (void)presentPlayerFullScreen:(UIViewController * _Nonnull)rootViewController configuration:(ZPPlayerConfiguration * _Nullable)configuration {
+    [self createLivestreamPinCheck];
+    [self setContainer:nil
+andPlayerConfiguration:configuration];
     [self presentPlayerFullScreen:rootViewController configuration:configuration completion:nil];
 }
 
 - (void)presentPlayerFullScreen:(UIViewController *)rootViewController configuration:(ZPPlayerConfiguration *)configuration completion:(void (^)(void))completion {
+    [self createLivestreamPinCheck];
+    [self setContainer:nil
+andPlayerConfiguration:configuration];
     if ([self.currentPlayableItem isFree] == NO) {
         NSObject<ZPLoginProviderUserDataProtocol> *loginPlugin = [[ZPLoginManager sharedInstance] createWithUserData];
         NSDictionary *extensions = [NSDictionary dictionaryWithObject:self.currentPlayableItems
@@ -163,12 +190,13 @@ static int kWatershedAge = 16;
     NSDictionary *trackingInfo = currentPlayableItem.extensionsDictionary[kTrackingInfoKey];
     
     if (![trackingInfo.allKeys containsObject:kAgeRatingKey]) {
-        [[Sport1PlayerLivestreamAge sharedManager] updateLivestreamAgeData];
+        [self.livestreamPinValidation updateLivestreamAgeData];
         
-        if ([[Sport1PlayerLivestreamAge sharedManager] shouldDisplayPin]) {
+        if ([self.livestreamPinValidation shouldDisplayPin]) {
             [self presentPinOn:rootViewController
                      container:container
-           playerConfiguration:configuration];
+           playerConfiguration:configuration
+             fromLivestreamPin:NO];
         } else {
             if (container == nil) {
                 [super playFullScreen:rootViewController
@@ -189,7 +217,8 @@ static int kWatershedAge = 16;
     if (ageRating.intValue >= kWatershedAge) {
         [self presentPinOn:rootViewController
                  container:container
-       playerConfiguration:configuration];
+       playerConfiguration:configuration
+         fromLivestreamPin:NO];
     } else {
         if (container == nil) {
             [super playFullScreen:rootViewController
@@ -204,10 +233,12 @@ static int kWatershedAge = 16;
     }
 }
 
--(void)presentPinOn:(UIViewController*)rootViewController container:(UIView*)container playerConfiguration:(ZPPlayerConfiguration * _Nullable)configuration {
+-(void)presentPinOn:(UIViewController*)rootViewController container:(UIView*)container playerConfiguration:(ZPPlayerConfiguration * _Nullable)configuration fromLivestreamPin:(BOOL)fromLivestreamPin {
     ZPPluginModel *pluginModel = [ZPPluginManager pluginModelById:self.configurationJSON[kPluginName]];
     
     if (pluginModel == nil) {
+        //currently this fails without warning & doesn't display player.
+        self.livestreamPinValidation = nil;
         return;
     }
     
@@ -218,18 +249,39 @@ static int kWatershedAge = 16;
         if ([plugin conformsToProtocol:@protocol(PluginPresenterProtocol)]) {
             [plugin presentPluginWithParentViewController:rootViewController
                                                 extraData:nil completion:^(BOOL success, id _Nullable data) {
-                                                    if (success && container == nil) {
+                                                    if (success && container == nil && !fromLivestreamPin) {
                                                         [super playFullScreen:rootViewController
                                                                 configuration:configuration
                                                                    completion:nil];
-                                                    } else if (success) {
+                                                    } else if (success && !fromLivestreamPin) {
                                                         [super playInline:rootViewController
                                                                 container:container
                                                             configuration:configuration
                                                                completion:nil];
+                                                    } else if (!success) {
+                                                        [self.playerViewController dismiss:nil];
+                                                        self.livestreamPinValidation = nil;
+                                                        self.container = nil;
+                                                        self.playerConfiguration = nil;
                                                     }
                                                 }];
         }
+    }
+}
+#pragma mark - Livestream Pin Presentation
+-(void)shouldPresentPin {
+    NSDictionary *trackingInfo = self.currentPlayableItem.extensionsDictionary[kTrackingInfoKey];
+    
+    if (![trackingInfo.allKeys containsObject:kAgeRatingKey]) {
+        [self.livestreamPinValidation updateLivestreamAgeData];
+        
+        if ([self.livestreamPinValidation shouldDisplayPin]) {
+            [self presentPinOn:self.playerViewController
+                     container:self.container
+           playerConfiguration:self.playerConfiguration
+             fromLivestreamPin:YES];
+        }
+        return;
     }
 }
 

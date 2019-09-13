@@ -15,7 +15,7 @@ static NSString *const kEPG = @"epg";
 static NSString *const kLivestreamEnd = @"end";
 static NSString *const kLivestreamStart = @"start";
 
-@interface Sport1PlayerLivestreamAge ()
+@interface Sport1PlayerLivestreamPin ()
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) NSString *livestreamURL;
 @property (nonatomic) NSDate *ageRestrictionEnd;
@@ -23,20 +23,14 @@ static NSString *const kLivestreamStart = @"start";
 @property (nonatomic) NSDate *livestreamEnd;
 @end
 
-@implementation Sport1PlayerLivestreamAge
+@implementation Sport1PlayerLivestreamPin
 
-+ (id)sharedManager {
-    static Sport1PlayerLivestreamAge *sharedMyManager = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedMyManager = [[self alloc] init];
-    });
-    return sharedMyManager;
-}
-
-- (void)setConfigurationJSON:(NSDictionary *)configurationJSON
-{
-    self.livestreamURL = configurationJSON[kLivestreamURL];
+-(instancetype)initWithConfigurationJSON:(NSDictionary *)configurationJSON currentPlayerAdapter:(Sport1PlayerAdapter *)currentPlayerAdapter {
+    if (self = [super init]) {
+        self.livestreamURL = configurationJSON[kLivestreamURL];
+        self.currentPlayerAdapter = currentPlayerAdapter;
+    }
+    return self;
 }
 
 - (void)updateLivestreamAgeData {
@@ -63,12 +57,12 @@ static NSString *const kLivestreamStart = @"start";
                 return;
             }
         }
-        __block typeof(self) blockSelf = self;
-        self.timer = [[NSTimer alloc] initWithFireDate:self.livestreamEnd
+        __weak Sport1PlayerLivestreamPin *weakSelf = self;
+        self.timer = [[NSTimer alloc] initWithFireDate:weakSelf.livestreamEnd
                                               interval:0
                                                repeats:NO
                                                  block:^(NSTimer * _Nonnull timer) {
-                                                     [blockSelf updateLivestreamAgeData];
+                                                     [weakSelf.currentPlayerAdapter shouldPresentPin];
                                                  }];
         [[NSRunLoop mainRunLoop] addTimer:self.timer
                                      forMode:NSRunLoopCommonModes];
