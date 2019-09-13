@@ -21,13 +21,12 @@ static NSString *const kPluginName = @"pin_validation_plugin_id";
 static int kWatershedAge = 16;
 
 @interface Sport1PlayerAdapter ()
-@property (nonatomic) Sport1PlayerLivestreamPin *livestreamPinValidation;
-@property (nonatomic) UIView * container;
-@property (nonatomic) ZPPlayerConfiguration * playerConfiguration;
+@property (nonatomic, strong) Sport1PlayerLivestreamPin *livestreamPinValidation;
+@property (nonatomic, weak) UIView * container;
+@property (nonatomic, strong) ZPPlayerConfiguration * playerConfiguration;
 @end
 
 @implementation Sport1PlayerAdapter
-@synthesize livestreamPinValidation = _livestreamPinValidation;
 
 + (id<ZPPlayerProtocol>)pluggablePlayerInitWithPlayableItems:(NSArray<id<ZPPlayable>> *)items configurationJSON:(NSDictionary *)configurationJSON {
     NSString *playerKey = configurationJSON[@"playerKey"];
