@@ -13,6 +13,7 @@
 #import <JWPlayer_iOS_SDK/JWPlayerController.h>
 #import "Sport1PlayerLivestreamAge.h"
 #import "JWPlayerViewController+Public.h"
+#import "Sport1StreamPlayable.h"
 
 static NSString *const kTrackingInfoKey = @"tracking_info";
 static NSString *const kAgeRatingKey = @"age_rating";
@@ -71,6 +72,7 @@ andPlayerConfiguration:nil];
     [self createLivestreamPinCheck];
     [self setContainer:container
 andPlayerConfiguration:configuration];
+    self.currentPlayableItem = [self amendIfLivestream:self.currentPlayableItem];
     if ([self.currentPlayableItem isFree] == NO) {
         NSObject<ZPLoginProviderUserDataProtocol> *loginPlugin = [[ZPLoginManager sharedInstance] createWithUserData];
         NSDictionary *extensions = [NSDictionary dictionaryWithObject:self.currentPlayableItems
@@ -120,6 +122,7 @@ andPlayerConfiguration:configuration];
     [self createLivestreamPinCheck];
     [self setContainer:nil
 andPlayerConfiguration:configuration];
+    self.currentPlayableItem = [self amendIfLivestream:self.currentPlayableItem];
     if ([self.currentPlayableItem isFree] == NO) {
         NSObject<ZPLoginProviderUserDataProtocol> *loginPlugin = [[ZPLoginManager sharedInstance] createWithUserData];
         NSDictionary *extensions = [NSDictionary dictionaryWithObject:self.currentPlayableItems
@@ -283,6 +286,23 @@ andPlayerConfiguration:configuration];
         }
         return;
     }
+}
+#pragma mark - Livestream Token
+-(NSObject <ZPPlayable>*)amendIfLivestream:(NSObject <ZPPlayable>*)current {
+    if (current.isLive) {
+        NSObject<ZPLoginProviderUserDataProtocol> *loginPlugin = [[ZPLoginManager sharedInstance] createWithUserData];
+        if (loginPlugin == nil) {return current;}
+        
+        NSString *token = [loginPlugin getUserToken];
+        if (token == nil) {return current;}
+        
+        NSString *url = current.contentVideoURLPath;
+        NSString *amendedURL = [[NSString alloc] initWithFormat:@"%@?access_token=%@", url, token];
+        NSLog(@"[!]: amendedURL: %@", amendedURL);
+        Sport1StreamPlayable *amended = [[Sport1StreamPlayable alloc] initWithOriginal:current
+                                                                         andAmendedURL:amendedURL];
+        return amended;
+    } else {return current;}
 }
 
 @end
