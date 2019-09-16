@@ -16,6 +16,8 @@
 		5280B5D82316A2C40095CFBF /* Sport1Player.h in Headers */ = {isa = PBXBuildFile; fileRef = 5280B5CA2316A2C30095CFBF /* Sport1Player.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		529D8E672316BF780091A875 /* Sport1PlayerAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 529D8E652316BF780091A875 /* Sport1PlayerAdapter.h */; };
 		529D8E682316BF780091A875 /* Sport1PlayerAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 529D8E662316BF780091A875 /* Sport1PlayerAdapter.m */; };
+		52F5E3CC232BD127001AE10B /* Sport1StreamPlayable.h in Headers */ = {isa = PBXBuildFile; fileRef = 52F5E3CA232BD127001AE10B /* Sport1StreamPlayable.h */; };
+		52F5E3CD232BD127001AE10B /* Sport1StreamPlayable.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F5E3CB232BD127001AE10B /* Sport1StreamPlayable.m */; };
 		83E7CF34A944EBE921F88E4A /* Pods_Sport1PlayerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC0D51FCA4195C50DEB61587 /* Pods_Sport1PlayerTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +49,8 @@
 		529D8E652316BF780091A875 /* Sport1PlayerAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sport1PlayerAdapter.h; sourceTree = "<group>"; };
 		529D8E662316BF780091A875 /* Sport1PlayerAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sport1PlayerAdapter.m; sourceTree = "<group>"; };
 		52B2BB5D2319279A00842E2A /* ZappJWPlayer+Public.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZappJWPlayer+Public.h"; sourceTree = "<group>"; };
+		52F5E3CA232BD127001AE10B /* Sport1StreamPlayable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sport1StreamPlayable.h; sourceTree = "<group>"; };
+		52F5E3CB232BD127001AE10B /* Sport1StreamPlayable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sport1StreamPlayable.m; sourceTree = "<group>"; };
 		6D87A9BFB29B93133E228142 /* Pods-Sport1Player.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sport1Player.release.xcconfig"; path = "Target Support Files/Pods-Sport1Player/Pods-Sport1Player.release.xcconfig"; sourceTree = "<group>"; };
 		FC0D51FCA4195C50DEB61587 /* Pods_Sport1PlayerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sport1PlayerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -113,6 +117,8 @@
 				529D8E662316BF780091A875 /* Sport1PlayerAdapter.m */,
 				5221B5162319330A006DD39B /* Sport1PlayerLivestreamAge.h */,
 				5221B5172319330A006DD39B /* Sport1PlayerLivestreamAge.m */,
+				52F5E3CA232BD127001AE10B /* Sport1StreamPlayable.h */,
+				52F5E3CB232BD127001AE10B /* Sport1StreamPlayable.m */,
 				5280B5CB2316A2C30095CFBF /* Info.plist */,
 				522E24F42321126900008382 /* SwiftFile.swift */,
 			);
@@ -147,6 +153,7 @@
 				5221B5182319330A006DD39B /* Sport1PlayerLivestreamAge.h in Headers */,
 				529D8E672316BF780091A875 /* Sport1PlayerAdapter.h in Headers */,
 				5280B5D82316A2C40095CFBF /* Sport1Player.h in Headers */,
+				52F5E3CC232BD127001AE10B /* Sport1StreamPlayable.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,6 +357,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52F5E3CD232BD127001AE10B /* Sport1StreamPlayable.m in Sources */,
 				529D8E682316BF780091A875 /* Sport1PlayerAdapter.m in Sources */,
 				5221B5192319330A006DD39B /* Sport1PlayerLivestreamAge.m in Sources */,
 				522E24F52321126900008382 /* SwiftFile.swift in Sources */,
