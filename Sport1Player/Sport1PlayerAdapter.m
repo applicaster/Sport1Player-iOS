@@ -123,6 +123,7 @@ andPlayerConfiguration:configuration];
     [self setContainer:nil
 andPlayerConfiguration:configuration];
     self.currentPlayableItem = [self amendIfLivestream:self.currentPlayableItem];
+    [self sendScreenViewAnalyticsFor:self.currentPlayableItem];
     if ([self.currentPlayableItem isFree] == NO) {
         NSObject<ZPLoginProviderUserDataProtocol> *loginPlugin = [[ZPLoginManager sharedInstance] createWithUserData];
         NSDictionary *extensions = [NSDictionary dictionaryWithObject:self.currentPlayableItems
@@ -159,6 +160,17 @@ andPlayerConfiguration:configuration];
                         container:nil
                rootViewController:rootViewController
               playerConfiguration:configuration];
+    }
+}
+#pragma mark - Analytics
+- (void)sendScreenViewAnalyticsFor:(NSObject <ZPPlayable>*)current {
+    if (current.isLive) {
+        [[[ZAAppConnector sharedInstance] analyticsDelegate] trackScreenViewWithScreenTitle:@"Livestream"
+                                                                                 parameters:[[NSDictionary alloc] init]];
+    } else {
+        NSDictionary *parameters = [[NSDictionary alloc] initWithObjectsAndKeys:current, @"playable", nil];
+        [[[ZAAppConnector sharedInstance] analyticsDelegate] trackScreenViewWithScreenTitle:@"Spiele Video"
+                                                                                 parameters:parameters];
     }
 }
 #pragma mark - Login & Pin
@@ -298,7 +310,6 @@ andPlayerConfiguration:configuration];
         
         NSString *url = current.contentVideoURLPath;
         NSString *amendedURL = [[NSString alloc] initWithFormat:@"%@?access_token=%@", url, token];
-        NSLog(@"[!]: amendedURL: %@", amendedURL);
         Sport1StreamPlayable *amended = [[Sport1StreamPlayable alloc] initWithOriginal:current
                                                                          andAmendedURL:amendedURL];
         return amended;
