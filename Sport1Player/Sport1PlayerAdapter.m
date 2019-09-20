@@ -230,10 +230,10 @@ andPlayerConfiguration:configuration];
     
     NSString *ageString = trackingInfo[kFSKKey];
     int ageRating = 0;
-    if (ageString.length > 0) {
+    if (ageString != nil && ageString.length > 0 && [ageString containsString:@" "]) {
         ageRating = [ageString componentsSeparatedByString:@" "][1].intValue;
     }
-    NSLog(@"[!]: ageRating: %i", ageRating);
+    
     if (ageRating >= kWatershedAge) {
         [self presentPinOn:rootViewController
                  container:container
