@@ -230,8 +230,11 @@ andPlayerConfiguration:configuration];
     
     NSString *ageString = trackingInfo[kFSKKey];
     int ageRating = 0;
-    if (ageString != nil && ageString.length > 0 && [ageString containsString:@" "]) {
-        ageRating = [ageString componentsSeparatedByString:@" "][1].intValue;
+    if (ageString.length > 0 && [ageString containsString:@" "]) {
+        NSArray *splitString = [ageString componentsSeparatedByString:@" "];
+        if (splitString.count > 1) {
+            ageRating = [(NSString*)splitString[1] intValue];
+        }
     }
     
     if (ageRating >= kWatershedAge) {
