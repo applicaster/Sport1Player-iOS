@@ -16,6 +16,7 @@
 #import "Sport1StreamPlayable.h"
 
 static NSString *const kTrackingInfoKey = @"tracking_info";
+static NSString *const kAgeRatingKey = @"age_rating";
 static NSString *const kFSKKey = @"fsk";
 static NSString *const kPlayableItemsKey = @"playable_items";
 static NSString *const kPluginName = @"pin_validation_plugin_id";
@@ -204,7 +205,7 @@ andPlayerConfiguration:configuration];
 -(void)shouldPresentPinFor:(NSObject <ZPPlayable>*)currentPlayableItem container:(UIView*)container rootViewController:(UIViewController*)rootViewController playerConfiguration:(ZPPlayerConfiguration * _Nullable)configuration {
     NSDictionary *trackingInfo = currentPlayableItem.extensionsDictionary[kTrackingInfoKey];
     
-    if (![trackingInfo.allKeys containsObject:@"age_rating"]) {
+    if (![trackingInfo.allKeys containsObject:kAgeRatingKey]) {
         [self.livestreamPinValidation updateLivestreamAgeData];
         
         if ([self.livestreamPinValidation shouldDisplayPin]) {
