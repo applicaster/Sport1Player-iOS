@@ -16,7 +16,7 @@
 #import "Sport1StreamPlayable.h"
 
 static NSString *const kTrackingInfoKey = @"tracking_info";
-static NSString *const kAgeRatingKey = @"age_rating";
+static NSString *const kFSKKey = @"fsk";
 static NSString *const kPlayableItemsKey = @"playable_items";
 static NSString *const kPluginName = @"pin_validation_plugin_id";
 static int kWatershedAge = 16;
@@ -204,7 +204,7 @@ andPlayerConfiguration:configuration];
 -(void)shouldPresentPinFor:(NSObject <ZPPlayable>*)currentPlayableItem container:(UIView*)container rootViewController:(UIViewController*)rootViewController playerConfiguration:(ZPPlayerConfiguration * _Nullable)configuration {
     NSDictionary *trackingInfo = currentPlayableItem.extensionsDictionary[kTrackingInfoKey];
     
-    if (![trackingInfo.allKeys containsObject:kAgeRatingKey]) {
+    if (![trackingInfo.allKeys containsObject:@"age_rating"]) {
         [self.livestreamPinValidation updateLivestreamAgeData];
         
         if ([self.livestreamPinValidation shouldDisplayPin]) {
@@ -227,9 +227,13 @@ andPlayerConfiguration:configuration];
         return;
     }
     
-    NSNumber *ageRating = trackingInfo[kAgeRatingKey];
-    
-    if (ageRating.intValue >= kWatershedAge) {
+    NSString *ageString = trackingInfo[kFSKKey];
+    int ageRating = 0;
+    if (ageString.length > 0) {
+        ageRating = [ageString componentsSeparatedByString:@" "][1].intValue;
+    }
+    NSLog(@"[!]: ageRating: %i", ageRating);
+    if (ageRating >= kWatershedAge) {
         [self presentPinOn:rootViewController
                  container:container
        playerConfiguration:configuration
@@ -287,7 +291,7 @@ andPlayerConfiguration:configuration];
 -(void)shouldPresentPin {
     NSDictionary *trackingInfo = self.currentPlayableItem.extensionsDictionary[kTrackingInfoKey];
     
-    if (![trackingInfo.allKeys containsObject:kAgeRatingKey]) {
+    if (![trackingInfo.allKeys containsObject:kFSKKey]) {
         [self.livestreamPinValidation updateLivestreamAgeData];
         
         if ([self.livestreamPinValidation shouldDisplayPin]) {
