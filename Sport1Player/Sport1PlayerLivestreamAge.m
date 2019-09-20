@@ -34,6 +34,7 @@ static NSString *const kLivestreamStart = @"start";
 }
 
 - (void)updateLivestreamAgeData {
+    if (self.livestreamURL.length == 0) {return;}
     NSURL *url = [NSURL URLWithString:self.livestreamURL];
     NSData *data = [NSData dataWithContentsOfURL:url];
     NSError *error = nil;

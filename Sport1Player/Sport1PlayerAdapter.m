@@ -17,6 +17,7 @@
 
 static NSString *const kTrackingInfoKey = @"tracking_info";
 static NSString *const kAgeRatingKey = @"age_rating";
+static NSString *const kFSKKey = @"fsk";
 static NSString *const kPlayableItemsKey = @"playable_items";
 static NSString *const kPluginName = @"pin_validation_plugin_id";
 static int kWatershedAge = 16;
@@ -227,9 +228,16 @@ andPlayerConfiguration:configuration];
         return;
     }
     
-    NSNumber *ageRating = trackingInfo[kAgeRatingKey];
+    NSString *ageString = trackingInfo[kFSKKey];
+    int ageRating = 0;
+    if (ageString.length > 0 && [ageString containsString:@" "]) {
+        NSArray *splitString = [ageString componentsSeparatedByString:@" "];
+        if (splitString.count > 1) {
+            ageRating = [(NSString*)splitString[1] intValue];
+        }
+    }
     
-    if (ageRating.intValue >= kWatershedAge) {
+    if (ageRating >= kWatershedAge) {
         [self presentPinOn:rootViewController
                  container:container
        playerConfiguration:configuration
@@ -287,7 +295,7 @@ andPlayerConfiguration:configuration];
 -(void)shouldPresentPin {
     NSDictionary *trackingInfo = self.currentPlayableItem.extensionsDictionary[kTrackingInfoKey];
     
-    if (![trackingInfo.allKeys containsObject:kAgeRatingKey]) {
+    if (![trackingInfo.allKeys containsObject:kFSKKey]) {
         [self.livestreamPinValidation updateLivestreamAgeData];
         
         if ([self.livestreamPinValidation shouldDisplayPin]) {
