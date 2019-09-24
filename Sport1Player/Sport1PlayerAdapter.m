@@ -229,30 +229,32 @@ andPlayerConfiguration:configuration];
     }
     
     NSString *ageString = trackingInfo[kFSKKey];
-    int ageRating = 0;
-    if (ageString.length > 0 && [ageString containsString:@" "]) {
-        NSArray *splitString = [ageString componentsSeparatedByString:@" "];
-        if (splitString.count > 1) {
-            ageRating = [(NSString*)splitString[1] intValue];
+    if ((id)ageString != [NSNull null]) {
+        int ageRating = 0;
+        if (ageString.length > 0 && [ageString containsString:@" "]) {
+            NSArray *splitString = [ageString componentsSeparatedByString:@" "];
+            if (splitString.count > 1) {
+                ageRating = [(NSString*)splitString[1] intValue];
+            }
+        }
+        if (ageRating >= kWatershedAge) {
+            [self presentPinOn:rootViewController
+                     container:container
+           playerConfiguration:configuration
+             fromLivestreamPin:NO];
+            return;
         }
     }
     
-    if (ageRating >= kWatershedAge) {
-        [self presentPinOn:rootViewController
-                 container:container
-       playerConfiguration:configuration
-         fromLivestreamPin:NO];
-    } else {
-        if (container == nil) {
-            [super playFullScreen:rootViewController
-                    configuration:configuration
-                       completion:nil];
-        } else {
-            [super playInline:rootViewController
-                    container:container
+    if (container == nil) {
+        [super playFullScreen:rootViewController
                 configuration:configuration
                    completion:nil];
-        }
+    } else {
+        [super playInline:rootViewController
+                container:container
+            configuration:configuration
+               completion:nil];
     }
 }
 
