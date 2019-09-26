@@ -73,7 +73,7 @@ andPlayerConfiguration:nil];
     [self createLivestreamPinCheck];
     [self setContainer:container
 andPlayerConfiguration:configuration];
-    self.currentPlayableItem = [self amendIfLivestream:self.currentPlayableItem];
+//    self.currentPlayableItem = [self amendIfLivestream:self.currentPlayableItem];
     if ([self.currentPlayableItem isFree] == NO) {
         NSObject<ZPLoginProviderUserDataProtocol> *loginPlugin = [[ZPLoginManager sharedInstance] createWithUserData];
         NSDictionary *extensions = [NSDictionary dictionaryWithObject:self.currentPlayableItems
@@ -123,7 +123,7 @@ andPlayerConfiguration:configuration];
     [self createLivestreamPinCheck];
     [self setContainer:nil
 andPlayerConfiguration:configuration];
-    self.currentPlayableItem = [self amendIfLivestream:self.currentPlayableItem];
+//    self.currentPlayableItem = [self amendIfLivestream:self.currentPlayableItem];
     [self sendScreenViewAnalyticsFor:self.currentPlayableItem];
     if ([self.currentPlayableItem isFree] == NO) {
         NSObject<ZPLoginProviderUserDataProtocol> *loginPlugin = [[ZPLoginManager sharedInstance] createWithUserData];
@@ -206,6 +206,7 @@ andPlayerConfiguration:configuration];
     NSDictionary *trackingInfo = currentPlayableItem.extensionsDictionary[kTrackingInfoKey];
     
     if (![trackingInfo.allKeys containsObject:kAgeRatingKey]) {
+        self.currentPlayableItem = [self amendIfLivestream:self.currentPlayableItem];
         [self.livestreamPinValidation updateLivestreamAgeData];
         
         if ([self.livestreamPinValidation shouldDisplayPin]) {
@@ -312,14 +313,14 @@ andPlayerConfiguration:configuration];
 #pragma mark - Livestream Token
 -(NSObject <ZPPlayable>*)amendIfLivestream:(NSObject <ZPPlayable>*)current {
     if (current.isLive) {
-        NSObject<ZPLoginProviderUserDataProtocol> *loginPlugin = [[ZPLoginManager sharedInstance] createWithUserData];
-        if (loginPlugin == nil) {return current;}
+//        NSObject<ZPLoginProviderUserDataProtocol> *loginPlugin = [[ZPLoginManager sharedInstance] createWithUserData];
+        NSString *streamToken = [[[ZAAppConnector sharedInstance] storageDelegate] sessionStorageValueFor:@"stream_token"
+                                                                                                namespace:@"InPlayer.v1"];
         
-        NSString *token = [loginPlugin getUserToken];
-        if (token == nil) {return current;}
+        if (streamToken == nil) {return current;}
         
         NSString *url = current.contentVideoURLPath;
-        NSString *amendedURL = [[NSString alloc] initWithFormat:@"%@?access_token=%@", url, token];
+        NSString *amendedURL = [[NSString alloc] initWithFormat:@"%@?access_token=%@", url, streamToken];
         Sport1StreamPlayable *amended = [[Sport1StreamPlayable alloc] initWithOriginal:current
                                                                          andAmendedURL:amendedURL];
         return amended;

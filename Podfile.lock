@@ -1,6 +1,6 @@
 PODS:
   - Alamofire (4.8.2)
-  - ApplicasterSDK (10.4.1):
+  - ApplicasterSDK (10.5.0):
     - Alamofire (= 4.8.2)
     - CocoaLumberjack/Swift (= 3.5.3)
     - FBSDKCoreKit (= 5.2.3)
@@ -81,7 +81,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
-  ApplicasterSDK: 1da8b484c9e8b92b7df55c108d462f938e6154a7
+  ApplicasterSDK: 68930544e8bdb864e7bebe67a172991d37194c18
   CocoaLumberjack: 2f44e60eb91c176d471fdba43b9e3eae6a721947
   FBSDKCoreKit: 5154c35d9058fd7dfa0445ba19e194c4b172fc32
   FBSDKLoginKit: dc98b6bf12334f1a42f28d0457fffc9aa3d1eca5
