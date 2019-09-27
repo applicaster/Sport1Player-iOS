@@ -206,7 +206,6 @@ andPlayerConfiguration:configuration];
     NSDictionary *trackingInfo = currentPlayableItem.extensionsDictionary[kTrackingInfoKey];
     
     if (![trackingInfo.allKeys containsObject:kAgeRatingKey]) {
-        self.currentPlayableItem = [self amendIfLivestream:self.currentPlayableItem];
         [self.livestreamPinValidation updateLivestreamAgeData];
         
         if ([self.livestreamPinValidation shouldDisplayPin]) {
@@ -215,6 +214,7 @@ andPlayerConfiguration:configuration];
            playerConfiguration:configuration
              fromLivestreamPin:NO];
         } else {
+            self.currentPlayableItem = [self amendIfLivestream:self.currentPlayableItem];
             if (container == nil) {
                 [super playFullScreen:rootViewController
                         configuration:configuration
@@ -275,6 +275,7 @@ andPlayerConfiguration:configuration];
         if ([plugin conformsToProtocol:@protocol(PluginPresenterProtocol)]) {
             [plugin presentPluginWithParentViewController:rootViewController
                                                 extraData:nil completion:^(BOOL success, id _Nullable data) {
+                                                    self.currentPlayableItem = [self amendIfLivestream:self.currentPlayableItem];
                                                     if (success && container == nil && !fromLivestreamPin) {
                                                         [super playFullScreen:rootViewController
                                                                 configuration:configuration
