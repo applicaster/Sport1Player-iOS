@@ -1,6 +1,6 @@
 PODS:
   - Alamofire (4.8.2)
-  - ApplicasterSDK (10.4.1):
+  - ApplicasterSDK (10.3.0):
     - Alamofire (= 4.8.2)
     - CocoaLumberjack/Swift (= 3.5.3)
     - FBSDKCoreKit (= 5.2.3)
@@ -12,7 +12,7 @@ PODS:
     - ZappAnalyticsPluginsSDK (~> 8.0.4)
     - ZappGeneralPluginsSDK (~> 8.1.0)
     - ZappLoginPluginsSDK (~> 8.0.1)
-    - ZappPlugins (~> 9.2.0)
+    - ZappPlugins (~> 9.3.0)
     - ZappPushPluginsSDK (~> 8.0.2)
   - CocoaLumberjack/Core (3.5.3)
   - CocoaLumberjack/Swift (3.5.3):
@@ -46,14 +46,14 @@ PODS:
   - ZappLoginPluginsSDK (8.0.2):
     - Alamofire
     - ZappPlugins
-  - ZappPlugins (9.2.5)
+  - ZappPlugins (9.3.0)
   - ZappPushPluginsSDK (8.0.2):
     - ZappPlugins
 
 DEPENDENCIES:
   - JWPlayerPlugin
   - PluginPresenter
-  - ZappPlugins
+  - ZappPlugins (= 9.3.0)
 
 SPEC REPOS:
   "git@github.com:applicaster/CocoaPods-Private.git":
@@ -81,7 +81,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
-  ApplicasterSDK: 1da8b484c9e8b92b7df55c108d462f938e6154a7
+  ApplicasterSDK: cb4011d67b3fd7f77f6299d4c692722834935563
   CocoaLumberjack: 2f44e60eb91c176d471fdba43b9e3eae6a721947
   FBSDKCoreKit: 5154c35d9058fd7dfa0445ba19e194c4b172fc32
   FBSDKLoginKit: dc98b6bf12334f1a42f28d0457fffc9aa3d1eca5
@@ -96,9 +96,9 @@ SPEC CHECKSUMS:
   ZappAnalyticsPluginsSDK: 6f8edcddc12ae4001098a3fa6fe87e6fe1a013bd
   ZappGeneralPluginsSDK: 7e91f6030d9f1b81b4781e823b0197bfad351bde
   ZappLoginPluginsSDK: 7afb61fa738f1f73666a8250bd14b5dda8cc8f87
-  ZappPlugins: e5ffe70af3d4512746c5911c7582beebd61fa618
+  ZappPlugins: a9b9b91d36aea7b04a996e3b0e29929317670976
   ZappPushPluginsSDK: 2062e2487f3ac877c0ab1a807d1a7f8d357bd333
 
-PODFILE CHECKSUM: bd13c32e3cec6c1325630eeff1bd6c7f57df6d91
+PODFILE CHECKSUM: 2ddf44867a5788bbbc59a5d900f0bfa16e120d5d
 
 COCOAPODS: 1.7.5

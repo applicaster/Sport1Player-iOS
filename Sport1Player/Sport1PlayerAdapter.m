@@ -20,6 +20,8 @@ static NSString *const kAgeRatingKey = @"age_rating";
 static NSString *const kFSKKey = @"fsk";
 static NSString *const kPlayableItemsKey = @"playable_items";
 static NSString *const kPluginName = @"pin_validation_plugin_id";
+static NSString *const kTokenName = @"stream_token";
+static NSString *const kNameSpace = @"InPlayer.v1";
 static int kWatershedAge = 16;
 
 @interface Sport1PlayerAdapter ()
@@ -73,7 +75,6 @@ andPlayerConfiguration:nil];
     [self createLivestreamPinCheck];
     [self setContainer:container
 andPlayerConfiguration:configuration];
-    self.currentPlayableItem = [self amendIfLivestream:self.currentPlayableItem];
     if ([self.currentPlayableItem isFree] == NO) {
         NSObject<ZPLoginProviderUserDataProtocol> *loginPlugin = [[ZPLoginManager sharedInstance] createWithUserData];
         NSDictionary *extensions = [NSDictionary dictionaryWithObject:self.currentPlayableItems
@@ -123,7 +124,6 @@ andPlayerConfiguration:configuration];
     [self createLivestreamPinCheck];
     [self setContainer:nil
 andPlayerConfiguration:configuration];
-    self.currentPlayableItem = [self amendIfLivestream:self.currentPlayableItem];
     [self sendScreenViewAnalyticsFor:self.currentPlayableItem];
     if ([self.currentPlayableItem isFree] == NO) {
         NSObject<ZPLoginProviderUserDataProtocol> *loginPlugin = [[ZPLoginManager sharedInstance] createWithUserData];
@@ -214,6 +214,7 @@ andPlayerConfiguration:configuration];
            playerConfiguration:configuration
              fromLivestreamPin:NO];
         } else {
+            self.currentPlayableItem = [self amendIfLivestream:self.currentPlayableItem];
             if (container == nil) {
                 [super playFullScreen:rootViewController
                         configuration:configuration
@@ -274,6 +275,7 @@ andPlayerConfiguration:configuration];
         if ([plugin conformsToProtocol:@protocol(PluginPresenterProtocol)]) {
             [plugin presentPluginWithParentViewController:rootViewController
                                                 extraData:nil completion:^(BOOL success, id _Nullable data) {
+                                                    self.currentPlayableItem = [self amendIfLivestream:self.currentPlayableItem];
                                                     if (success && container == nil && !fromLivestreamPin) {
                                                         [super playFullScreen:rootViewController
                                                                 configuration:configuration
@@ -312,14 +314,13 @@ andPlayerConfiguration:configuration];
 #pragma mark - Livestream Token
 -(NSObject <ZPPlayable>*)amendIfLivestream:(NSObject <ZPPlayable>*)current {
     if (current.isLive) {
-        NSObject<ZPLoginProviderUserDataProtocol> *loginPlugin = [[ZPLoginManager sharedInstance] createWithUserData];
-        if (loginPlugin == nil) {return current;}
+        NSString *streamToken = [[[ZAAppConnector sharedInstance] storageDelegate] sessionStorageValueFor:kTokenName
+                                                                                                namespace:kNameSpace];
         
-        NSString *token = [loginPlugin getUserToken];
-        if (token == nil) {return current;}
+        if (streamToken == nil) {return current;}
         
         NSString *url = current.contentVideoURLPath;
-        NSString *amendedURL = [[NSString alloc] initWithFormat:@"%@?access_token=%@", url, token];
+        NSString *amendedURL = [[NSString alloc] initWithFormat:@"%@?access_token=%@", url, streamToken];
         Sport1StreamPlayable *amended = [[Sport1StreamPlayable alloc] initWithOriginal:current
                                                                          andAmendedURL:amendedURL];
         return amended;
