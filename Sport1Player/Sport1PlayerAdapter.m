@@ -73,7 +73,6 @@ andPlayerConfiguration:nil];
     [self createLivestreamPinCheck];
     [self setContainer:container
 andPlayerConfiguration:configuration];
-//    self.currentPlayableItem = [self amendIfLivestream:self.currentPlayableItem];
     if ([self.currentPlayableItem isFree] == NO) {
         NSObject<ZPLoginProviderUserDataProtocol> *loginPlugin = [[ZPLoginManager sharedInstance] createWithUserData];
         NSDictionary *extensions = [NSDictionary dictionaryWithObject:self.currentPlayableItems
@@ -123,7 +122,6 @@ andPlayerConfiguration:configuration];
     [self createLivestreamPinCheck];
     [self setContainer:nil
 andPlayerConfiguration:configuration];
-//    self.currentPlayableItem = [self amendIfLivestream:self.currentPlayableItem];
     [self sendScreenViewAnalyticsFor:self.currentPlayableItem];
     if ([self.currentPlayableItem isFree] == NO) {
         NSObject<ZPLoginProviderUserDataProtocol> *loginPlugin = [[ZPLoginManager sharedInstance] createWithUserData];
