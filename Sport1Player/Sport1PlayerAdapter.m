@@ -20,6 +20,8 @@ static NSString *const kAgeRatingKey = @"age_rating";
 static NSString *const kFSKKey = @"fsk";
 static NSString *const kPlayableItemsKey = @"playable_items";
 static NSString *const kPluginName = @"pin_validation_plugin_id";
+static NSString *const kTokenName = @"stream_token";
+static NSString *const kNameSpace = @"InPlayer.v1";
 static int kWatershedAge = 16;
 
 @interface Sport1PlayerAdapter ()
@@ -312,9 +314,8 @@ andPlayerConfiguration:configuration];
 #pragma mark - Livestream Token
 -(NSObject <ZPPlayable>*)amendIfLivestream:(NSObject <ZPPlayable>*)current {
     if (current.isLive) {
-//        NSObject<ZPLoginProviderUserDataProtocol> *loginPlugin = [[ZPLoginManager sharedInstance] createWithUserData];
-        NSString *streamToken = [[[ZAAppConnector sharedInstance] storageDelegate] sessionStorageValueFor:@"stream_token"
-                                                                                                namespace:@"InPlayer.v1"];
+        NSString *streamToken = [[[ZAAppConnector sharedInstance] storageDelegate] sessionStorageValueFor:kTokenName
+                                                                                                namespace:kNameSpace];
         
         if (streamToken == nil) {return current;}
         
