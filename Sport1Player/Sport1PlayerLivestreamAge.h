@@ -11,6 +11,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static NSString *const kFSKKey = @"fsk";
+
 @interface Sport1PlayerLivestreamPin : NSObject
 
 @property (nonatomic, weak) Sport1PlayerAdapter *currentPlayerAdapter;

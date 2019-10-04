@@ -17,7 +17,6 @@
 
 static NSString *const kTrackingInfoKey = @"tracking_info";
 static NSString *const kAgeRatingKey = @"age_rating";
-static NSString *const kFSKKey = @"fsk";
 static NSString *const kPlayableItemsKey = @"playable_items";
 static NSString *const kPluginName = @"pin_validation_plugin_id";
 static NSString *const kTokenName = @"stream_token";
@@ -298,7 +297,6 @@ andPlayerConfiguration:configuration];
 #pragma mark - Livestream Pin Presentation
 -(void)shouldPresentPin {
     NSDictionary *trackingInfo = self.currentPlayableItem.extensionsDictionary[kTrackingInfoKey];
-    
     if (![trackingInfo.allKeys containsObject:kFSKKey]) {
         [self.livestreamPinValidation updateLivestreamAgeData];
         
