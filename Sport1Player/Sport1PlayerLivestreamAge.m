@@ -56,6 +56,8 @@ static NSString *const kLivestreamStart = @"start";
             self.fsk = nil;
         }
         
+        self.fsk = nil;
+        
         if (self.timer != nil) {
             [self.timer invalidate];
             self.timer = nil;

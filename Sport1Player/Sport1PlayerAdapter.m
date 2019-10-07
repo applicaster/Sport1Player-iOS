@@ -181,6 +181,7 @@ andPlayerConfiguration:configuration];
            configuration:(ZPPlayerConfiguration *)configuration
               completion:(void (^)(void))completion
 {
+    NSLog(@"!");
     if (isUserComply) {
         [self shouldPresentPinFor:self.currentPlayableItem
                         container:container
@@ -312,6 +313,14 @@ andPlayerConfiguration:configuration];
 #pragma mark - Livestream Token
 -(NSObject <ZPPlayable>*)amendIfLivestream:(NSObject <ZPPlayable>*)current {
     if (current.isLive) {
+        NSObject<ZPLoginProviderUserDataProtocol> *loginPlugin = [[ZPLoginManager sharedInstance] createWithUserData];
+//        NSString *auth = [loginPlugin getUserToken];
+        
+        if (![loginPlugin isPerformingAuthorizationFlow]) {
+            [loginPlugin login:nil
+                    completion:nil];
+        }
+        
         NSString *streamToken = [[[ZAAppConnector sharedInstance] storageDelegate] sessionStorageValueFor:kTokenName
                                                                                                 namespace:kNameSpace];
         
