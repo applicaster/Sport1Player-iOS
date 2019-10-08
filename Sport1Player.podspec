@@ -26,8 +26,8 @@ Pod::Spec.new do |s|
                   'OTHER_LDFLAGS' => '$(inherited) -framework "JWPlayer_iOS_SDK"'
                   }
 
-  #Using ZappPlugins 9.3.0 until JWPlayerPlugin 3.2.3 is updated.
-  s.dependency 'ZappPlugins', '~> 9.3.0'
+  #Using ZappPlugins 9.1.0 until JWPlayerPlugin 3.2.3 is updated.
+  s.dependency 'ZappPlugins', '~> 9.1'
   s.dependency 'JWPlayerPlugin'
   s.dependency 'PluginPresenter'
 
