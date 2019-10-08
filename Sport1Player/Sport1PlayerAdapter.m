@@ -181,7 +181,6 @@ andPlayerConfiguration:configuration];
            configuration:(ZPPlayerConfiguration *)configuration
               completion:(void (^)(void))completion
 {
-    NSLog(@"!");
     if (isUserComply) {
         [self shouldPresentPinFor:self.currentPlayableItem
                         container:container
@@ -206,29 +205,35 @@ andPlayerConfiguration:configuration];
     NSDictionary *trackingInfo = currentPlayableItem.extensionsDictionary[kTrackingInfoKey];
     
     if (![trackingInfo.allKeys containsObject:kAgeRatingKey]) {
-        [self.livestreamPinValidation updateLivestreamAgeData];
-        
-        if ([self.livestreamPinValidation shouldDisplayPin]) {
-            [self presentPinOn:rootViewController
-                     container:container
-           playerConfiguration:configuration
-             fromLivestreamPin:NO];
-        } else {
-            self.currentPlayableItem = [self amendIfLivestream:self.currentPlayableItem];
-            if (container == nil) {
-                [super playFullScreen:rootViewController
-                        configuration:configuration
-                           completion:nil];
-            } else {
-                [super playInline:rootViewController
-                        container:container
-                    configuration:configuration
-                       completion:nil];
+        //Is a live stream
+        [self.livestreamPinValidation updateLivestreamAgeDataWithCompletion:^(BOOL success) {
+            if (success) {
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    if ([self.livestreamPinValidation shouldDisplayPin]) {
+                        [self presentPinOn:rootViewController
+                                 container:container
+                       playerConfiguration:configuration
+                         fromLivestreamPin:NO];
+                    } else {
+                        self.currentPlayableItem = [self amendIfLivestream:self.currentPlayableItem];
+                        if (container == nil) {
+                            [super playFullScreen:rootViewController
+                                    configuration:configuration
+                                       completion:nil];
+                        } else {
+                            [super playInline:rootViewController
+                                    container:container
+                                configuration:configuration
+                                   completion:nil];
+                        }
+                    }
+                }];
             }
-        }
+        }];
+        
         return;
     }
-    
+    // Is not a live stream
     NSString *ageString = trackingInfo[kFSKKey];
     if ((id)ageString != [NSNull null]) {
         int ageRating = 0;
@@ -297,30 +302,22 @@ andPlayerConfiguration:configuration];
 }
 #pragma mark - Livestream Pin Presentation
 -(void)shouldPresentPin {
-    NSDictionary *trackingInfo = self.currentPlayableItem.extensionsDictionary[kTrackingInfoKey];
-    if (![trackingInfo.allKeys containsObject:kFSKKey]) {
-        [self.livestreamPinValidation updateLivestreamAgeData];
-        
-        if ([self.livestreamPinValidation shouldDisplayPin]) {
-            [self presentPinOn:self.playerViewController
-                     container:self.container
-           playerConfiguration:self.playerConfiguration
-             fromLivestreamPin:YES];
+    [self.livestreamPinValidation updateLivestreamAgeDataWithCompletion:^(BOOL success) {
+        if (success) {
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                if ([self.livestreamPinValidation shouldDisplayPin]) {
+                    [self presentPinOn:self.playerViewController
+                             container:self.container
+                   playerConfiguration:self.playerConfiguration
+                     fromLivestreamPin:YES];
+                }
+            }];
         }
-        return;
-    }
+    }];
 }
 #pragma mark - Livestream Token
 -(NSObject <ZPPlayable>*)amendIfLivestream:(NSObject <ZPPlayable>*)current {
     if (current.isLive) {
-        NSObject<ZPLoginProviderUserDataProtocol> *loginPlugin = [[ZPLoginManager sharedInstance] createWithUserData];
-//        NSString *auth = [loginPlugin getUserToken];
-        
-        if (![loginPlugin isPerformingAuthorizationFlow]) {
-            [loginPlugin login:nil
-                    completion:nil];
-        }
-        
         NSString *streamToken = [[[ZAAppConnector sharedInstance] storageDelegate] sessionStorageValueFor:kTokenName
                                                                                                 namespace:kNameSpace];
         

@@ -18,7 +18,7 @@ static NSString *const kFSKKey = @"fsk";
 @property (nonatomic, weak) Sport1PlayerAdapter *currentPlayerAdapter;
 
 -(instancetype)initWithConfigurationJSON:(NSDictionary*)configurationJSON currentPlayerAdapter:(Sport1PlayerAdapter* _Nullable)currentPlayerAdapter;
--(void)updateLivestreamAgeData;
+-(void)updateLivestreamAgeDataWithCompletion:(void (^)(BOOL success))completionHandler;
 -(BOOL)shouldDisplayPin;
 
 @end
