@@ -21,7 +21,6 @@ static NSString *const kLivestreamStart = @"start";
 @property (nonatomic) NSDate *ageRestrictionEnd;
 @property (nonatomic) NSDate *ageRestrictionStart;
 @property (nonatomic) NSDate *livestreamEnd;
-@property (nonatomic) NSString *fsk;
 @end
 
 @implementation Sport1PlayerLivestreamPin
@@ -75,13 +74,6 @@ static NSString *const kLivestreamStart = @"start";
     NSDictionary *current = [self currentLivestreamFromJSON:livestreamJSON];
     if (current) {
         self.livestreamEnd = [self dateFromString:current[kLivestreamEnd]];
-        if ([current.allKeys containsObject:kFSKKey]) {
-            self.fsk = current[kFSKKey];
-        } else {
-            self.fsk = nil;
-        }
-        
-        self.fsk = nil;
         
         if (self.timer != nil) {
             [self.timer invalidate];
@@ -129,12 +121,10 @@ static NSString *const kLivestreamStart = @"start";
 }
 
 -(BOOL)shouldDisplayPin {
-    if (self.fsk.length > 0) {
-        NSDate *now = [NSDate date];
-        if ([self.ageRestrictionEnd compare:now] == NSOrderedDescending &&
-            [self.ageRestrictionStart compare:now] == NSOrderedAscending) {
-            return YES;
-        } else { return NO; }
+    NSDate *now = [NSDate date];
+    if ([self.ageRestrictionEnd compare:now] == NSOrderedDescending &&
+        [self.ageRestrictionStart compare:now] == NSOrderedAscending) {
+        return YES;
     } else { return NO; }
 }
 
