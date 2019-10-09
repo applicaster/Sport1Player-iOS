@@ -21,7 +21,7 @@ static NSString *const kPlayableItemsKey = @"playable_items";
 static NSString *const kPluginName = @"pin_validation_plugin_id";
 static NSString *const kTokenName = @"stream_token";
 static NSString *const kNameSpace = @"InPlayer.v1";
-static int kWatershedAge = 16;
+static NSString *const kFSK16 = @"FSK16";
 
 @interface Sport1PlayerAdapter ()
 @property (nonatomic, strong) Sport1PlayerLivestreamPin *livestreamPinValidation;
@@ -47,7 +47,17 @@ static int kWatershedAge = 16;
     instance.currentPlayableItem = items.firstObject;
     instance.currentPlayableItems = items;
     
+    [[NSNotificationCenter defaultCenter] addObserver:instance
+                                             selector:@selector(applicationWillEnterForegroundNotificationHandler)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
+    
     return instance;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 #pragma mark - Livestream
 -(void)createLivestreamPinCheck {
@@ -236,14 +246,7 @@ andPlayerConfiguration:configuration];
     // Is not a live stream
     NSString *ageString = trackingInfo[kFSKKey];
     if ((id)ageString != [NSNull null]) {
-        int ageRating = 0;
-        if (ageString.length > 0 && [ageString containsString:@" "]) {
-            NSArray *splitString = [ageString componentsSeparatedByString:@" "];
-            if (splitString.count > 1) {
-                ageRating = [(NSString*)splitString[1] intValue];
-            }
-        }
-        if (ageRating >= kWatershedAge) {
+        if ([ageString isEqualToString:kFSK16]) {
             [self presentPinOn:rootViewController
                      container:container
            playerConfiguration:configuration
@@ -329,6 +332,10 @@ andPlayerConfiguration:configuration];
                                                                          andAmendedURL:amendedURL];
         return amended;
     } else {return current;}
+}
+#pragma mark - Handlers
+-(void)applicationWillEnterForegroundNotificationHandler {
+    [self shouldPresentPin];
 }
 
 @end
