@@ -21,7 +21,6 @@ static NSString *const kPlayableItemsKey = @"playable_items";
 static NSString *const kPluginName = @"pin_validation_plugin_id";
 static NSString *const kTokenName = @"stream_token";
 static NSString *const kNameSpace = @"InPlayer.v1";
-static int kWatershedAge = 16;
 
 @interface Sport1PlayerAdapter ()
 @property (nonatomic, strong) Sport1PlayerLivestreamPin *livestreamPinValidation;
@@ -246,14 +245,7 @@ andPlayerConfiguration:configuration];
     // Is not a live stream
     NSString *ageString = trackingInfo[kFSKKey];
     if ((id)ageString != [NSNull null]) {
-        int ageRating = 0;
-        if (ageString.length > 0 && [ageString containsString:@" "]) {
-            NSArray *splitString = [ageString componentsSeparatedByString:@" "];
-            if (splitString.count > 1) {
-                ageRating = [(NSString*)splitString[1] intValue];
-            }
-        }
-        if (ageRating >= kWatershedAge) {
+        if ([ageString isEqualToString:@"FSK16"]) {
             [self presentPinOn:rootViewController
                      container:container
            playerConfiguration:configuration
