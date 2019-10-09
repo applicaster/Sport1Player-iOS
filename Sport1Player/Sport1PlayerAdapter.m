@@ -47,7 +47,17 @@ static int kWatershedAge = 16;
     instance.currentPlayableItem = items.firstObject;
     instance.currentPlayableItems = items;
     
+    [[NSNotificationCenter defaultCenter] addObserver:instance
+                                             selector:@selector(applicationWillEnterForegroundNotificationHandler)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
+    
     return instance;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 #pragma mark - Livestream
 -(void)createLivestreamPinCheck {
@@ -329,6 +339,10 @@ andPlayerConfiguration:configuration];
                                                                          andAmendedURL:amendedURL];
         return amended;
     } else {return current;}
+}
+#pragma mark - Handlers
+-(void)applicationWillEnterForegroundNotificationHandler {
+    [self shouldPresentPin];
 }
 
 @end
