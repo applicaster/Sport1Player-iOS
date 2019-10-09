@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Sport1Player"
-  s.version          = '1.1.5'
+  s.version          = '1.1.6'
   s.summary          = "Sport1Player"
   s.description      = <<-DESC
                         Player for Sport1, based off JWPlayer.
@@ -26,8 +26,8 @@ Pod::Spec.new do |s|
                   'OTHER_LDFLAGS' => '$(inherited) -framework "JWPlayer_iOS_SDK"'
                   }
 
-  #Using ZappPlugins 9.3.0 until JWPlayerPlugin 3.2.3 is updated.
-  s.dependency 'ZappPlugins', '~> 9.3.0'
+  #Using ZappPlugins 9.1.0 until JWPlayerPlugin 3.2.3 is updated.
+  s.dependency 'ZappPlugins', '~> 9.1'
   s.dependency 'JWPlayerPlugin'
   s.dependency 'PluginPresenter'
 

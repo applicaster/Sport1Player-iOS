@@ -33,12 +33,37 @@ static NSString *const kLivestreamStart = @"start";
     return self;
 }
 
-- (void)updateLivestreamAgeData {
-    if (self.livestreamURL.length == 0) {return;}
+-(void)updateLivestreamAgeDataWithCompletion:(void (^)(BOOL success))completionHandler {
+    if (self.livestreamURL.length == 0) {completionHandler(NO);}
     NSURL *url = [NSURL URLWithString:self.livestreamURL];
-    NSData *data = [NSData dataWithContentsOfURL:url];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:url
+                                             cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                         timeoutInterval:10.0];
+    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request
+                                                                 completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                                                                     if (error != nil) {
+                                                                         NSLog(@"<ERROR>Sport1Player: %@", error.localizedDescription);
+                                                                         completionHandler(NO);
+                                                                     }
+                                                                     
+                                                                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                                                         [self updateWithData:data];
+                                                                         completionHandler(YES);
+                                                                     }];
+                                                                 }];
+    [task resume];
+}
+
+- (void)updateWithData:(NSData*)data {
     NSError *error = nil;
     NSDictionary *livestreamJSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+    
+    if (error != nil) {
+        NSLog(@"<ERROR>Sport1Player: %@", error.localizedDescription);
+        return;
+    }
+    if (livestreamJSON == nil) {return;}
     
     NSNumber *restrictionEnd = livestreamJSON[kAgeRestrictionEnd];
     NSNumber *restrictionStart = livestreamJSON[kAgeRestrictionStart];
@@ -100,9 +125,7 @@ static NSString *const kLivestreamStart = @"start";
     if ([self.ageRestrictionEnd compare:now] == NSOrderedDescending &&
         [self.ageRestrictionStart compare:now] == NSOrderedAscending) {
         return YES;
-    } else {
-        return NO;
-    }
+    } else { return NO; }
 }
 
 @end
