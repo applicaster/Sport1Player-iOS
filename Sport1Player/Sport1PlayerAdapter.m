@@ -306,7 +306,8 @@ andPlayerConfiguration:configuration];
 #pragma mark - Livestream Pin Presentation
 -(void)shouldPresentPin {
     [self.livestreamPinValidation updateLivestreamAgeDataWithCompletion:^(BOOL success) {
-        if (success) {
+        //Check if player is visible
+        if (success && self.playerViewController.viewIfLoaded.window != nil) {
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 if ([self.livestreamPinValidation shouldDisplayPin]) {
                     [self presentPinOn:self.playerViewController
