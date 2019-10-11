@@ -12,7 +12,7 @@
   "platform": "ios",
   "author_name": "Oliver Stowell",
   "author_email": "o.stowell@applicaster.co.uk",
-  "manifest_version": "1.2.0",
+  "manifest_version": "1.2.1",
   "name": "Sport1 Player",
   "description": "Sport1 wrapper for JWPlayer",
   "type": "player",
@@ -20,7 +20,7 @@
   "identifier": "sport1player",
   "ui_builder_support": true,
   "dependency_name": "Sport1Player",
-  "dependency_version": "1.2.0",
+  "dependency_version": "1.2.1",
   "whitelisted_account_ids": [
     "5d1b6753564117000de4bb60"
   ],
