@@ -9,8 +9,6 @@
 #import "Sport1PlayerLivestreamAge.h"
 
 static NSString *const kLivestreamURL = @"livestream_url";
-static NSString *const kAgeRestrictionEnd = @"ageRestrictionEnd";
-static NSString *const kAgeRestrictionStart = @"ageRestrictionStart";
 static NSString *const kEPG = @"epg";
 static NSString *const kLivestreamEnd = @"end";
 static NSString *const kLivestreamStart = @"start";
@@ -18,9 +16,8 @@ static NSString *const kLivestreamStart = @"start";
 @interface Sport1PlayerLivestreamPin ()
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) NSString *livestreamURL;
-@property (nonatomic) NSDate *ageRestrictionEnd;
-@property (nonatomic) NSDate *ageRestrictionStart;
 @property (nonatomic) NSDate *livestreamEnd;
+@property (nonatomic) BOOL ageRestricted;
 @end
 
 @implementation Sport1PlayerLivestreamPin
@@ -65,15 +62,12 @@ static NSString *const kLivestreamStart = @"start";
     }
     if (livestreamJSON == nil) {return;}
     
-    NSNumber *restrictionEnd = livestreamJSON[kAgeRestrictionEnd];
-    NSNumber *restrictionStart = livestreamJSON[kAgeRestrictionStart];
-    
-    self.ageRestrictionEnd = [NSDate dateWithTimeIntervalSince1970:restrictionEnd.intValue];
-    self.ageRestrictionStart = [NSDate dateWithTimeIntervalSince1970:restrictionStart.intValue];
-    
     NSDictionary *current = [self currentLivestreamFromJSON:livestreamJSON];
     if (current) {
         self.livestreamEnd = [self dateFromString:current[kLivestreamEnd]];
+        
+        if ([current.allKeys containsObject:kFSKKey]) {self.ageRestricted = YES;}
+        else {self.ageRestricted = NO;}
         
         if (self.timer != nil) {
             [self.timer invalidate];
@@ -121,11 +115,7 @@ static NSString *const kLivestreamStart = @"start";
 }
 
 -(BOOL)shouldDisplayPin {
-    NSDate *now = [NSDate date];
-    if ([self.ageRestrictionEnd compare:now] == NSOrderedDescending &&
-        [self.ageRestrictionStart compare:now] == NSOrderedAscending) {
-        return YES;
-    } else { return NO; }
+    return self.ageRestricted;
 }
 
 @end
