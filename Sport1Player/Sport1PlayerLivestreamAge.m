@@ -9,18 +9,16 @@
 #import "Sport1PlayerLivestreamAge.h"
 
 static NSString *const kLivestreamURL = @"livestream_url";
-static NSString *const kAgeRestrictionEnd = @"ageRestrictionEnd";
-static NSString *const kAgeRestrictionStart = @"ageRestrictionStart";
 static NSString *const kEPG = @"epg";
 static NSString *const kLivestreamEnd = @"end";
 static NSString *const kLivestreamStart = @"start";
 
 @interface Sport1PlayerLivestreamPin ()
+@property (nonatomic, strong) NSDictionary *nextLivestream;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) NSString *livestreamURL;
-@property (nonatomic) NSDate *ageRestrictionEnd;
-@property (nonatomic) NSDate *ageRestrictionStart;
 @property (nonatomic) NSDate *livestreamEnd;
+@property (nonatomic) BOOL ageRestricted;
 @end
 
 @implementation Sport1PlayerLivestreamPin
@@ -35,6 +33,12 @@ static NSString *const kLivestreamStart = @"start";
 
 -(void)updateLivestreamAgeDataWithCompletion:(void (^)(BOOL success))completionHandler {
     if (self.livestreamURL.length == 0) {completionHandler(NO);}
+    BOOL ranCompletion = NO;
+    if (self.nextLivestream != nil) {
+        [self updateAgeRestriction:self.nextLivestream];
+        completionHandler(YES);
+        ranCompletion = YES;
+    }
     NSURL *url = [NSURL URLWithString:self.livestreamURL];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:url
@@ -44,12 +48,16 @@ static NSString *const kLivestreamStart = @"start";
                                                                  completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
                                                                      if (error != nil) {
                                                                          NSLog(@"<ERROR>Sport1Player: %@", error.localizedDescription);
-                                                                         completionHandler(NO);
+                                                                         NSLog(@"Retrying connection");
+                                                                         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                                                             [self updateLivestreamAgeDataWithCompletion:completionHandler];
+                                                                         });
+                                                                         return;
                                                                      }
                                                                      
                                                                      [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                                                                          [self updateWithData:data];
-                                                                         completionHandler(YES);
+                                                                         if (!ranCompletion) {completionHandler(YES);}
                                                                      }];
                                                                  }];
     [task resume];
@@ -65,15 +73,13 @@ static NSString *const kLivestreamStart = @"start";
     }
     if (livestreamJSON == nil) {return;}
     
-    NSNumber *restrictionEnd = livestreamJSON[kAgeRestrictionEnd];
-    NSNumber *restrictionStart = livestreamJSON[kAgeRestrictionStart];
-    
-    self.ageRestrictionEnd = [NSDate dateWithTimeIntervalSince1970:restrictionEnd.intValue];
-    self.ageRestrictionStart = [NSDate dateWithTimeIntervalSince1970:restrictionStart.intValue];
-    
     NSDictionary *current = [self currentLivestreamFromJSON:livestreamJSON];
     if (current) {
+        self.nextLivestream = [self livestreamFromJSON:livestreamJSON
+                                             withStart:current[kLivestreamEnd]];
         self.livestreamEnd = [self dateFromString:current[kLivestreamEnd]];
+        
+        [self updateAgeRestriction:current];
         
         if (self.timer != nil) {
             [self.timer invalidate];
@@ -113,6 +119,7 @@ static NSString *const kLivestreamStart = @"start";
         
         if ([end compare:now] == NSOrderedDescending &
             [start compare:now] == NSOrderedAscending) {
+            NSLog(@"[!]: currentEnd: %@", end);
             return livestream;
         }
     }
@@ -120,12 +127,30 @@ static NSString *const kLivestreamStart = @"start";
     return nil;
 }
 
+-(NSDictionary* _Nullable)livestreamFromJSON:(NSDictionary*)livestreamJSON withStart:(NSString*)start {
+    NSArray *epg = livestreamJSON[kEPG];
+    
+    for (NSDictionary *livestream in epg) {
+        NSString *nextStart = livestream[kLivestreamStart];
+        
+        if ([nextStart isEqualToString:start]) {
+            return livestream;
+        }
+    }
+    
+    return nil;
+}
+
+-(void)updateAgeRestriction:(NSDictionary*)currentLivestream {
+    if ([currentLivestream.allKeys containsObject:kFSKKey]) {
+        if ([[currentLivestream[kFSKKey] stringByReplacingOccurrencesOfString:@" " withString:@""] isEqualToString:kFSK16]) {
+            self.ageRestricted = YES;
+        } else {self.ageRestricted = NO;}
+    } else {self.ageRestricted = NO;}
+}
+
 -(BOOL)shouldDisplayPin {
-    NSDate *now = [NSDate date];
-    if ([self.ageRestrictionEnd compare:now] == NSOrderedDescending &&
-        [self.ageRestrictionStart compare:now] == NSOrderedAscending) {
-        return YES;
-    } else { return NO; }
+    return self.ageRestricted;
 }
 
 @end
