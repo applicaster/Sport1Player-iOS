@@ -76,7 +76,7 @@ static NSString *const kLivestreamStart = @"start";
     NSDictionary *current = [self currentLivestreamFromJSON:livestreamJSON];
     if (current) {
         self.nextLivestream = [self livestreamFromJSON:livestreamJSON
-                                             withStart:current[kLivestreamStart]];
+                                             withStart:current[kLivestreamEnd]];
         self.livestreamEnd = [self dateFromString:current[kLivestreamEnd]];
         
         [self updateAgeRestriction:current];
