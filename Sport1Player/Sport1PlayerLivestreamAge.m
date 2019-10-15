@@ -41,7 +41,11 @@ static NSString *const kLivestreamStart = @"start";
                                                                  completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
                                                                      if (error != nil) {
                                                                          NSLog(@"<ERROR>Sport1Player: %@", error.localizedDescription);
-                                                                         completionHandler(NO);
+                                                                         NSLog(@"Retrying connection");
+                                                                         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                                                             [self updateLivestreamAgeDataWithCompletion:completionHandler];
+                                                                         });
+                                                                         return;
                                                                      }
                                                                      
                                                                      [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -66,8 +70,11 @@ static NSString *const kLivestreamStart = @"start";
     if (current) {
         self.livestreamEnd = [self dateFromString:current[kLivestreamEnd]];
         
-        if ([current.allKeys containsObject:kFSKKey]) {self.ageRestricted = YES;}
-        else {self.ageRestricted = NO;}
+        if ([current.allKeys containsObject:kFSKKey]) {
+            if ([[current[kFSKKey] stringByReplacingOccurrencesOfString:@" " withString:@""] isEqualToString:kFSK16]) {
+                self.ageRestricted = YES;
+            } else {self.ageRestricted = NO;}
+        } else {self.ageRestricted = NO;}
         
         if (self.timer != nil) {
             [self.timer invalidate];

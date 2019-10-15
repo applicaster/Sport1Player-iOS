@@ -21,7 +21,6 @@ static NSString *const kPlayableItemsKey = @"playable_items";
 static NSString *const kPluginName = @"pin_validation_plugin_id";
 static NSString *const kTokenName = @"stream_token";
 static NSString *const kNameSpace = @"InPlayer.v1";
-static NSString *const kFSK16 = @"FSK16";
 
 @interface Sport1PlayerAdapter ()
 @property (nonatomic, strong) Sport1PlayerLivestreamPin *livestreamPinValidation;

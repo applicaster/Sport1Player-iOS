@@ -12,6 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 static NSString *const kFSKKey = @"fsk";
+static NSString *const kFSK16 = @"FSK16";
 
 @interface Sport1PlayerLivestreamPin : NSObject
 
