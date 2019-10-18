@@ -3,7 +3,6 @@ source 'git@github.com:CocoaPods/Specs.git'
 source 'git@github.com:applicaster/CocoaPods-Private.git'
 source 'git@github.com:applicaster/CocoaPods.git'
 source 'git@github.com:applicaster/PluginPresenter-iOS.git'
-source 'git@github.com:applicaster/GermanAgeVerification-iOS.git'
 
 use_frameworks!
 
