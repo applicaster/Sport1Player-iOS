@@ -366,7 +366,19 @@ andPlayerConfiguration:configuration];
                                 || statusCode.integerValue == 403) {
 
                                 // trying to get token one more time if status code 401, 403
-                                [self amendIfLivestreamModified:current callback:completion];
+
+                                NSObject<ZPLoginProviderUserDataProtocol> *loginPlugin = [[ZPLoginManager sharedInstance] createWithUserData];
+
+                                [loginPlugin login:@{} completion:^(enum ZPLoginOperationStatus result) {
+
+                                    if (result == ZPLoginOperationStatusCompletedSuccessfully) {
+                                        [self amendIfLivestreamModified:current callback:completion];
+                                        return ;
+                                    }
+
+                                    NSLog(@"<ERROR>Sport1Player: Can't refresh token, error type = %li", (long)result);
+
+                                }];
 
                                 return;
                             }
