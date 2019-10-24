@@ -68,7 +68,7 @@ SPEC REPOS:
     - ZappPlugins
   "git@github.com:applicaster/PluginPresenter-iOS.git":
     - PluginPresenter
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - CocoaLumberjack
     - FBSDKCoreKit
@@ -99,6 +99,6 @@ SPEC CHECKSUMS:
   ZappPlugins: a9b9b91d36aea7b04a996e3b0e29929317670976
   ZappPushPluginsSDK: 2062e2487f3ac877c0ab1a807d1a7f8d357bd333
 
-PODFILE CHECKSUM: 2ddf44867a5788bbbc59a5d900f0bfa16e120d5d
+PODFILE CHECKSUM: 0b7a92ec7bebcb627238d46addce663fe061cf68
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.8.3

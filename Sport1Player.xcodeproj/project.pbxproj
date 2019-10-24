@@ -110,17 +110,17 @@
 		5280B5C92316A2C30095CFBF /* Sport1Player */ = {
 			isa = PBXGroup;
 			children = (
-				5280B5CA2316A2C30095CFBF /* Sport1Player.h */,
-				52B2BB5D2319279A00842E2A /* ZappJWPlayer+Public.h */,
+				5280B5CB2316A2C30095CFBF /* Info.plist */,
 				528F3B6A232AA65400438808 /* JWPlayerViewController+Public.h */,
+				5280B5CA2316A2C30095CFBF /* Sport1Player.h */,
 				529D8E652316BF780091A875 /* Sport1PlayerAdapter.h */,
 				529D8E662316BF780091A875 /* Sport1PlayerAdapter.m */,
 				5221B5162319330A006DD39B /* Sport1PlayerLivestreamAge.h */,
 				5221B5172319330A006DD39B /* Sport1PlayerLivestreamAge.m */,
 				52F5E3CA232BD127001AE10B /* Sport1StreamPlayable.h */,
 				52F5E3CB232BD127001AE10B /* Sport1StreamPlayable.m */,
-				5280B5CB2316A2C30095CFBF /* Info.plist */,
 				522E24F42321126900008382 /* SwiftFile.swift */,
+				52B2BB5D2319279A00842E2A /* ZappJWPlayer+Public.h */,
 			);
 			path = Sport1Player;
 			sourceTree = "<group>";
