@@ -21,6 +21,7 @@ static NSString *const kPlayableItemsKey = @"playable_items";
 static NSString *const kPluginName = @"pin_validation_plugin_id";
 static NSString *const kTokenName = @"stream_token";
 static NSString *const kNameSpace = @"InPlayer.v1";
+static NSString *const kAuthIdKey = @"auth_id";
 
 @interface Sport1PlayerAdapter ()
 @property (nonatomic, strong) Sport1PlayerLivestreamPin *livestreamPinValidation;
@@ -32,25 +33,25 @@ static NSString *const kNameSpace = @"InPlayer.v1";
 
 + (id<ZPPlayerProtocol>)pluggablePlayerInitWithPlayableItems:(NSArray<id<ZPPlayable>> *)items configurationJSON:(NSDictionary *)configurationJSON {
     NSString *playerKey = configurationJSON[@"playerKey"];
-    
+
     if (![playerKey isNotEmptyOrWhiteSpaces]) {
         return nil;
     }
-    
+
     [JWPlayerController setPlayerKey:playerKey];
-    
+
     Sport1PlayerAdapter *instance = [Sport1PlayerAdapter new];
     instance.configurationJSON = configurationJSON;
     instance.playerViewController = [JWPlayerViewController new];
     instance.playerViewController.configurationJSON = configurationJSON;
     instance.currentPlayableItem = items.firstObject;
     instance.currentPlayableItems = items;
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:instance
                                              selector:@selector(applicationWillEnterForegroundNotificationHandler)
                                                  name:UIApplicationWillEnterForegroundNotification
                                                object:nil];
-    
+
     return instance;
 }
 
@@ -137,7 +138,7 @@ andPlayerConfiguration:configuration];
         NSObject<ZPLoginProviderUserDataProtocol> *loginPlugin = [[ZPLoginManager sharedInstance] createWithUserData];
         NSDictionary *extensions = [NSDictionary dictionaryWithObject:self.currentPlayableItems
                                                                forKey:kPlayableItemsKey];
-        
+
         if ([loginPlugin respondsToSelector:@selector(isUserComplyWithPolicies:)]) {
             [self handleUserComply:[loginPlugin isUserComplyWithPolicies:extensions]
                        loginPlugin:loginPlugin
@@ -212,7 +213,7 @@ andPlayerConfiguration:configuration];
 
 -(void)shouldPresentPinFor:(NSObject <ZPPlayable>*)currentPlayableItem container:(UIView*)container rootViewController:(UIViewController*)rootViewController playerConfiguration:(ZPPlayerConfiguration * _Nullable)configuration {
     NSDictionary *trackingInfo = currentPlayableItem.extensionsDictionary[kTrackingInfoKey];
-    
+
     if (![trackingInfo.allKeys containsObject:kAgeRatingKey]) {
         //Is a live stream
         [self.livestreamPinValidation updateLivestreamAgeDataWithCompletion:^(BOOL success) {
@@ -244,7 +245,7 @@ andPlayerConfiguration:configuration];
                 }];
             }
         }];
-        
+
         return;
     }
     // Is not a live stream
@@ -258,7 +259,7 @@ andPlayerConfiguration:configuration];
             return;
         }
     }
-    
+
     if (container == nil) {
         [super playFullScreen:rootViewController
                 configuration:configuration
@@ -273,17 +274,17 @@ andPlayerConfiguration:configuration];
 
 -(void)presentPinOn:(UIViewController*)rootViewController container:(UIView*)container playerConfiguration:(ZPPlayerConfiguration * _Nullable)configuration fromLivestreamPin:(BOOL)fromLivestreamPin {
     ZPPluginModel *pluginModel = [ZPPluginManager pluginModelById:self.configurationJSON[kPluginName]];
-    
+
     if (pluginModel == nil) {
         //currently this fails without warning & doesn't display player.
         self.livestreamPinValidation = nil;
         return;
     }
-    
+
     Class pluginClass = [ZPPluginManager adapterClass:pluginModel];
     if ([pluginClass conformsToProtocol:@protocol(ZPAdapterProtocol)]) {
         NSObject <PluginPresenterProtocol> *plugin = [[pluginClass alloc] initWithConfigurationJSON:[pluginModel configurationJSON]];
-        
+
         if ([plugin conformsToProtocol:@protocol(PluginPresenterProtocol)]) {
             [plugin presentPluginWithParentViewController:rootViewController
                                                 extraData:nil completion:^(BOOL success, id _Nullable data) {
@@ -340,37 +341,52 @@ andPlayerConfiguration:configuration];
 - (void)amendIfLivestreamModified:(NSObject <ZPPlayable>*)current
                          callback:(void (^)(NSObject <ZPPlayable>* amended))completion {
 
-    if (!current.isLive) {
+    NSString *authIdKey = current.extensionsDictionary[kAuthIdKey];
+    NSString *authIdKeyFirstPart = [authIdKey componentsSeparatedByString:@"_"].firstObject;
+
+    if (!current.isLive || !authIdKeyFirstPart) {
         completion(current);
         return;
     }
 
-    [Sport1PlayerAdapter getStreamTokenFromAPI:^(BOOL success, NSString *streamToken) {
-        if (!success || !streamToken) {
-            completion(current);
-            return;
-        }
+    [self getStreamTokenFromAPI:authIdKeyFirstPart
+                        success:^(NSString *streamToken) {
 
-        NSString *amendedURL = [NSString stringWithFormat:@"%@?access_token=%@", current.contentVideoURLPath, streamToken];
+                            NSString *amendedURL = [NSString stringWithFormat:@"%@?access_token=%@", current.contentVideoURLPath, streamToken];
 
-        Sport1StreamPlayable *amended =
-        [Sport1StreamPlayable.new initWithOriginal:current
-                                     andAmendedURL:amendedURL];
+                            Sport1StreamPlayable *amended =
+                            [Sport1StreamPlayable.new initWithOriginal:current
+                                                         andAmendedURL:amendedURL];
 
-        completion(amended);
-    }];
+                            completion(amended);
+
+                        } failure:^(NSNumber *statusCode) {
+
+                            if (statusCode.integerValue == 401
+                                || statusCode.integerValue == 403) {
+
+                                // trying to get token one more time if status code 401, 403
+                                [self amendIfLivestreamModified:current callback:completion];
+
+                                return;
+                            }
+
+                            completion(current);
+                        }];
 }
 
-+ (void)getStreamTokenFromAPI:(void (^)(BOOL success, NSString *streamToken))completion {
+- (void)getStreamTokenFromAPI:(NSString *)authId
+                      success:(void (^)(NSString *streamToken))success
+                      failure:(void (^)(NSNumber *statusCode))failure {
 
     NSString *userToken = [[ZPLoginManager.sharedInstance createWithUserData] getUserToken];
 
     if (!userToken) {
-        completion(NO, nil);
+        failure(nil);
         return;
     }
 
-    NSURL *url = [NSURL URLWithString:@"https://services.inplayer.com/items/71614/access"];
+    NSURL *url = [NSURL URLWithString: [NSString stringWithFormat:@"https://services.inplayer.com/items/%@/access", authId]];
 
     NSMutableURLRequest *request =
     [NSMutableURLRequest requestWithURL:url
@@ -385,18 +401,24 @@ andPlayerConfiguration:configuration];
 
                                         if (error != nil) {
                                             NSLog(@"<ERROR>Sport1Player: %@", error.localizedDescription);
-                                            completion(NO, nil);
+
+                                            if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+                                                failure(@( ((NSHTTPURLResponse *)response).statusCode));
+                                                return;
+                                            }
+
+                                            failure(nil);
                                             return;
                                         }
 
                                         NSString *streamToken = [Sport1PlayerAdapter parseStreamTokenResponse:data];
                                         if (!streamToken) {
-                                            completion(NO, nil);
+                                            failure(nil);
                                             return;
                                         }
 
                                         [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                                            completion(YES, streamToken);
+                                            success(streamToken);
                                         }];
                                     }];
     [task resume];
