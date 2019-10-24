@@ -369,14 +369,26 @@ andPlayerConfiguration:configuration];
 
                                 NSObject<ZPLoginProviderUserDataProtocol> *loginPlugin = [[ZPLoginManager sharedInstance] createWithUserData];
 
-                                [loginPlugin login:@{} completion:^(enum ZPLoginOperationStatus result) {
+                                [loginPlugin logout:^(enum ZPLoginOperationStatus signOutStatus) {
 
-                                    if (result == ZPLoginOperationStatusCompletedSuccessfully) {
-                                        [self amendIfLivestreamModified:current callback:completion];
-                                        return ;
+                                    if (signOutStatus != ZPLoginOperationStatusCompletedSuccessfully) {
+                                        NSLog(@"<ERROR>Sport1Player: Can't sign out, error type = %li", (long)signOutStatus);
+                                        completion(current);
+                                        return;
                                     }
 
-                                    NSLog(@"<ERROR>Sport1Player: Can't refresh token, error type = %li", (long)result);
+                                    [loginPlugin login:@{} completion:^(enum ZPLoginOperationStatus result) {
+
+                                        if (result != ZPLoginOperationStatusCompletedSuccessfully) {
+                                            NSLog(@"<ERROR>Sport1Player: Can't refresh token, error type = %li", (long)result);
+                                            completion(current);
+                                            return;
+                                        }
+
+                                        [self amendIfLivestreamModified:current callback:completion];
+                                        return;
+
+                                    }];
 
                                 }];
 
