@@ -16,6 +16,8 @@
 		5280B5D82316A2C40095CFBF /* Sport1Player.h in Headers */ = {isa = PBXBuildFile; fileRef = 5280B5CA2316A2C30095CFBF /* Sport1Player.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		529D8E672316BF780091A875 /* Sport1PlayerAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 529D8E652316BF780091A875 /* Sport1PlayerAdapter.h */; };
 		529D8E682316BF780091A875 /* Sport1PlayerAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 529D8E662316BF780091A875 /* Sport1PlayerAdapter.m */; };
+		52B7033F2369E0CC0037AFE2 /* MockZPPluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B7033E2369E0CC0037AFE2 /* MockZPPluginManager.m */; };
+		52B703432369E66C0037AFE2 /* MockPluginPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B703422369E66C0037AFE2 /* MockPluginPresenter.m */; };
 		52F5E3CC232BD127001AE10B /* Sport1StreamPlayable.h in Headers */ = {isa = PBXBuildFile; fileRef = 52F5E3CA232BD127001AE10B /* Sport1StreamPlayable.h */; };
 		52F5E3CD232BD127001AE10B /* Sport1StreamPlayable.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F5E3CB232BD127001AE10B /* Sport1StreamPlayable.m */; };
 		83E7CF34A944EBE921F88E4A /* Pods_Sport1PlayerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC0D51FCA4195C50DEB61587 /* Pods_Sport1PlayerTests.framework */; };
@@ -49,6 +51,10 @@
 		529D8E652316BF780091A875 /* Sport1PlayerAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sport1PlayerAdapter.h; sourceTree = "<group>"; };
 		529D8E662316BF780091A875 /* Sport1PlayerAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sport1PlayerAdapter.m; sourceTree = "<group>"; };
 		52B2BB5D2319279A00842E2A /* ZappJWPlayer+Public.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ZappJWPlayer+Public.h"; sourceTree = "<group>"; };
+		52B7033D2369E0CC0037AFE2 /* MockZPPluginManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MockZPPluginManager.h; sourceTree = "<group>"; };
+		52B7033E2369E0CC0037AFE2 /* MockZPPluginManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MockZPPluginManager.m; sourceTree = "<group>"; };
+		52B703412369E66C0037AFE2 /* MockPluginPresenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MockPluginPresenter.h; sourceTree = "<group>"; };
+		52B703422369E66C0037AFE2 /* MockPluginPresenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MockPluginPresenter.m; sourceTree = "<group>"; };
 		52F5E3CA232BD127001AE10B /* Sport1StreamPlayable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sport1StreamPlayable.h; sourceTree = "<group>"; };
 		52F5E3CB232BD127001AE10B /* Sport1StreamPlayable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sport1StreamPlayable.m; sourceTree = "<group>"; };
 		6D87A9BFB29B93133E228142 /* Pods-Sport1Player.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sport1Player.release.xcconfig"; path = "Target Support Files/Pods-Sport1Player/Pods-Sport1Player.release.xcconfig"; sourceTree = "<group>"; };
@@ -129,9 +135,21 @@
 			isa = PBXGroup;
 			children = (
 				5280B5D52316A2C40095CFBF /* Sport1PlayerTests.m */,
+				52B703402369E5CA0037AFE2 /* Mocks */,
 				5280B5D72316A2C40095CFBF /* Info.plist */,
 			);
 			path = Sport1PlayerTests;
+			sourceTree = "<group>";
+		};
+		52B703402369E5CA0037AFE2 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				52B7033D2369E0CC0037AFE2 /* MockZPPluginManager.h */,
+				52B7033E2369E0CC0037AFE2 /* MockZPPluginManager.m */,
+				52B703412369E66C0037AFE2 /* MockPluginPresenter.h */,
+				52B703422369E66C0037AFE2 /* MockPluginPresenter.m */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		D7345E7CE8F1E73399C920A5 /* Frameworks */ = {
@@ -368,6 +386,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52B703432369E66C0037AFE2 /* MockPluginPresenter.m in Sources */,
+				52B7033F2369E0CC0037AFE2 /* MockZPPluginManager.m in Sources */,
 				5280B5D62316A2C40095CFBF /* Sport1PlayerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

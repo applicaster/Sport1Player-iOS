@@ -7,7 +7,6 @@
 //
 
 @import ZappLoginPluginsSDK;
-@import ZappPlugins;
 @import PluginPresenter;
 #import "Sport1PlayerAdapter.h"
 #import <JWPlayer_iOS_SDK/JWPlayerController.h>
@@ -15,7 +14,6 @@
 #import "JWPlayerViewController+Public.h"
 #import "Sport1StreamPlayable.h"
 
-static NSString *const kTrackingInfoKey = @"tracking_info";
 static NSString *const kAgeRatingKey = @"age_rating";
 static NSString *const kPlayableItemsKey = @"playable_items";
 static NSString *const kPluginName = @"pin_validation_plugin_id";
@@ -46,6 +44,7 @@ static NSString *const kAuthIdKey = @"auth_id";
     instance.playerViewController.configurationJSON = configurationJSON;
     instance.currentPlayableItem = items.firstObject;
     instance.currentPlayableItems = items;
+    instance.pluginManager = [ZPPluginManager class];
 
     [[NSNotificationCenter defaultCenter] addObserver:instance
                                              selector:@selector(applicationWillEnterForegroundNotificationHandler)
