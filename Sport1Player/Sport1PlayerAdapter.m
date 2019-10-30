@@ -223,7 +223,7 @@ andPlayerConfiguration:configuration];
                         [self presentPinOn:rootViewController
                                  container:container
                        playerConfiguration:configuration
-                         fromLivestreamPin:NO];
+                   alreadyDisplayingPlayer:NO];
                     } else {
 
                         [self amendIfLivestreamModified:self.currentPlayableItem
@@ -255,7 +255,7 @@ andPlayerConfiguration:configuration];
             [self presentPinOn:rootViewController
                      container:container
            playerConfiguration:configuration
-             fromLivestreamPin:NO];
+       alreadyDisplayingPlayer:NO];
             return;
         }
     }
@@ -272,7 +272,7 @@ andPlayerConfiguration:configuration];
     }
 }
 
--(void)presentPinOn:(UIViewController*)rootViewController container:(UIView*)container playerConfiguration:(ZPPlayerConfiguration * _Nullable)configuration fromLivestreamPin:(BOOL)fromLivestreamPin {
+-(void)presentPinOn:(UIViewController*)rootViewController container:(UIView*)container playerConfiguration:(ZPPlayerConfiguration * _Nullable)configuration alreadyDisplayingPlayer:(BOOL)fromLivestreamPin {
     ZPPluginModel *pluginModel = [ZPPluginManager pluginModelById:self.configurationJSON[kPluginName]];
 
     if (pluginModel == nil) {
@@ -315,19 +315,36 @@ andPlayerConfiguration:configuration];
 }
 #pragma mark - Livestream Pin Presentation
 -(void)shouldPresentPin {
-    [self.livestreamPinValidation updateLivestreamAgeDataWithCompletion:^(BOOL success) {
-        //Check if player is visible
-        if (success && self.playerViewController.viewIfLoaded.window != nil) {
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                if ([self.livestreamPinValidation shouldDisplayPin]) {
-                    [self presentPinOn:self.playerViewController
-                             container:self.container
-                   playerConfiguration:self.playerConfiguration
-                     fromLivestreamPin:YES];
-                }
-            }];
+    NSDictionary *trackingInfo = self.currentPlayableItem.extensionsDictionary[kTrackingInfoKey];
+    
+    if (![trackingInfo.allKeys containsObject:kAgeRatingKey]) {
+        [self.livestreamPinValidation updateLivestreamAgeDataWithCompletion:^(BOOL success) {
+            //Check if player is visible
+            if (success && self.playerViewController.viewIfLoaded.window != nil) {
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    if ([self.livestreamPinValidation shouldDisplayPin]) {
+                        [self presentPinOn:self.playerViewController
+                                 container:self.container
+                       playerConfiguration:self.playerConfiguration
+                   alreadyDisplayingPlayer:YES];
+                    }
+                }];
+            }
+        }];
+        return;
+    } else {
+        // Is not a live stream
+        NSString *ageString = trackingInfo[kFSKKey];
+        if ((id)ageString != [NSNull null]) {
+            if ([ageString isEqualToString:kFSK16]) {
+                [self presentPinOn:self.playerViewController
+                         container:self.container
+               playerConfiguration:self.playerConfiguration
+           alreadyDisplayingPlayer:YES];
+                return;
+            }
         }
-    }];
+    }
 }
 
 #pragma mark - Handlers
