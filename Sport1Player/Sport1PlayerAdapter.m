@@ -14,7 +14,6 @@
 #import "JWPlayerViewController+Public.h"
 #import "Sport1StreamPlayable.h"
 
-static NSString *const kAgeRatingKey = @"age_rating";
 static NSString *const kPlayableItemsKey = @"playable_items";
 static NSString *const kPluginName = @"pin_validation_plugin_id";
 static NSString *const kTokenName = @"stream_token";
@@ -40,6 +39,7 @@ static NSString *const kAuthIdKey = @"auth_id";
 
     Sport1PlayerAdapter *instance = [Sport1PlayerAdapter new];
     instance.configurationJSON = configurationJSON;
+    NSLog(@"!!\n%@", configurationJSON);
     instance.playerViewController = [JWPlayerViewController new];
     instance.playerViewController.configurationJSON = configurationJSON;
     instance.currentPlayableItem = items.firstObject;

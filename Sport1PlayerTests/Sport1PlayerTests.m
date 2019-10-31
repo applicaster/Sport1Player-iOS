@@ -7,6 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import <UIKit/UIKit.h>
 #import "MockZPPluginManager.h"
 #import "MockPluginPresenter.h"
 #import "Sport1PlayerAdapter.h"
@@ -35,11 +36,27 @@
     
     //setup playable item
     APAtomEntryPlayable *playableItem = [[APAtomEntryPlayable alloc] init];
-    NSDictionary *extensions = [[NSDictionary alloc] initWithObjectsAndKeys:kFSK16, kTrackingInfoKey, nil];
+    NSDictionary *extensions = [[NSDictionary alloc] initWithObjectsAndKeys:@{kFSKKey: kFSK16,kAgeRatingKey: @"16"}, kTrackingInfoKey, nil];
     playableItem.extensionsDictionary = extensions;
     
+    NSDictionary *config = [[NSDictionary alloc] initWithObjectsAndKeys:
+                            @"",@"jw_skin_url",
+                            @"",@"live_ad_type",
+                            @"",@"live_midroll_ad_url",
+                            @"",@"live_midroll_offset",
+                            @"",@"live_preroll_ad_url",
+                            @"https://stage-oz.sport1.de/api/ottv1/1/livestream/teaser",@"livestream_url",
+                            @"",@"lock_landscape",
+                            @"InPlayerWebviewPinVerification",@"pin_validation_plugin_id",
+                            @"25ZmaqJ+q4clikN2rhBlpZ+adUHg+ZT2zpmhwA==",@"playerKey",
+                            @"",@"vod_ad_type",
+                            @"",@"vod_midroll_ad_url",
+                            @"",@"vod_midroll_offset",
+                            @"",@"vod_preroll_ad_url",
+                            nil];
+    
     Sport1PlayerAdapter *sut = (Sport1PlayerAdapter*)[Sport1PlayerAdapter pluggablePlayerInitWithPlayableItems:@[playableItem]
-                                                                                             configurationJSON:nil];
+                                                                                             configurationJSON:config];
     sut.pluginManager = [MockZPPluginManager class];
     //send foreground notification
     [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationWillEnterForegroundNotification
