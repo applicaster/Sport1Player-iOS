@@ -15,7 +15,7 @@ static NSString *const kTrackingInfoKey = @"tracking_info";
 static NSString *const kAgeRatingKey = @"age_rating";
 
 @interface Sport1PlayerAdapter : ZappJWPlayerAdapter
-@property (nonatomic) Class<ZPPluginPresenterProtocol> pluginManager;
+@property (nonatomic) Class<ZPPluginManagerProtocol> pluginManager;
 
 -(void)shouldPresentPin;
 

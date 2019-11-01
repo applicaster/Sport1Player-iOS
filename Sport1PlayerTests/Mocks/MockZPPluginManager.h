@@ -7,12 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MockPluginPresenter.h"
 @import ZappPlugins;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MockZPPluginManager : NSObject <ZPPluginManagerProtocol>
-
++(MockPluginPresenter*)getPluginPresenterInstance;
++(void)setPluginPresenterInstance:(MockPluginPresenter*)plugin;
 @end
 
 NS_ASSUME_NONNULL_END

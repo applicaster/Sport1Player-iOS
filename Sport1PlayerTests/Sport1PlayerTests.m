@@ -14,16 +14,31 @@
 #import "Sport1PlayerLivestreamAge.h"
 
 @interface Sport1PlayerTests : XCTestCase
-
+@property (nonatomic, strong) NSDictionary *config;
 @end
 
 @implementation Sport1PlayerTests
 
 - (void)setUp {
+    _config = [[NSDictionary alloc] initWithObjectsAndKeys:
+               @"",@"jw_skin_url",
+               @"",@"live_ad_type",
+               @"",@"live_midroll_ad_url",
+               @"",@"live_midroll_offset",
+               @"",@"live_preroll_ad_url",
+               @"https://stage-oz.sport1.de/api/ottv1/1/livestream/teaser",@"livestream_url",
+               @"",@"lock_landscape",
+               @"InPlayerWebviewPinVerification",@"pin_validation_plugin_id",
+               @"25ZmaqJ+q4clikN2rhBlpZ+adUHg+ZT2zpmhwA==",@"playerKey",
+               @"",@"vod_ad_type",
+               @"",@"vod_midroll_ad_url",
+               @"",@"vod_midroll_offset",
+               @"",@"vod_preroll_ad_url",
+               nil];
 }
 
 - (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
+    [MockZPPluginManager setPluginPresenterInstance:nil];
 }
 
 - (void)testExample {
@@ -32,37 +47,45 @@
 }
 
 -(void)testPinPresenterNeededForVOD {
-    MockPluginPresenter *pluginPresenter = [[MockPluginPresenter alloc] initWithConfigurationJSON:nil];
+    MockPluginPresenter *plugin = [[MockPluginPresenter alloc] initWithConfigurationJSON:nil];
+    [MockZPPluginManager setPluginPresenterInstance:plugin];
     
     //setup playable item
     APAtomEntryPlayable *playableItem = [[APAtomEntryPlayable alloc] init];
     NSDictionary *extensions = [[NSDictionary alloc] initWithObjectsAndKeys:@{kFSKKey: kFSK16,kAgeRatingKey: @"16"}, kTrackingInfoKey, nil];
     playableItem.extensionsDictionary = extensions;
     
-    NSDictionary *config = [[NSDictionary alloc] initWithObjectsAndKeys:
-                            @"",@"jw_skin_url",
-                            @"",@"live_ad_type",
-                            @"",@"live_midroll_ad_url",
-                            @"",@"live_midroll_offset",
-                            @"",@"live_preroll_ad_url",
-                            @"https://stage-oz.sport1.de/api/ottv1/1/livestream/teaser",@"livestream_url",
-                            @"",@"lock_landscape",
-                            @"InPlayerWebviewPinVerification",@"pin_validation_plugin_id",
-                            @"25ZmaqJ+q4clikN2rhBlpZ+adUHg+ZT2zpmhwA==",@"playerKey",
-                            @"",@"vod_ad_type",
-                            @"",@"vod_midroll_ad_url",
-                            @"",@"vod_midroll_offset",
-                            @"",@"vod_preroll_ad_url",
-                            nil];
-    
     Sport1PlayerAdapter *sut = (Sport1PlayerAdapter*)[Sport1PlayerAdapter pluggablePlayerInitWithPlayableItems:@[playableItem]
-                                                                                             configurationJSON:config];
+                                                                                             configurationJSON:_config];
     sut.pluginManager = [MockZPPluginManager class];
     //send foreground notification
     [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationWillEnterForegroundNotification
                                                         object:nil];
+    
     //check the presenter
-    XCTAssertTrue(pluginPresenter.didPresentPlugin);
+    
+    XCTAssertTrue([plugin didPresentPlugin]);
+}
+
+-(void)testPinPresenterNotNeededForVOD {
+    MockPluginPresenter *plugin = [[MockPluginPresenter alloc] initWithConfigurationJSON:nil];
+    [MockZPPluginManager setPluginPresenterInstance:plugin];
+    
+    //setup playable item
+    APAtomEntryPlayable *playableItem = [[APAtomEntryPlayable alloc] init];
+    NSDictionary *extensions = [[NSDictionary alloc] initWithObjectsAndKeys:@{kAgeRatingKey: @"16"}, kTrackingInfoKey, nil];
+    playableItem.extensionsDictionary = extensions;
+    
+    Sport1PlayerAdapter *sut = (Sport1PlayerAdapter*)[Sport1PlayerAdapter pluggablePlayerInitWithPlayableItems:@[playableItem]
+                                                                                             configurationJSON:_config];
+    sut.pluginManager = [MockZPPluginManager class];
+    //send foreground notification
+    [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationWillEnterForegroundNotification
+                                                        object:nil];
+    
+    //check the presenter
+    
+    XCTAssertFalse([plugin didPresentPlugin]);
 }
 
 @end

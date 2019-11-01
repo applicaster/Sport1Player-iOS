@@ -39,7 +39,6 @@ static NSString *const kAuthIdKey = @"auth_id";
 
     Sport1PlayerAdapter *instance = [Sport1PlayerAdapter new];
     instance.configurationJSON = configurationJSON;
-    NSLog(@"!!\n%@", configurationJSON);
     instance.playerViewController = [JWPlayerViewController new];
     instance.playerViewController.configurationJSON = configurationJSON;
     instance.currentPlayableItem = items.firstObject;
@@ -272,7 +271,7 @@ andPlayerConfiguration:configuration];
 }
 
 -(void)presentPinOn:(UIViewController*)rootViewController container:(UIView*)container playerConfiguration:(ZPPlayerConfiguration * _Nullable)configuration alreadyDisplayingPlayer:(BOOL)fromLivestreamPin {
-    ZPPluginModel *pluginModel = [ZPPluginManager pluginModelById:self.configurationJSON[kPluginName]];
+    ZPPluginModel *pluginModel = [self.pluginManager pluginModelById:self.configurationJSON[kPluginName]];
 
     if (pluginModel == nil) {
         //currently this fails without warning & doesn't display player.
@@ -280,36 +279,38 @@ andPlayerConfiguration:configuration];
         return;
     }
 
-    Class pluginClass = [ZPPluginManager adapterClass:pluginModel];
-    if ([pluginClass conformsToProtocol:@protocol(ZPAdapterProtocol)]) {
-        NSObject <PluginPresenterProtocol> *plugin = [[pluginClass alloc] initWithConfigurationJSON:[pluginModel configurationJSON]];
-
-        if ([plugin conformsToProtocol:@protocol(PluginPresenterProtocol)]) {
-            [plugin presentPluginWithParentViewController:rootViewController
-                                                extraData:nil completion:^(BOOL success, id _Nullable data) {
-
-                                                    [self amendIfLivestreamModified:self.currentPlayableItem
-                                                                           callback:^(NSObject<ZPPlayable> *amended) {
-                                                                               self.currentPlayableItem = amended;
-                                                                               if (success && container == nil && !fromLivestreamPin) {
-                                                                                   [super playFullScreen:rootViewController
-                                                                                           configuration:configuration
-                                                                                              completion:nil];
-                                                                               } else if (success && !fromLivestreamPin) {
-                                                                                   [super playInline:rootViewController
-                                                                                           container:container
-                                                                                       configuration:configuration
-                                                                                          completion:nil];
-                                                                               } else if (!success) {
-                                                                                   [self.playerViewController dismiss:nil];
-                                                                                   self.livestreamPinValidation = nil;
-                                                                                   self.container = nil;
-                                                                                   self.playerConfiguration = nil;
-                                                                               }
-
-                                                                           }];
-                                                }];
-        }
+//    Class pluginClass = [self.pluginManager adapterClass:pluginModel];
+//    if ([pluginClass conformsToProtocol:@protocol(ZPAdapterProtocol)]) {
+//
+//    }
+    id<ZPAdapterProtocol> plugin = [self.pluginManager adapter:pluginModel];
+    
+//    NSObject <PluginPresenterProtocol> *plugin = [[pluginClass alloc] initWithConfigurationJSON:[pluginModel configurationJSON]];
+    
+    if ([plugin conformsToProtocol:@protocol(PluginPresenterProtocol)]) {
+        [(id<PluginPresenterProtocol>)plugin presentPluginWithParentViewController:rootViewController
+                                                                         extraData:nil completion:^(BOOL success, id _Nullable data) {
+                                                                             [self amendIfLivestreamModified:self.currentPlayableItem
+                                                                                                    callback:^(NSObject<ZPPlayable> *amended) {
+                                                                                                        self.currentPlayableItem = amended;
+                                                                                                        if (success && container == nil && !fromLivestreamPin) {
+                                                                                                            [super playFullScreen:rootViewController
+                                                                                                                    configuration:configuration
+                                                                                                                       completion:nil];
+                                                                                                        } else if (success && !fromLivestreamPin) {
+                                                                               [super playInline:rootViewController
+                                                                                       container:container
+                                                                                   configuration:configuration
+                                                                                      completion:nil];
+                                                                           } else if (!success) {
+                                                                               [self.playerViewController dismiss:nil];
+                                                                               self.livestreamPinValidation = nil;
+                                                                               self.container = nil;
+                                                                               self.playerConfiguration = nil;
+                                                                           }
+                                                                           
+                                                                       }];
+                                            }];
     }
 }
 #pragma mark - Livestream Pin Presentation

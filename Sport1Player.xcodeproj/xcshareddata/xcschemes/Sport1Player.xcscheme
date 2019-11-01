@@ -37,6 +37,11 @@
                BlueprintName = "Sport1PlayerTests"
                ReferencedContainer = "container:Sport1Player.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "Sport1PlayerTests/testExample">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>

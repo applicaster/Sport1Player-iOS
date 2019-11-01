@@ -7,16 +7,28 @@
 //
 
 #import "MockZPPluginManager.h"
-#import "MockPluginPresenter.h"
 
 @implementation MockZPPluginManager
+static MockPluginPresenter *mockPluginPresenter;
 
 + (ZPPluginModel *)pluginModelById:(NSString *)pluginID {
-    return [[ZPPluginModel alloc] initWithObject:nil];
+    return [[ZPPluginModel alloc] initWithObject:@{@"plugin": @{@"type":@"general", @"identifier": pluginID}}];
 }
 
 + (Class)adapterClass:(ZPPluginModel *)pluginModel {
     return [MockPluginPresenter class];
+}
+
++ (id<ZPAdapterProtocol>)adapter:(ZPPluginModel *)pluginModel {
+    return mockPluginPresenter;
+}
+
++ (MockPluginPresenter *)getPluginPresenterInstance {
+    return mockPluginPresenter;
+}
+
++(void)setPluginPresenterInstance:(MockPluginPresenter*)plugin {
+    mockPluginPresenter = plugin;
 }
 
 @end
