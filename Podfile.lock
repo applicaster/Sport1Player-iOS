@@ -76,7 +76,7 @@ PODS:
   - ZappLoginPluginsSDK (8.0.3):
     - Alamofire
     - ZappPlugins
-  - ZappPlugins (9.4.8)
+  - ZappPlugins (9.4.10)
   - ZappPushPluginsSDK (8.0.2):
     - ZappPlugins
 
@@ -131,7 +131,7 @@ SPEC CHECKSUMS:
   ZappAnalyticsPluginsSDK: 0051d91c14d7c2a6479747b94b64a4067cec14f6
   ZappGeneralPluginsSDK: dad1c0dd6ab2404b6707394436f18b97c197e8cc
   ZappLoginPluginsSDK: 0759a44470bde15635ec97696d0815154ab4a26a
-  ZappPlugins: 1b16d5b3033c9ec530a624a130236df085194794
+  ZappPlugins: ba3bf48307395eb0fc1ee481efc7744b19fb795e
   ZappPushPluginsSDK: 2062e2487f3ac877c0ab1a807d1a7f8d357bd333
 
 PODFILE CHECKSUM: cc4072f42580dd803e1f262681cd86f3f14f2448
