@@ -6,7 +6,8 @@
 //  Copyright © 2019 Applicaster Ltd. All rights reserved.
 //
 
-#import <JWPlayerPlugin/JWPlayerPlugin.h>
+//#import <JWPlayerPlugin/JWPlayerViewController.h>
+#import "JWPlayerViewController+Public.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
