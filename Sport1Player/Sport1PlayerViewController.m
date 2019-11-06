@@ -54,7 +54,6 @@
 }
 
 - (void)setPlayer:(JWPlayerController *)player {
-    
     if (_player) {
         // If we already have a player - first dismiss it
         _player.delegate = nil;
@@ -87,9 +86,9 @@
     [self.view addSubview:player.view];
     [player.view matchParent];
     
-    self.player.fullscreen                 = NO;
-    self.player.forceFullScreenOnLandscape = NO;
-    self.player.forceLandscapeOnFullScreen = NO;
+    player.fullscreen                 = NO;
+    player.forceFullScreenOnLandscape = NO;
+    player.forceLandscapeOnFullScreen = NO;
     
     _player = player;
 }
