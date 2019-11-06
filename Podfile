@@ -12,7 +12,7 @@ use_frameworks!
 end
 
 def shared_pods
-    pod 'ZappPlugins', '9.3.0'
+    pod 'ZappPlugins', '9.4.10'
 	pod 'JWPlayerPlugin'
 	pod 'PluginPresenter'
 end
