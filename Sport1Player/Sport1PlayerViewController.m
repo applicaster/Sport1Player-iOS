@@ -85,7 +85,7 @@
     [self setCloseButtonConstraints:player.view];
     
     [self.view addSubview:player.view];
-    [player.view matchParent]; //TODO: maybe remvove?
+    [player.view matchParent];
     
     self.player.fullscreen                 = NO;
     self.player.forceFullScreenOnLandscape = NO;
