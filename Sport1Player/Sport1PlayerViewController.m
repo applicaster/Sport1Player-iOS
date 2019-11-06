@@ -15,6 +15,10 @@
 
 @implementation Sport1PlayerViewController
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     return [super initWithNibName:@"Sport1PlayerViewController"
                            bundle:[NSBundle bundleForClass:[Sport1PlayerViewController class]]];
@@ -22,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -43,7 +47,6 @@
     [self.view setNeedsLayout];
     if (@available(iOS 11.0, *)) {
         _player.view.frame = self.view.safeAreaLayoutGuide.layoutFrame;
-        NSLog(@"[!]: player.view.frame: %f", _player.view.frame.size.height);
     } else {
         _player.view.frame = self.view.frame;
     }
