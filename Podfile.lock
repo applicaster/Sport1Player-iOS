@@ -27,7 +27,7 @@ PODS:
     - FBSDKCoreKit (~> 5.0)
   - FBSDKShareKit (5.2.3):
     - FBSDKCoreKit (~> 5.0)
-  - JWPlayer-SDK (3.6.3)
+  - JWPlayer-SDK (3.8.0)
   - JWPlayerPlugin (3.2.3):
     - ApplicasterSDK
     - JWPlayer-SDK (~> 3.0)
@@ -43,7 +43,7 @@ PODS:
     - ZappPlugins
   - ZappGeneralPluginsSDK (8.1.0):
     - ZappPlugins
-  - ZappLoginPluginsSDK (8.0.2):
+  - ZappLoginPluginsSDK (8.0.3):
     - Alamofire
     - ZappPlugins
   - ZappPlugins (9.3.0)
@@ -53,7 +53,7 @@ PODS:
 DEPENDENCIES:
   - JWPlayerPlugin
   - PluginPresenter
-  - ZappPlugins (= 9.3.0)
+  - ZappPlugins (~> 9.3.0)
 
 SPEC REPOS:
   "git@github.com:applicaster/CocoaPods-Private.git":
@@ -68,7 +68,7 @@ SPEC REPOS:
     - ZappPlugins
   "git@github.com:applicaster/PluginPresenter-iOS.git":
     - PluginPresenter
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - Alamofire
     - CocoaLumberjack
     - FBSDKCoreKit
@@ -86,7 +86,7 @@ SPEC CHECKSUMS:
   FBSDKCoreKit: 5154c35d9058fd7dfa0445ba19e194c4b172fc32
   FBSDKLoginKit: dc98b6bf12334f1a42f28d0457fffc9aa3d1eca5
   FBSDKShareKit: 6f9c622f9a5d051f43f2dab6f753d5198422b89c
-  JWPlayer-SDK: 5dedf5776ca3a4101b6f6574f911f96fd27ab26a
+  JWPlayer-SDK: 2906622e32fdec4da4c650e39e9eecf7578b3b69
   JWPlayerPlugin: 52cd52bf3de88bc55741b07dfb795649b7de8f21
   PluginPresenter: 1b3d0234c164216dae92b6cd81e79521b929adaa
   SSZipArchive: 1e8e53dcb11bca3ded4738958dc49fc467320a14
@@ -95,10 +95,10 @@ SPEC CHECKSUMS:
   TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
   ZappAnalyticsPluginsSDK: 6f8edcddc12ae4001098a3fa6fe87e6fe1a013bd
   ZappGeneralPluginsSDK: 7e91f6030d9f1b81b4781e823b0197bfad351bde
-  ZappLoginPluginsSDK: 7afb61fa738f1f73666a8250bd14b5dda8cc8f87
+  ZappLoginPluginsSDK: 0759a44470bde15635ec97696d0815154ab4a26a
   ZappPlugins: a9b9b91d36aea7b04a996e3b0e29929317670976
   ZappPushPluginsSDK: 2062e2487f3ac877c0ab1a807d1a7f8d357bd333
 
-PODFILE CHECKSUM: 0b7a92ec7bebcb627238d46addce663fe061cf68
+PODFILE CHECKSUM: 4e6916817345dc83cb4c32370b7d32df02745c80
 
-COCOAPODS: 1.8.3
+COCOAPODS: 1.7.5

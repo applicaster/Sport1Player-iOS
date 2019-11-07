@@ -14,6 +14,7 @@
 @interface JWPlayerViewController (Public)
 
 - (void)dismiss:(NSObject *)sender;
+- (void) setCloseButtonConstraints:(UIView *) parentView;
 
 @end
 

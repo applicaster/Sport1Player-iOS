@@ -14,6 +14,7 @@
 #import "Sport1PlayerLivestreamAge.h"
 #import "JWPlayerViewController+Public.h"
 #import "Sport1StreamPlayable.h"
+#import "Sport1PlayerViewController.h"
 
 static NSString *const kTrackingInfoKey = @"tracking_info";
 static NSString *const kAgeRatingKey = @"age_rating";
@@ -42,7 +43,7 @@ static NSString *const kAuthIdKey = @"auth_id";
 
     Sport1PlayerAdapter *instance = [Sport1PlayerAdapter new];
     instance.configurationJSON = configurationJSON;
-    instance.playerViewController = [JWPlayerViewController new];
+    instance.playerViewController = [Sport1PlayerViewController new];
     instance.playerViewController.configurationJSON = configurationJSON;
     instance.currentPlayableItem = items.firstObject;
     instance.currentPlayableItems = items;
