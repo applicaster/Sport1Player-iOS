@@ -29,26 +29,10 @@ jobs:
 
             echo 'export SUBMODULES_MD5_STRING=$(git submodule status | openssl md5)' >> $BASH_ENV
 
-      # Git
-      - restore_cache:
-          name: CocoaPods - Restore Cache
-          keys:
-            - Sport1Player-pods-{{ .Branch }}-{{ .Revision }}-{{ .Environment.version_id }}
-            - Sport1Player-pods-{{ .Branch }}-{{ .Revision }}-
-            - Sport1Player-pods-{{ .Branch }}-
-            - Sport1Player-pods-
-
       # Install Bundler
       - run:
           name: Install Bundler
           command: bundler install
-
-      # CocoaPods - First
-      - restore_cache:
-          name: CocoaPods - Restore Cache
-          keys:
-            - Sport1Player-pods-{{ checksum "Podfile.lock" }}
-            - Sport1Player-pods-
 
       - run:
           name: CocoaPods - Version
@@ -62,14 +46,6 @@ jobs:
       - run:
           name: CocoaPods - Update Dependencies
           command: bundle exec pod update
-
-      - save_cache:
-          name: CocoaPods - Save Cache
-          key: Sport1Player-pods-{{ checksum "Podfile.lock" }}
-          paths:
-            - "~/.cocoapods"
-            - "Pods"
-            - "Podfile.lock"
 
       # Tests
       - run:
