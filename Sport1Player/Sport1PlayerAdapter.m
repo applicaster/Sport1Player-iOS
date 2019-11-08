@@ -321,6 +321,7 @@ andPlayerConfiguration:configuration];
         if (success && self.playerViewController.viewIfLoaded.window != nil) {
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 if ([self.livestreamPinValidation shouldDisplayPin]) {
+                    [self.playerViewController pause];
                     [self presentPinOn:self.playerViewController
                              container:self.container
                    playerConfiguration:self.playerConfiguration

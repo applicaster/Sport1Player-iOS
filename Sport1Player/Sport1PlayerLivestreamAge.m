@@ -38,6 +38,8 @@ static NSString *const kLivestreamStart = @"start";
         [self updateAgeRestriction:self.nextLivestream];
         completionHandler(YES);
         ranCompletion = YES;
+    } else {
+        self.ageRestricted = NO;
     }
     NSURL *url = [NSURL URLWithString:self.livestreamURL];
     
