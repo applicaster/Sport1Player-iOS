@@ -6,3 +6,4 @@ Player for Sport1, based off JWPlayer.
 
 plugin_presenter_id
 player_key
+stream_token

@@ -12,9 +12,15 @@ use_frameworks!
 end
 
 def shared_pods
-    pod 'ZappPlugins', '~> 9.3.0'
-	pod 'JWPlayerPlugin'
-	pod 'PluginPresenter'
+    pod 'JWPlayerPlugin'
+    pod 'PluginPresenter'
+	#The Submodules and pinned versions below are needed to stop issues with clashing versions. Test before removing / updating.
+    pod 'ZappPlugins', :path => 'Submodules/ZappPlugins/ZappPlugins.podspec'
+    pod 'ApplicasterSDK', :path => 'Submodules/ApplicasterSDK/ApplicasterSDK.podspec'
+    pod 'ZappAnalyticsPluginsSDK', '~> 8.0'
+    pod 'ZappLoginPluginsSDK', '~> 8.0'
+
+	#development pods
 end
 
 target 'Sport1Player' do

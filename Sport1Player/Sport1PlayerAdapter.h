@@ -8,10 +8,14 @@
 
 #import <JWPlayerPlugin/JWPlayerPlugin.h>
 #import "ZappJWPlayer+Public.h"
+@import ZappPlugins;
 
 NS_ASSUME_NONNULL_BEGIN
+static NSString *const kTrackingInfoKey = @"tracking_info";
+static NSString *const kAgeRatingKey = @"age_rating";
 
 @interface Sport1PlayerAdapter : ZappJWPlayerAdapter
+@property (nonatomic) Class<ZPPluginManagerProtocol> pluginManager;
 
 -(void)shouldPresentPin;
 
