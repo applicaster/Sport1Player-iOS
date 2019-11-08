@@ -1,22 +1,6 @@
 PODS:
   - Alamofire (4.8.2)
-  - ApplicasterSDK (10.5.0):
-    - Alamofire (= 4.8.2)
-    - ApplicasterSDK/arc (= 10.5.0)
-    - ApplicasterSDK/non-arc (= 10.5.0)
-    - CocoaLumberjack/Swift (= 3.5.3)
-    - FBSDKCoreKit (= 5.2.3)
-    - FBSDKLoginKit (= 5.2.3)
-    - FBSDKShareKit (= 5.2.3)
-    - SSZipArchive (= 2.1.0)
-    - TTTAttributedLabel (= 2.1.0)
-    - TwitterKit (= 3.4.2)
-    - ZappAnalyticsPluginsSDK
-    - ZappGeneralPluginsSDK
-    - ZappLoginPluginsSDK
-    - ZappPlugins
-    - ZappPushPluginsSDK
-  - ApplicasterSDK/arc (10.5.0):
+  - ApplicasterSDK (10.2.0):
     - Alamofire (= 4.8.2)
     - CocoaLumberjack/Swift (= 3.5.3)
     - FBSDKCoreKit (= 5.2.3)
@@ -25,25 +9,11 @@ PODS:
     - SSZipArchive (= 2.1.0)
     - TTTAttributedLabel (= 2.1.0)
     - TwitterKit (= 3.4.2)
-    - ZappAnalyticsPluginsSDK
-    - ZappGeneralPluginsSDK
-    - ZappLoginPluginsSDK
-    - ZappPlugins
-    - ZappPushPluginsSDK
-  - ApplicasterSDK/non-arc (10.5.0):
-    - Alamofire (= 4.8.2)
-    - CocoaLumberjack/Swift (= 3.5.3)
-    - FBSDKCoreKit (= 5.2.3)
-    - FBSDKLoginKit (= 5.2.3)
-    - FBSDKShareKit (= 5.2.3)
-    - SSZipArchive (= 2.1.0)
-    - TTTAttributedLabel (= 2.1.0)
-    - TwitterKit (= 3.4.2)
-    - ZappAnalyticsPluginsSDK
-    - ZappGeneralPluginsSDK
-    - ZappLoginPluginsSDK
-    - ZappPlugins
-    - ZappPushPluginsSDK
+    - ZappAnalyticsPluginsSDK (~> 8.0.4)
+    - ZappGeneralPluginsSDK (~> 8.1.0)
+    - ZappLoginPluginsSDK (~> 8.0.1)
+    - ZappPlugins (~> 9.1.8)
+    - ZappPushPluginsSDK (~> 8.0.2)
   - CocoaLumberjack/Core (3.5.3)
   - CocoaLumberjack/Swift (3.5.3):
     - CocoaLumberjack/Core
@@ -57,7 +27,7 @@ PODS:
     - FBSDKCoreKit (~> 5.0)
   - FBSDKShareKit (5.2.3):
     - FBSDKCoreKit (~> 5.0)
-  - JWPlayer-SDK (3.7.0)
+  - JWPlayer-SDK (3.8.0)
   - JWPlayerPlugin (3.2.3):
     - ApplicasterSDK
     - JWPlayer-SDK (~> 3.0)
@@ -69,22 +39,21 @@ PODS:
   - TwitterCore (3.2.0)
   - TwitterKit (3.4.2):
     - TwitterCore (>= 3.2.0)
-  - ZappAnalyticsPluginsSDK (8.1.0):
+  - ZappAnalyticsPluginsSDK (8.0.4):
     - ZappPlugins
-  - ZappGeneralPluginsSDK (8.2.0):
+  - ZappGeneralPluginsSDK (8.1.0):
     - ZappPlugins
   - ZappLoginPluginsSDK (8.0.3):
     - Alamofire
     - ZappPlugins
-  - ZappPlugins (9.4.10)
+  - ZappPlugins (9.1.8)
   - ZappPushPluginsSDK (8.0.2):
     - ZappPlugins
 
 DEPENDENCIES:
-  - ApplicasterSDK (from `../ApplicasterSDK-iOS/ApplicasterSDK.podspec`)
   - JWPlayerPlugin
   - PluginPresenter
-  - ZappPlugins (from `../ZappPlugins-iOS/ZappPlugins.podspec`)
+  - ZappPlugins (from `/Users/oliverstowell/Documents/Applicaster/Zapp-iOS/Submodules/ZappPlugins/ZappPlugins.podspec`)
 
 SPEC REPOS:
   "git@github.com:applicaster/CocoaPods-Private.git":
@@ -94,6 +63,7 @@ SPEC REPOS:
     - ZappLoginPluginsSDK
     - ZappPushPluginsSDK
   "git@github.com:applicaster/CocoaPods.git":
+    - ApplicasterSDK
     - TTTAttributedLabel
   "git@github.com:applicaster/PluginPresenter-iOS.git":
     - PluginPresenter
@@ -109,31 +79,29 @@ SPEC REPOS:
     - TwitterKit
 
 EXTERNAL SOURCES:
-  ApplicasterSDK:
-    :path: "../ApplicasterSDK-iOS/ApplicasterSDK.podspec"
   ZappPlugins:
-    :path: "../ZappPlugins-iOS/ZappPlugins.podspec"
+    :path: "/Users/oliverstowell/Documents/Applicaster/Zapp-iOS/Submodules/ZappPlugins/ZappPlugins.podspec"
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
-  ApplicasterSDK: 26b0a0f8336466900bbffea9e4ee0481ba7dcac0
+  ApplicasterSDK: 0cb44806983b721ecab7bb558be6ba5ccf69dec3
   CocoaLumberjack: 2f44e60eb91c176d471fdba43b9e3eae6a721947
   FBSDKCoreKit: 5154c35d9058fd7dfa0445ba19e194c4b172fc32
   FBSDKLoginKit: dc98b6bf12334f1a42f28d0457fffc9aa3d1eca5
   FBSDKShareKit: 6f9c622f9a5d051f43f2dab6f753d5198422b89c
-  JWPlayer-SDK: 27183c8e224c5446ca522d3d62282bc24e2c350a
+  JWPlayer-SDK: 2906622e32fdec4da4c650e39e9eecf7578b3b69
   JWPlayerPlugin: 52cd52bf3de88bc55741b07dfb795649b7de8f21
   PluginPresenter: 1b3d0234c164216dae92b6cd81e79521b929adaa
   SSZipArchive: 1e8e53dcb11bca3ded4738958dc49fc467320a14
   TTTAttributedLabel: f8c7f1dbc7b8f7168e23e8b4764dda2e3b74aae8
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
-  ZappAnalyticsPluginsSDK: 0051d91c14d7c2a6479747b94b64a4067cec14f6
-  ZappGeneralPluginsSDK: dad1c0dd6ab2404b6707394436f18b97c197e8cc
+  ZappAnalyticsPluginsSDK: 6f8edcddc12ae4001098a3fa6fe87e6fe1a013bd
+  ZappGeneralPluginsSDK: 7e91f6030d9f1b81b4781e823b0197bfad351bde
   ZappLoginPluginsSDK: 0759a44470bde15635ec97696d0815154ab4a26a
-  ZappPlugins: ba3bf48307395eb0fc1ee481efc7744b19fb795e
+  ZappPlugins: 203e35fb0a883e576b2df68e1cab98689ed71549
   ZappPushPluginsSDK: 2062e2487f3ac877c0ab1a807d1a7f8d357bd333
 
-PODFILE CHECKSUM: cc4072f42580dd803e1f262681cd86f3f14f2448
+PODFILE CHECKSUM: 6fc2dd7677d02ca5c3ec98f680439edbb59fcff8
 
 COCOAPODS: 1.7.5

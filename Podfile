@@ -12,12 +12,11 @@ use_frameworks!
 end
 
 def shared_pods
-    pod 'ZappPlugins', :path => '../ZappPlugins-iOS/ZappPlugins.podspec'
+    pod 'ZappPlugins', :path => '/Users/oliverstowell/Documents/Applicaster/Zapp-iOS/Submodules/ZappPlugins/ZappPlugins.podspec'
 	pod 'JWPlayerPlugin'
 	pod 'PluginPresenter'
 
 	#development pods
-	pod 'ApplicasterSDK', :path => '../ApplicasterSDK-iOS/ApplicasterSDK.podspec'
 end
 
 target 'Sport1Player' do
