@@ -12,7 +12,8 @@ use_frameworks!
 end
 
 def shared_pods
-    pod 'ZappPlugins', :path => '/Users/oliverstowell/Documents/Applicaster/Zapp-iOS/Submodules/ZappPlugins/ZappPlugins.podspec'
+    pod 'ZappPlugins', :path => 'Submodules/ZappPlugins/ZappPlugins.podspec'
+    pod 'ApplicasterSDK', :path => 'Submodules/ApplicasterSDK/ApplicasterSDK.podspec'
 	pod 'JWPlayerPlugin'
 	pod 'PluginPresenter'
 
