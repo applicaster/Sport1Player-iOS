@@ -7,7 +7,6 @@
 //
 
 @import ZappLoginPluginsSDK;
-@import ZappPlugins;
 @import PluginPresenter;
 #import "Sport1PlayerAdapter.h"
 #import <JWPlayer_iOS_SDK/JWPlayerController.h>
@@ -16,8 +15,6 @@
 #import "Sport1StreamPlayable.h"
 #import "Sport1PlayerViewController.h"
 
-static NSString *const kTrackingInfoKey = @"tracking_info";
-static NSString *const kAgeRatingKey = @"age_rating";
 static NSString *const kPlayableItemsKey = @"playable_items";
 static NSString *const kPluginName = @"pin_validation_plugin_id";
 static NSString *const kTokenName = @"stream_token";
@@ -47,6 +44,7 @@ static NSString *const kAuthIdKey = @"auth_id";
     instance.playerViewController.configurationJSON = configurationJSON;
     instance.currentPlayableItem = items.firstObject;
     instance.currentPlayableItems = items;
+    instance.pluginManager = [ZPPluginManager class];
 
     [[NSNotificationCenter defaultCenter] addObserver:instance
                                              selector:@selector(applicationWillEnterForegroundNotificationHandler)
@@ -224,7 +222,7 @@ andPlayerConfiguration:configuration];
                         [self presentPinOn:rootViewController
                                  container:container
                        playerConfiguration:configuration
-                         fromLivestreamPin:NO];
+                   alreadyDisplayingPlayer:NO];
                     } else {
 
                         [self amendIfLivestreamModified:self.currentPlayableItem
@@ -256,7 +254,7 @@ andPlayerConfiguration:configuration];
             [self presentPinOn:rootViewController
                      container:container
            playerConfiguration:configuration
-             fromLivestreamPin:NO];
+       alreadyDisplayingPlayer:NO];
             return;
         }
     }
@@ -273,8 +271,8 @@ andPlayerConfiguration:configuration];
     }
 }
 
--(void)presentPinOn:(UIViewController*)rootViewController container:(UIView*)container playerConfiguration:(ZPPlayerConfiguration * _Nullable)configuration fromLivestreamPin:(BOOL)fromLivestreamPin {
-    ZPPluginModel *pluginModel = [ZPPluginManager pluginModelById:self.configurationJSON[kPluginName]];
+-(void)presentPinOn:(UIViewController*)rootViewController container:(UIView*)container playerConfiguration:(ZPPlayerConfiguration * _Nullable)configuration alreadyDisplayingPlayer:(BOOL)fromLivestreamPin {
+    ZPPluginModel *pluginModel = [self.pluginManager pluginModelById:self.configurationJSON[kPluginName]];
 
     if (pluginModel == nil) {
         //currently this fails without warning & doesn't display player.
@@ -282,53 +280,69 @@ andPlayerConfiguration:configuration];
         return;
     }
 
-    Class pluginClass = [ZPPluginManager adapterClass:pluginModel];
-    if ([pluginClass conformsToProtocol:@protocol(ZPAdapterProtocol)]) {
-        NSObject <PluginPresenterProtocol> *plugin = [[pluginClass alloc] initWithConfigurationJSON:[pluginModel configurationJSON]];
-
-        if ([plugin conformsToProtocol:@protocol(PluginPresenterProtocol)]) {
-            [plugin presentPluginWithParentViewController:rootViewController
-                                                extraData:nil completion:^(BOOL success, id _Nullable data) {
-
-                                                    [self amendIfLivestreamModified:self.currentPlayableItem
-                                                                           callback:^(NSObject<ZPPlayable> *amended) {
-                                                                               self.currentPlayableItem = amended;
-                                                                               if (success && container == nil && !fromLivestreamPin) {
-                                                                                   [super playFullScreen:rootViewController
-                                                                                           configuration:configuration
-                                                                                              completion:nil];
-                                                                               } else if (success && !fromLivestreamPin) {
-                                                                                   [super playInline:rootViewController
-                                                                                           container:container
-                                                                                       configuration:configuration
-                                                                                          completion:nil];
-                                                                               } else if (!success) {
-                                                                                   [self.playerViewController dismiss:nil];
-                                                                                   self.livestreamPinValidation = nil;
-                                                                                   self.container = nil;
-                                                                                   self.playerConfiguration = nil;
-                                                                               }
-
-                                                                           }];
-                                                }];
-        }
+//    Class pluginClass = [self.pluginManager adapterClass:pluginModel];
+//    if ([pluginClass conformsToProtocol:@protocol(ZPAdapterProtocol)]) {
+//
+//    }
+    id<ZPAdapterProtocol> plugin = [self.pluginManager adapter:pluginModel];
+    if ([plugin conformsToProtocol:@protocol(PluginPresenterProtocol)]) {
+        [(id<PluginPresenterProtocol>)plugin presentPluginWithParentViewController:rootViewController
+                                                                         extraData:nil completion:^(BOOL success, id _Nullable data) {
+                                                                             [self amendIfLivestreamModified:self.currentPlayableItem
+                                                                                                    callback:^(NSObject<ZPPlayable> *amended) {
+                                                                                                        self.currentPlayableItem = amended;
+                                                                                                        if (success && container == nil && !fromLivestreamPin) {
+                                                                                                            [super playFullScreen:rootViewController
+                                                                                                                    configuration:configuration
+                                                                                                                       completion:nil];
+                                                                                                        } else if (success && !fromLivestreamPin) {
+                                                                               [super playInline:rootViewController
+                                                                                       container:container
+                                                                                   configuration:configuration
+                                                                                      completion:nil];
+                                                                           } else if (!success) {
+                                                                               [self.playerViewController dismiss:nil];
+                                                                               self.livestreamPinValidation = nil;
+                                                                               self.container = nil;
+                                                                               self.playerConfiguration = nil;
+                                                                           }
+                                                                           
+                                                                       }];
+                                            }];
     }
 }
 #pragma mark - Livestream Pin Presentation
 -(void)shouldPresentPin {
-    [self.livestreamPinValidation updateLivestreamAgeDataWithCompletion:^(BOOL success) {
-        //Check if player is visible
-        if (success && self.playerViewController.viewIfLoaded.window != nil) {
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                if ([self.livestreamPinValidation shouldDisplayPin]) {
-                    [self presentPinOn:self.playerViewController
-                             container:self.container
-                   playerConfiguration:self.playerConfiguration
-                     fromLivestreamPin:YES];
-                }
-            }];
+    NSDictionary *trackingInfo = self.currentPlayableItem.extensionsDictionary[kTrackingInfoKey];
+    
+    if (![trackingInfo.allKeys containsObject:kAgeRatingKey]) {
+        [self.livestreamPinValidation updateLivestreamAgeDataWithCompletion:^(BOOL success) {
+            //Check if player is visible
+            if (success && self.playerViewController.viewIfLoaded.window != nil) {
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    if ([self.livestreamPinValidation shouldDisplayPin]) {
+                        [self presentPinOn:self.playerViewController
+                                 container:self.container
+                       playerConfiguration:self.playerConfiguration
+                   alreadyDisplayingPlayer:YES];
+                    }
+                }];
+            }
+        }];
+        return;
+    } else {
+        // Is not a live stream
+        NSString *ageString = trackingInfo[kFSKKey];
+        if ((id)ageString != [NSNull null]) {
+            if ([ageString isEqualToString:kFSK16]) {
+                [self presentPinOn:self.playerViewController
+                         container:self.container
+               playerConfiguration:self.playerConfiguration
+           alreadyDisplayingPlayer:YES];
+                return;
+            }
         }
-    }];
+    }
 }
 
 #pragma mark - Handlers
