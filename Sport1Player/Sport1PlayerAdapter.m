@@ -285,9 +285,6 @@ andPlayerConfiguration:configuration];
 //
 //    }
     id<ZPAdapterProtocol> plugin = [self.pluginManager adapter:pluginModel];
-    
-//    NSObject <PluginPresenterProtocol> *plugin = [[pluginClass alloc] initWithConfigurationJSON:[pluginModel configurationJSON]];
-    
     if ([plugin conformsToProtocol:@protocol(PluginPresenterProtocol)]) {
         [(id<PluginPresenterProtocol>)plugin presentPluginWithParentViewController:rootViewController
                                                                          extraData:nil completion:^(BOOL success, id _Nullable data) {
