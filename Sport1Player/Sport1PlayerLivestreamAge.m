@@ -34,10 +34,13 @@ static NSString *const kLivestreamStart = @"start";
 -(void)updateLivestreamAgeDataWithCompletion:(void (^)(BOOL success))completionHandler {
     if (self.livestreamURL.length == 0) {completionHandler(NO);}
     BOOL ranCompletion = NO;
-    if (self.nextLivestream != nil) {
+    NSDate *now = [NSDate date];
+    if (self.nextLivestream != nil && [self isCurrent:self.nextLivestream withNow:now]) {
         [self updateAgeRestriction:self.nextLivestream];
         completionHandler(YES);
         ranCompletion = YES;
+    } else {
+        self.ageRestricted = NO;
     }
     NSURL *url = [NSURL URLWithString:self.livestreamURL];
     
@@ -114,17 +117,23 @@ static NSString *const kLivestreamStart = @"start";
     NSDate *now = [NSDate date];
     
     for (NSDictionary *livestream in epg) {
-        NSDate *start = [self dateFromString:livestream[kLivestreamStart]];
-        NSDate *end = [self dateFromString:livestream[kLivestreamEnd]];
-        
-        if ([end compare:now] == NSOrderedDescending &
-            [start compare:now] == NSOrderedAscending) {
-            NSLog(@"[!]: currentEnd: %@", end);
-            return livestream;
-        }
+        if ([self isCurrent:livestream withNow:now]) {return livestream;}
     }
     
     return nil;
+}
+
+-(BOOL)isCurrent:(NSDictionary*)livestream withNow:(NSDate*)now {
+    NSDate *start = [self dateFromString:livestream[kLivestreamStart]];
+    NSDate *end = [self dateFromString:livestream[kLivestreamEnd]];
+    
+    if ([end compare:now] == NSOrderedDescending &
+        [start compare:now] == NSOrderedAscending) {
+        NSLog(@"[!]: currentEnd: %@", end);
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 -(NSDictionary* _Nullable)livestreamFromJSON:(NSDictionary*)livestreamJSON withStart:(NSString*)start {

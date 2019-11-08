@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Sport1Player"
-  s.version          = '1.5.0'
+  s.version          = '1.5.1'
   s.summary          = "Sport1Player"
   s.description      = <<-DESC
                         Player for Sport1, based off JWPlayer.
@@ -27,7 +27,7 @@ Pod::Spec.new do |s|
                   }
 
   #Using ZappPlugins 9.1.0 until JWPlayerPlugin 3.2.3 is updated.
-  s.dependency 'ZappPlugins', '~> 9.1'
+  s.dependency 'ZappPlugins'
   s.dependency 'JWPlayerPlugin'
   s.dependency 'PluginPresenter'
 
