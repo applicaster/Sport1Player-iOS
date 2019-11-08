@@ -14,8 +14,10 @@ end
 def shared_pods
     pod 'ZappPlugins', :path => 'Submodules/ZappPlugins/ZappPlugins.podspec'
     pod 'ApplicasterSDK', :path => 'Submodules/ApplicasterSDK/ApplicasterSDK.podspec'
-	pod 'JWPlayerPlugin'
-	pod 'PluginPresenter'
+    pod 'ZappAnalyticsPluginsSDK', '~> 8.0'
+    pod 'ZappLoginPluginsSDK', '~> 8.0'
+    pod 'JWPlayerPlugin'
+    pod 'PluginPresenter'
 
 	#development pods
 end
