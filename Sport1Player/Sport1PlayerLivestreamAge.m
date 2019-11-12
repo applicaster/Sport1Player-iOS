@@ -93,7 +93,7 @@ static NSString *const kLivestreamStart = @"start";
             }
         }
         __weak Sport1PlayerLivestreamPin *weakSelf = self;
-        self.timer = [[NSTimer alloc] initWithFireDate:weakSelf.livestreamEnd
+        self.timer = [[NSTimer alloc] initWithFireDate:[weakSelf.livestreamEnd dateByAddingTimeInterval:2]
                                               interval:0
                                                repeats:NO
                                                  block:^(NSTimer * _Nonnull timer) {
@@ -128,7 +128,8 @@ static NSString *const kLivestreamStart = @"start";
     NSDate *end = [self dateFromString:livestream[kLivestreamEnd]];
     
     if ([end compare:now] == NSOrderedDescending &
-        [start compare:now] == NSOrderedAscending) {
+        [start compare:now] == NSOrderedAscending ||
+        [start compare:now] == NSOrderedSame) {
         NSLog(@"[!]: currentEnd: %@", end);
         return YES;
     } else {
@@ -152,6 +153,7 @@ static NSString *const kLivestreamStart = @"start";
 
 -(void)updateAgeRestriction:(NSDictionary*)currentLivestream {
     if ([currentLivestream.allKeys containsObject:kFSKKey]) {
+        NSLog(@"[!]: %@", [currentLivestream[kFSKKey] stringByReplacingOccurrencesOfString:@" " withString:@""]);
         if ([[currentLivestream[kFSKKey] stringByReplacingOccurrencesOfString:@" " withString:@""] isEqualToString:kFSK16]) {
             self.ageRestricted = YES;
         } else {self.ageRestricted = NO;}

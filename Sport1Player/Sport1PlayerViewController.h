@@ -12,7 +12,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Sport1PlayerViewController : JWPlayerViewController
-
+@property IBOutlet UILabel *dateLabelCurrent;
+@property IBOutlet UILabel *dateLabelCET;
+@property IBOutlet UIStackView *contianerStackView;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -32,6 +32,8 @@
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self changeSize];
+    
+    [self updateTime];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -40,6 +42,9 @@
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {}
                                  completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
                                      [self changeSize];
+                                     
+                                     [self updateTime];
+                                     [self.view bringSubviewToFront:self.contianerStackView];
                                  }];
 }
 
@@ -91,6 +96,19 @@
     player.forceLandscapeOnFullScreen = NO;
     
     _player = player;
+    [self.view bringSubviewToFront:self.contianerStackView];
+}
+
+-(void)updateTime {
+    NSDateFormatter *system = [[NSDateFormatter alloc] init];
+    [system setTimeZone:[NSTimeZone systemTimeZone]];
+    [system setDateFormat:@"HH:mm"];
+    self.dateLabelCurrent.text = [system stringFromDate:[NSDate date]];
+    
+    NSDateFormatter *cet = [[NSDateFormatter alloc] init];
+    [cet setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"CET"]];
+    [cet setDateFormat:@"HH:mm"];
+    self.dateLabelCET.text = [cet stringFromDate:[NSDate date]];
 }
 
 @end
