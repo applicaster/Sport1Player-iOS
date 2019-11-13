@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property IBOutlet UILabel *startLabel;
 @property IBOutlet UILabel *endLabel;
 @property IBOutlet UILabel *fskLabel;
+@property IBOutlet UILabel *urlLabel;
+@property IBOutlet UILabel *pluginLabel;
 @property IBOutlet UIStackView *contianerStackView;
 
 @property (weak, nonatomic) Sport1PlayerLivestreamPin *livestream;

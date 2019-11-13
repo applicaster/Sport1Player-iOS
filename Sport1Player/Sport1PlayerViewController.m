@@ -124,10 +124,12 @@
 -(void)updateLabelsWith:(NSDictionary*)data {
     NSDateFormatter *system = [[NSDateFormatter alloc] init];
     [system setTimeZone:[NSTimeZone systemTimeZone]];
-    [system setDateFormat:@"HH:mm"];
+    [system setDateFormat:@"EEE, dd/MM/yyyy HH:mm:SS ZZZ"];
     NSNumber *age = data[@"fsk"];
     NSDate *startDate = data[@"start"];
     NSDate *endDate = data[@"end"];
+    self.pluginLabel.text = self.configurationJSON[@"pin_validation_plugin_id"];
+    self.urlLabel.text = self.configurationJSON[@"livestream_url"];
     self.startLabel.text = [system stringFromDate:startDate];
     self.endLabel.text = [system stringFromDate:endDate];
     self.fskLabel.text = [age boolValue]?@"YES":@"NO";
