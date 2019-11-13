@@ -62,6 +62,8 @@ static NSString *const kAuthIdKey = @"auth_id";
 -(void)createLivestreamPinCheck {
     self.livestreamPinValidation = [[Sport1PlayerLivestreamPin alloc] initWithConfigurationJSON:self.configurationJSON
                                                                            currentPlayerAdapter:self];
+    
+    self.playerViewController.livestream = self.livestreamPinValidation;
 }
 
 -(void)setContainer:(UIView*)container andPlayerConfiguration:(ZPPlayerConfiguration*)playerConfiguration {

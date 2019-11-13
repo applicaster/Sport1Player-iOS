@@ -27,13 +27,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNeedsStatusBarAppearanceUpdate];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(setLivestreamData:)
+                                                 name:@"LivestreamData"
+                                               object:nil];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self changeSize];
-    
-    [self updateTime];
+    NSDictionary *data = [self.livestream livestreamData];
+    [self updateLabelsWith:data];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -109,6 +114,24 @@
     [cet setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"CET"]];
     [cet setDateFormat:@"HH:mm"];
     self.dateLabelCET.text = [cet stringFromDate:[NSDate date]];
+}
+
+-(void)setLivestreamData:(NSNotification*)notification {
+    NSDictionary *data = notification.object;
+    [self updateLabelsWith:data];
+}
+
+-(void)updateLabelsWith:(NSDictionary*)data {
+    NSDateFormatter *system = [[NSDateFormatter alloc] init];
+    [system setTimeZone:[NSTimeZone systemTimeZone]];
+    [system setDateFormat:@"HH:mm"];
+    NSNumber *age = data[@"fsk"];
+    NSDate *startDate = data[@"start"];
+    NSDate *endDate = data[@"end"];
+    self.startLabel.text = [system stringFromDate:startDate];
+    self.endLabel.text = [system stringFromDate:endDate];
+    self.fskLabel.text = [age boolValue]?@"YES":@"NO";
+    [self updateTime];
 }
 
 @end

@@ -15,6 +15,7 @@ static NSString *const kLivestreamStart = @"start";
 
 @interface Sport1PlayerLivestreamPin ()
 @property (nonatomic, strong) NSDictionary *nextLivestream;
+@property (nonatomic, strong) NSDictionary *currentLivestream;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) NSString *livestreamURL;
 @property (nonatomic) NSDate *livestreamEnd;
@@ -78,6 +79,7 @@ static NSString *const kLivestreamStart = @"start";
     
     NSDictionary *current = [self currentLivestreamFromJSON:livestreamJSON];
     if (current) {
+        self.currentLivestream = current;
         self.nextLivestream = [self livestreamFromJSON:livestreamJSON
                                              withStart:current[kLivestreamEnd]];
         self.livestreamEnd = [self dateFromString:current[kLivestreamEnd]];
@@ -107,6 +109,7 @@ static NSString *const kLivestreamStart = @"start";
 -(NSDate*)dateFromString:(NSString*)dateString {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.calendar = NSCalendar.currentCalendar;
+    dateFormatter.timeZone = [NSTimeZone systemTimeZone];
     dateFormatter.dateFormat = @"EEE, dd MM yyyy HH:mm:SS ZZZ"; //Matches the `end` & `start` string in the JSON - the only one with time zone.
     
     return [dateFormatter dateFromString:dateString];
@@ -158,10 +161,24 @@ static NSString *const kLivestreamStart = @"start";
             self.ageRestricted = YES;
         } else {self.ageRestricted = NO;}
     } else {self.ageRestricted = NO;}
+    NSDictionary *data = [[NSDictionary alloc] initWithObjectsAndKeys:
+                          [self dateFromString:currentLivestream[kLivestreamStart]],@"start",
+                          [self dateFromString:currentLivestream[kLivestreamEnd]],@"end",
+                          [NSNumber numberWithBool:self.ageRestricted],@"fsk", nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"LivestreamData"
+                                                        object:data];
 }
 
 -(BOOL)shouldDisplayPin {
     return self.ageRestricted;
+}
+
+-(NSDictionary *)livestreamData {
+    NSDictionary *data = [[NSDictionary alloc] initWithObjectsAndKeys:
+                          [self dateFromString:self.currentLivestream[kLivestreamStart]],@"start",
+                          [self dateFromString:self.currentLivestream[kLivestreamEnd]],@"end",
+                          [NSNumber numberWithBool:self.ageRestricted],@"fsk", nil];
+    return data;
 }
 
 @end
