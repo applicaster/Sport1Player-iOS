@@ -25,6 +25,7 @@ static NSString *const kAuthIdKey = @"auth_id";
 @property (nonatomic, strong) Sport1PlayerLivestreamPin *livestreamPinValidation;
 @property (nonatomic, weak) UIView * container;
 @property (nonatomic, strong) ZPPlayerConfiguration * playerConfiguration;
+@property (nonatomic, strong) NSMutableDictionary *liveData;
 @end
 
 @implementation Sport1PlayerAdapter
@@ -250,9 +251,16 @@ andPlayerConfiguration:configuration];
         return;
     }
     // Is not a live stream
+    self.liveData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                     @"VOD",@"start",
+                     @"VOD",@"end",
+                     [NSNumber numberWithBool:NO],@"fsk",
+                     @"VOD",@"network", nil];
     NSString *ageString = trackingInfo[kFSKKey];
     if ((id)ageString != [NSNull null]) {
         if ([ageString isEqualToString:kFSK16]) {
+            [self.liveData setObject:[NSNumber numberWithBool:YES]
+                              forKey:@"fsk"];
             [self presentPinOn:rootViewController
                      container:container
            playerConfiguration:configuration
@@ -264,7 +272,10 @@ andPlayerConfiguration:configuration];
     if (container == nil) {
         [super playFullScreen:rootViewController
                 configuration:configuration
-                   completion:nil];
+                   completion:^{
+                       [[NSNotificationCenter defaultCenter] postNotificationName:@"LivestreamData"
+                                                                           object:self.liveData];
+                   }];
     } else {
         [super playInline:rootViewController
                 container:container
@@ -292,7 +303,10 @@ andPlayerConfiguration:configuration];
                                                                                                         if (success && container == nil && !fromLivestreamPin) {
                                                                                                             [super playFullScreen:rootViewController
                                                                                                                     configuration:configuration
-                                                                                                                       completion:nil];
+                                                                                                                       completion:^{
+                                                                                                                           [[NSNotificationCenter defaultCenter] postNotificationName:@"LivestreamData"
+                                                                                                                                                                               object:self.liveData];
+                                                                                                                       }];
                                                                                                         } else if (success && !fromLivestreamPin) {
                                                                                [super playInline:rootViewController
                                                                                        container:container
@@ -319,6 +333,7 @@ andPlayerConfiguration:configuration];
             if (success && self.playerViewController.viewIfLoaded.window != nil) {
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     if ([self.livestreamPinValidation shouldDisplayPin]) {
+                        [self.playerViewController pause];
                         [self presentPinOn:self.playerViewController
                                  container:self.container
                        playerConfiguration:self.playerConfiguration
@@ -333,6 +348,7 @@ andPlayerConfiguration:configuration];
         NSString *ageString = trackingInfo[kFSKKey];
         if ((id)ageString != [NSNull null]) {
             if ([ageString isEqualToString:kFSK16]) {
+                [self.playerViewController pause];
                 [self presentPinOn:self.playerViewController
                          container:self.container
                playerConfiguration:self.playerConfiguration
