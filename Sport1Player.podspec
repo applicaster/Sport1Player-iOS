@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Sport1Player"
-  s.version          = '99.0.0'
+  s.version          = '99.1.0'
   s.summary          = "Sport1Player"
   s.description      = <<-DESC
                         Player for Sport1, based off JWPlayer.
