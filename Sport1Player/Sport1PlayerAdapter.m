@@ -304,8 +304,9 @@ andPlayerConfiguration:configuration];
                                                                                                             [super playFullScreen:rootViewController
                                                                                                                     configuration:configuration
                                                                                                                        completion:^{
-                                                                                                                           [[NSNotificationCenter defaultCenter] postNotificationName:@"LivestreamData"
-                                                                                                                                                                               object:self.liveData];
+                                                                                                                           //This is always nil
+//                                                                                                                           [[NSNotificationCenter defaultCenter] postNotificationName:@"LivestreamData"
+//                                                                                                                                                                               object:self.liveData];
                                                                                                                        }];
                                                                                                         } else if (success && !fromLivestreamPin) {
                                                                                [super playInline:rootViewController

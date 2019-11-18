@@ -108,12 +108,12 @@
 -(void)updateTime {
     NSDateFormatter *system = [[NSDateFormatter alloc] init];
     [system setTimeZone:[NSTimeZone systemTimeZone]];
-    [system setDateFormat:@"HH:mm"];
+    [system setDateFormat:@"EEE, dd/MM/yyyy HH:mm:SS ZZZ"];
     self.dateLabelCurrent.text = [system stringFromDate:[NSDate date]];
     
     NSDateFormatter *cet = [[NSDateFormatter alloc] init];
     [cet setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"CET"]];
-    [cet setDateFormat:@"HH:mm"];
+    [cet setDateFormat:@"EEE, dd/MM/yyyy HH:mm:SS ZZZ"];
     self.dateLabelCET.text = [cet stringFromDate:[NSDate date]];
 }
 
