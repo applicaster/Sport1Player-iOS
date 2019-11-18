@@ -29,14 +29,6 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="roT-Cn-CYY">
-                    <rect key="frame" x="0.0" y="618" width="414" height="224"/>
-                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="FcT-cZ-utH">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="224"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    </view>
-                    <blurEffect style="light"/>
-                </visualEffectView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="GZP-CJ-NuZ">
                     <rect key="frame" x="0.0" y="618" width="414" height="224"/>
                     <subviews>
@@ -178,13 +170,9 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="roT-Cn-CYY" firstAttribute="centerX" secondItem="GZP-CJ-NuZ" secondAttribute="centerX" id="9P7-ZU-fCl"/>
-                <constraint firstItem="roT-Cn-CYY" firstAttribute="height" secondItem="GZP-CJ-NuZ" secondAttribute="height" id="ArM-BD-qnf"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="GZP-CJ-NuZ" secondAttribute="trailing" id="BLB-Ie-aJK"/>
                 <constraint firstItem="GZP-CJ-NuZ" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Tfz-ii-E7P"/>
-                <constraint firstItem="roT-Cn-CYY" firstAttribute="width" secondItem="GZP-CJ-NuZ" secondAttribute="width" id="Xep-cf-osd"/>
                 <constraint firstItem="GZP-CJ-NuZ" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="hUF-lq-Zd2"/>
-                <constraint firstItem="roT-Cn-CYY" firstAttribute="centerY" secondItem="GZP-CJ-NuZ" secondAttribute="centerY" id="q4A-Lh-FbW"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="GZP-CJ-NuZ" secondAttribute="bottom" constant="20" id="trf-tY-sQX"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>

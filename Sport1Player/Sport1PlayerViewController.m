@@ -108,12 +108,12 @@
 -(void)updateTime {
     NSDateFormatter *system = [[NSDateFormatter alloc] init];
     [system setTimeZone:[NSTimeZone systemTimeZone]];
-    [system setDateFormat:@"EEE, dd/MM/yyyy HH:mm:SS ZZZ"];
+    [system setDateFormat:@"EEE, dd/MM/yyyy HH:mm:ss ZZZ"];
     self.dateLabelCurrent.text = [system stringFromDate:[NSDate date]];
     
     NSDateFormatter *cet = [[NSDateFormatter alloc] init];
     [cet setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"CET"]];
-    [cet setDateFormat:@"EEE, dd/MM/yyyy HH:mm:SS ZZZ"];
+    [cet setDateFormat:@"EEE, dd/MM/yyyy HH:mm:ss ZZZ"];
     self.dateLabelCET.text = [cet stringFromDate:[NSDate date]];
 }
 
@@ -128,7 +128,7 @@
         if ([data[@"start"] isKindOfClass:[NSDate class]]) {
             NSDateFormatter *system = [[NSDateFormatter alloc] init];
             [system setTimeZone:[NSTimeZone systemTimeZone]];
-            [system setDateFormat:@"EEE, dd/MM/yyyy HH:mm:SS ZZZ"];
+            [system setDateFormat:@"EEE, dd/MM/yyyy HH:mm:ss ZZZ"];
             NSDate *startDate = data[@"start"];
             NSDate *endDate = data[@"end"];
             self.startLabel.text = [system stringFromDate:startDate];
