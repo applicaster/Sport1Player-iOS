@@ -22,6 +22,8 @@ static NSString *const kFSK16 = @"FSK16";
 -(void)updateLivestreamAgeDataWithCompletion:(void (^)(BOOL success))completionHandler;
 -(BOOL)shouldDisplayPin;
 
+-(NSDictionary*)livestreamData;
+
 @end
 
 NS_ASSUME_NONNULL_END

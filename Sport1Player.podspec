@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Sport1Player"
-  s.version          = '1.5.1'
+  s.version          = '99.1.0'
   s.summary          = "Sport1Player"
   s.description      = <<-DESC
                         Player for Sport1, based off JWPlayer.
@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.homepage         = "https://github.com/applicaster/Sport1Player-iOS.git"
   s.license          = 'CMPS'
   s.author           = { "cmps" => "o.stowell@applicaster.com" }
-  s.source           = { :git => "git@github.com:applicaster/Sport1Player-iOS.git", :tag => s.version.to_s }
+  s.source           = { :git => "git@github.com:applicaster/Sport1Player-iOS.git", :branch => 'livestream_pin_update' }
 
   s.platform     = :ios, '10.0'
   s.requires_arc = true
@@ -26,7 +26,6 @@ Pod::Spec.new do |s|
                   'OTHER_LDFLAGS' => '$(inherited) -framework "JWPlayer_iOS_SDK"'
                   }
 
-  #Using ZappPlugins 9.1.0 until JWPlayerPlugin 3.2.3 is updated.
   s.dependency 'ZappPlugins'
   s.dependency 'JWPlayerPlugin'
   s.dependency 'PluginPresenter'

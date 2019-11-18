@@ -10,8 +10,10 @@
 #define JWPlayerViewController_Public_h
 
 #import <JWPlayerPlugin/JWPlayerViewController.h>
+#import "Sport1PlayerLivestreamAge.h"
 
 @interface JWPlayerViewController (Public)
+@property (weak, nonatomic) Sport1PlayerLivestreamPin *livestream;
 
 - (void)dismiss:(NSObject *)sender;
 - (void) setCloseButtonConstraints:(UIView *) parentView;

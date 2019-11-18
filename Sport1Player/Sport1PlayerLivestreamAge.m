@@ -15,8 +15,10 @@ static NSString *const kLivestreamStart = @"start";
 
 @interface Sport1PlayerLivestreamPin ()
 @property (nonatomic, strong) NSDictionary *nextLivestream;
+@property (nonatomic, strong) NSDictionary *currentLivestream;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) NSString *livestreamURL;
+@property (nonatomic, strong) NSString *networkResponse;
 @property (nonatomic) NSDate *livestreamEnd;
 @property (nonatomic) BOOL ageRestricted;
 @end
@@ -49,9 +51,14 @@ static NSString *const kLivestreamStart = @"start";
                                          timeoutInterval:10.0];
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request
                                                                  completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                                                                     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                                                                     
                                                                      if (error != nil) {
+                                                                         self.networkResponse = [NSString stringWithFormat:@"%ld", (long)httpResponse.statusCode];
                                                                          NSLog(@"<ERROR>Sport1Player: %@", error.localizedDescription);
                                                                          NSLog(@"Retrying connection");
+                                                                         NSDictionary *liveData = [self livestreamData];
+                                                                         [[NSNotificationCenter defaultCenter] postNotificationName:@"LivestreamData"                          object:liveData];
                                                                          dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                                                                              [self updateLivestreamAgeDataWithCompletion:completionHandler];
                                                                          });
@@ -60,6 +67,8 @@ static NSString *const kLivestreamStart = @"start";
                                                                      
                                                                      [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                                                                          [self updateWithData:data];
+                                                                         NSDictionary *liveData = [self livestreamData];
+                                                                         [[NSNotificationCenter defaultCenter] postNotificationName:@"LivestreamData"                          object:liveData];
                                                                          if (!ranCompletion) {completionHandler(YES);}
                                                                      }];
                                                                  }];
@@ -69,6 +78,7 @@ static NSString *const kLivestreamStart = @"start";
 - (void)updateWithData:(NSData*)data {
     NSError *error = nil;
     NSDictionary *livestreamJSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+    self.networkResponse = livestreamJSON.description;
     
     if (error != nil) {
         NSLog(@"<ERROR>Sport1Player: %@", error.localizedDescription);
@@ -78,6 +88,7 @@ static NSString *const kLivestreamStart = @"start";
     
     NSDictionary *current = [self currentLivestreamFromJSON:livestreamJSON];
     if (current) {
+        self.currentLivestream = current;
         self.nextLivestream = [self livestreamFromJSON:livestreamJSON
                                              withStart:current[kLivestreamEnd]];
         self.livestreamEnd = [self dateFromString:current[kLivestreamEnd]];
@@ -93,7 +104,7 @@ static NSString *const kLivestreamStart = @"start";
             }
         }
         __weak Sport1PlayerLivestreamPin *weakSelf = self;
-        self.timer = [[NSTimer alloc] initWithFireDate:weakSelf.livestreamEnd
+        self.timer = [[NSTimer alloc] initWithFireDate:[weakSelf.livestreamEnd dateByAddingTimeInterval:2]
                                               interval:0
                                                repeats:NO
                                                  block:^(NSTimer * _Nonnull timer) {
@@ -107,9 +118,14 @@ static NSString *const kLivestreamStart = @"start";
 -(NSDate*)dateFromString:(NSString*)dateString {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.calendar = NSCalendar.currentCalendar;
-    dateFormatter.dateFormat = @"EEE, dd MM yyyy HH:mm:SS ZZZ"; //Matches the `end` & `start` string in the JSON - the only one with time zone.
+    NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    [dateFormatter setLocale:usLocale];
+    dateFormatter.timeZone = [NSTimeZone systemTimeZone];
+    dateFormatter.dateFormat = @"EEE, dd MM yyyy HH:mm:ss ZZZ"; //Matches the `end` & `start` string in the JSON - the only one with time zone.
     
-    return [dateFormatter dateFromString:dateString];
+    NSDate *date = [dateFormatter dateFromString:dateString];
+    NSLog(@"[!]: %@ -> date: %@", dateString, date);
+    return date;
 }
 
 -(NSDictionary* _Nullable)currentLivestreamFromJSON:(NSDictionary*)livestreamJSON {
@@ -127,9 +143,9 @@ static NSString *const kLivestreamStart = @"start";
     NSDate *start = [self dateFromString:livestream[kLivestreamStart]];
     NSDate *end = [self dateFromString:livestream[kLivestreamEnd]];
     
-    if ([end compare:now] == NSOrderedDescending &
-        [start compare:now] == NSOrderedAscending) {
-        NSLog(@"[!]: currentEnd: %@", end);
+    if (([end compare:now] == NSOrderedDescending &&
+        [start compare:now] == NSOrderedAscending) ||
+        [start compare:now] == NSOrderedSame) {
         return YES;
     } else {
         return NO;
@@ -154,12 +170,30 @@ static NSString *const kLivestreamStart = @"start";
     if ([currentLivestream.allKeys containsObject:kFSKKey]) {
         if ([[currentLivestream[kFSKKey] stringByReplacingOccurrencesOfString:@" " withString:@""] isEqualToString:kFSK16]) {
             self.ageRestricted = YES;
-        } else {self.ageRestricted = NO;}
-    } else {self.ageRestricted = NO;}
+        } else {
+            self.ageRestricted = NO;
+        }
+    } else {
+        self.ageRestricted = NO;
+    }
+    NSDictionary *data = [self livestreamData];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"LivestreamData"
+                                                        object:data];
 }
 
 -(BOOL)shouldDisplayPin {
     return self.ageRestricted;
+}
+
+-(NSDictionary *)livestreamData {
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    NSDate *start = [self dateFromString:self.currentLivestream[kLivestreamStart]];
+    NSDate *end = [self dateFromString:self.currentLivestream[kLivestreamEnd]];
+    if (start) { [data setObject:start forKey:@"start"]; }
+    if (end) { [data setObject:end forKey:@"end"]; }
+    [data setObject:[NSNumber numberWithBool:self.ageRestricted] forKey:@"fsk"];
+    if (self.networkResponse) {  [data setObject:self.networkResponse forKey:@"network"]; }
+    return data;
 }
 
 @end
