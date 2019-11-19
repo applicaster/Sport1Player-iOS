@@ -3,6 +3,7 @@ source 'git@github.com:CocoaPods/Specs.git'
 source 'git@github.com:applicaster/CocoaPods-Private.git'
 source 'git@github.com:applicaster/CocoaPods.git'
 source 'git@github.com:applicaster/PluginPresenter-iOS.git'
+source 'git@github.com:applicaster/zapp-player-plugin-jw.git'
 
 use_frameworks!
 
@@ -19,8 +20,6 @@ def shared_pods
     pod 'ApplicasterSDK', :path => 'Submodules/ApplicasterSDK/ApplicasterSDK.podspec'
     pod 'ZappAnalyticsPluginsSDK', '~> 8.0'
     pod 'ZappLoginPluginsSDK', '~> 8.0'
-
-	#development pods
 end
 
 target 'Sport1Player' do

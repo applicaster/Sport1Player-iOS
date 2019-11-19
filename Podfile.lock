@@ -58,7 +58,7 @@ PODS:
   - FBSDKShareKit (5.2.3):
     - FBSDKCoreKit (~> 5.0)
   - JWPlayer-SDK (3.8.0)
-  - JWPlayerPlugin (3.2.3):
+  - JWPlayerPlugin (3.2.4):
     - ApplicasterSDK
     - JWPlayer-SDK (~> 3.0)
     - ZappLoginPluginsSDK
@@ -90,7 +90,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   "git@github.com:applicaster/CocoaPods-Private.git":
-    - JWPlayerPlugin
     - ZappAnalyticsPluginsSDK
     - ZappGeneralPluginsSDK
     - ZappLoginPluginsSDK
@@ -99,6 +98,8 @@ SPEC REPOS:
     - TTTAttributedLabel
   "git@github.com:applicaster/PluginPresenter-iOS.git":
     - PluginPresenter
+  "git@github.com:applicaster/zapp-player-plugin-jw.git":
+    - JWPlayerPlugin
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - CocoaLumberjack
@@ -124,18 +125,18 @@ SPEC CHECKSUMS:
   FBSDKLoginKit: dc98b6bf12334f1a42f28d0457fffc9aa3d1eca5
   FBSDKShareKit: 6f9c622f9a5d051f43f2dab6f753d5198422b89c
   JWPlayer-SDK: 2906622e32fdec4da4c650e39e9eecf7578b3b69
-  JWPlayerPlugin: 52cd52bf3de88bc55741b07dfb795649b7de8f21
+  JWPlayerPlugin: 404ab353ee77cbe31b1db9fac4cbbcd1bf836c57
   PluginPresenter: 1b3d0234c164216dae92b6cd81e79521b929adaa
   SSZipArchive: 1e8e53dcb11bca3ded4738958dc49fc467320a14
   TTTAttributedLabel: f8c7f1dbc7b8f7168e23e8b4764dda2e3b74aae8
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
   ZappAnalyticsPluginsSDK: 0051d91c14d7c2a6479747b94b64a4067cec14f6
-  ZappGeneralPluginsSDK: 4e08d905d1b21ec19bbfa5eacdbeda66c7f42c3f
+  ZappGeneralPluginsSDK: 325facec4423ef6a4d48c6753d6e945ac1123ec4
   ZappLoginPluginsSDK: 0759a44470bde15635ec97696d0815154ab4a26a
   ZappPlugins: 688b1ab9fabb1f0319fd9e74f6cfbd7a0416b6cf
-  ZappPushPluginsSDK: 959f0d434bf746ab064287fb970eab67bd773365
+  ZappPushPluginsSDK: 7c9fc0a644fe75fea7fdebcd669e39f48dab8580
 
-PODFILE CHECKSUM: 53e981f96e985240e78764198a51f9c37e0a3502
+PODFILE CHECKSUM: b825b6b34f20b6ea8f90f260de7d055e2d3dd943
 
 COCOAPODS: 1.7.5

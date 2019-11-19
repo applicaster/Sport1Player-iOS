@@ -107,7 +107,10 @@ static NSString *const kLivestreamStart = @"start";
 -(NSDate*)dateFromString:(NSString*)dateString {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.calendar = NSCalendar.currentCalendar;
-    dateFormatter.dateFormat = @"EEE, dd MM yyyy HH:mm:SS ZZZ"; //Matches the `end` & `start` string in the JSON - the only one with time zone.
+    NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    [dateFormatter setLocale:usLocale];
+    dateFormatter.timeZone = [NSTimeZone systemTimeZone];
+    dateFormatter.dateFormat = @"EEE, dd MM yyyy HH:mm:ss ZZZ"; //Matches the `end` & `start` string in the JSON - the only one with time zone.
     
     return [dateFormatter dateFromString:dateString];
 }
@@ -127,9 +130,9 @@ static NSString *const kLivestreamStart = @"start";
     NSDate *start = [self dateFromString:livestream[kLivestreamStart]];
     NSDate *end = [self dateFromString:livestream[kLivestreamEnd]];
     
-    if ([end compare:now] == NSOrderedDescending &
-        [start compare:now] == NSOrderedAscending) {
-        NSLog(@"[!]: currentEnd: %@", end);
+    if (([end compare:now] == NSOrderedDescending &&
+        [start compare:now] == NSOrderedAscending) ||
+        [start compare:now] == NSOrderedSame) {
         return YES;
     } else {
         return NO;
