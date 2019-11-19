@@ -3,11 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1ACC80AE7925F057B48F587D /* Pods_Sport1Player.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DDBA1800016FB4780782349 /* Pods_Sport1Player.framework */; };
+		24680E2ED619A610DAF6C5B9 /* Pods_Sport1Player.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B73F174440373864F86F29E8 /* Pods_Sport1Player.framework */; };
 		5221B5182319330A006DD39B /* Sport1PlayerLivestreamAge.h in Headers */ = {isa = PBXBuildFile; fileRef = 5221B5162319330A006DD39B /* Sport1PlayerLivestreamAge.h */; };
 		5221B5192319330A006DD39B /* Sport1PlayerLivestreamAge.m in Sources */ = {isa = PBXBuildFile; fileRef = 5221B5172319330A006DD39B /* Sport1PlayerLivestreamAge.m */; };
 		522E24F52321126900008382 /* SwiftFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522E24F42321126900008382 /* SwiftFile.swift */; };
@@ -23,7 +23,7 @@
 		52CB243A2372EC1C00BCFA82 /* Sport1PlayerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52CB24372372EC1C00BCFA82 /* Sport1PlayerViewController.xib */; };
 		52F5E3CC232BD127001AE10B /* Sport1StreamPlayable.h in Headers */ = {isa = PBXBuildFile; fileRef = 52F5E3CA232BD127001AE10B /* Sport1StreamPlayable.h */; };
 		52F5E3CD232BD127001AE10B /* Sport1StreamPlayable.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F5E3CB232BD127001AE10B /* Sport1StreamPlayable.m */; };
-		83E7CF34A944EBE921F88E4A /* Pods_Sport1PlayerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC0D51FCA4195C50DEB61587 /* Pods_Sport1PlayerTests.framework */; };
+		E6D1E0109B5A3011CFAEF7E0 /* Pods_Sport1PlayerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D01D1DE84E85F535A2B16057 /* Pods_Sport1PlayerTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,10 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		05CCA15B2245B0A449FE0614 /* Pods-Sport1PlayerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sport1PlayerTests.release.xcconfig"; path = "Target Support Files/Pods-Sport1PlayerTests/Pods-Sport1PlayerTests.release.xcconfig"; sourceTree = "<group>"; };
-		27FFD671506CEF4AB398DF6A /* Pods-Sport1PlayerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sport1PlayerTests.debug.xcconfig"; path = "Target Support Files/Pods-Sport1PlayerTests/Pods-Sport1PlayerTests.debug.xcconfig"; sourceTree = "<group>"; };
-		2DDBA1800016FB4780782349 /* Pods_Sport1Player.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sport1Player.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3030C3527EE810EA35F93869 /* Pods-Sport1Player.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sport1Player.debug.xcconfig"; path = "Target Support Files/Pods-Sport1Player/Pods-Sport1Player.debug.xcconfig"; sourceTree = "<group>"; };
+		1D64D7B27DED46D0AB267051 /* Pods-Sport1Player.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sport1Player.release.xcconfig"; path = "Target Support Files/Pods-Sport1Player/Pods-Sport1Player.release.xcconfig"; sourceTree = "<group>"; };
+		1F8B71FE0DFAAFD1FAD05979 /* Pods-Sport1PlayerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sport1PlayerTests.debug.xcconfig"; path = "Target Support Files/Pods-Sport1PlayerTests/Pods-Sport1PlayerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5221B5162319330A006DD39B /* Sport1PlayerLivestreamAge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sport1PlayerLivestreamAge.h; sourceTree = "<group>"; };
 		5221B5172319330A006DD39B /* Sport1PlayerLivestreamAge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sport1PlayerLivestreamAge.m; sourceTree = "<group>"; };
 		522E24F42321126900008382 /* SwiftFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftFile.swift; sourceTree = "<group>"; };
@@ -63,8 +61,10 @@
 		52CB24372372EC1C00BCFA82 /* Sport1PlayerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Sport1PlayerViewController.xib; path = Resources/Sport1PlayerViewController.xib; sourceTree = "<group>"; };
 		52F5E3CA232BD127001AE10B /* Sport1StreamPlayable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sport1StreamPlayable.h; sourceTree = "<group>"; };
 		52F5E3CB232BD127001AE10B /* Sport1StreamPlayable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sport1StreamPlayable.m; sourceTree = "<group>"; };
-		6D87A9BFB29B93133E228142 /* Pods-Sport1Player.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sport1Player.release.xcconfig"; path = "Target Support Files/Pods-Sport1Player/Pods-Sport1Player.release.xcconfig"; sourceTree = "<group>"; };
-		FC0D51FCA4195C50DEB61587 /* Pods_Sport1PlayerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sport1PlayerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		703579ED24B38BA0C3F3556C /* Pods-Sport1PlayerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sport1PlayerTests.release.xcconfig"; path = "Target Support Files/Pods-Sport1PlayerTests/Pods-Sport1PlayerTests.release.xcconfig"; sourceTree = "<group>"; };
+		A18069977851EB5A5663A0EF /* Pods-Sport1Player.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sport1Player.debug.xcconfig"; path = "Target Support Files/Pods-Sport1Player/Pods-Sport1Player.debug.xcconfig"; sourceTree = "<group>"; };
+		B73F174440373864F86F29E8 /* Pods_Sport1Player.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sport1Player.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D01D1DE84E85F535A2B16057 /* Pods_Sport1PlayerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sport1PlayerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,7 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1ACC80AE7925F057B48F587D /* Pods_Sport1Player.framework in Frameworks */,
+				24680E2ED619A610DAF6C5B9 /* Pods_Sport1Player.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,7 +81,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5280B5D12316A2C40095CFBF /* Sport1Player.framework in Frameworks */,
-				83E7CF34A944EBE921F88E4A /* Pods_Sport1PlayerTests.framework in Frameworks */,
+				E6D1E0109B5A3011CFAEF7E0 /* Pods_Sport1PlayerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,12 +91,21 @@
 		01C7B19E8A124B264BCFAA6A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3030C3527EE810EA35F93869 /* Pods-Sport1Player.debug.xcconfig */,
-				6D87A9BFB29B93133E228142 /* Pods-Sport1Player.release.xcconfig */,
-				27FFD671506CEF4AB398DF6A /* Pods-Sport1PlayerTests.debug.xcconfig */,
-				05CCA15B2245B0A449FE0614 /* Pods-Sport1PlayerTests.release.xcconfig */,
+				A18069977851EB5A5663A0EF /* Pods-Sport1Player.debug.xcconfig */,
+				1D64D7B27DED46D0AB267051 /* Pods-Sport1Player.release.xcconfig */,
+				1F8B71FE0DFAAFD1FAD05979 /* Pods-Sport1PlayerTests.debug.xcconfig */,
+				703579ED24B38BA0C3F3556C /* Pods-Sport1PlayerTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		34B69C19B0FC68886BF37937 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B73F174440373864F86F29E8 /* Pods_Sport1Player.framework */,
+				D01D1DE84E85F535A2B16057 /* Pods_Sport1PlayerTests.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		5280B5BD2316A2C30095CFBF = {
@@ -106,7 +115,7 @@
 				5280B5D42316A2C40095CFBF /* Sport1PlayerTests */,
 				5280B5C82316A2C30095CFBF /* Products */,
 				01C7B19E8A124B264BCFAA6A /* Pods */,
-				D7345E7CE8F1E73399C920A5 /* Frameworks */,
+				34B69C19B0FC68886BF37937 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -161,15 +170,6 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
-		D7345E7CE8F1E73399C920A5 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				2DDBA1800016FB4780782349 /* Pods_Sport1Player.framework */,
-				FC0D51FCA4195C50DEB61587 /* Pods_Sport1PlayerTests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -192,12 +192,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5280B5DB2316A2C40095CFBF /* Build configuration list for PBXNativeTarget "Sport1Player" */;
 			buildPhases = (
-				82EB47C976BC1BBC5F0ECB50 /* [CP] Check Pods Manifest.lock */,
+				2555322937DD81065DF6FD60 /* [CP] Check Pods Manifest.lock */,
 				5280B5C22316A2C30095CFBF /* Headers */,
 				5280B5C32316A2C30095CFBF /* Sources */,
 				5280B5C42316A2C30095CFBF /* Frameworks */,
 				5280B5C52316A2C30095CFBF /* Resources */,
-				84515567C194C7AFAA75DFD6 /* [CP] Copy Pods Resources */,
+				745FE0E0EC9DB36D58D14EE0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -212,12 +212,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5280B5DE2316A2C40095CFBF /* Build configuration list for PBXNativeTarget "Sport1PlayerTests" */;
 			buildPhases = (
-				E7CE88FE1F8AC2ADB3FF0CB8 /* [CP] Check Pods Manifest.lock */,
+				842FA22F7337F526EEF3F2EB /* [CP] Check Pods Manifest.lock */,
 				5280B5CC2316A2C40095CFBF /* Sources */,
 				5280B5CD2316A2C40095CFBF /* Frameworks */,
 				5280B5CE2316A2C40095CFBF /* Resources */,
-				D1A71A3F3740309A6DDC1186 /* [CP] Embed Pods Frameworks */,
-				7608241634AB458B6500B5DF /* [CP] Copy Pods Resources */,
+				556392E006CC2FE123C89B19 /* [CP] Embed Pods Frameworks */,
+				3B88C53961A3A94A55603663 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -284,24 +284,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		7608241634AB458B6500B5DF /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sport1PlayerTests/Pods-Sport1PlayerTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sport1PlayerTests/Pods-Sport1PlayerTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sport1PlayerTests/Pods-Sport1PlayerTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		82EB47C976BC1BBC5F0ECB50 /* [CP] Check Pods Manifest.lock */ = {
+		2555322937DD81065DF6FD60 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -323,24 +306,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		84515567C194C7AFAA75DFD6 /* [CP] Copy Pods Resources */ = {
+		3B88C53961A3A94A55603663 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sport1Player/Pods-Sport1Player-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Sport1PlayerTests/Pods-Sport1PlayerTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sport1Player/Pods-Sport1Player-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Sport1PlayerTests/Pods-Sport1PlayerTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sport1Player/Pods-Sport1Player-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sport1PlayerTests/Pods-Sport1PlayerTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D1A71A3F3740309A6DDC1186 /* [CP] Embed Pods Frameworks */ = {
+		556392E006CC2FE123C89B19 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -357,7 +340,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sport1PlayerTests/Pods-Sport1PlayerTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E7CE88FE1F8AC2ADB3FF0CB8 /* [CP] Check Pods Manifest.lock */ = {
+		745FE0E0EC9DB36D58D14EE0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sport1Player/Pods-Sport1Player-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sport1Player/Pods-Sport1Player-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sport1Player/Pods-Sport1Player-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		842FA22F7337F526EEF3F2EB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -472,6 +472,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -527,6 +528,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -535,7 +537,7 @@
 		};
 		5280B5DC2316A2C40095CFBF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3030C3527EE810EA35F93869 /* Pods-Sport1Player.debug.xcconfig */;
+			baseConfigurationReference = A18069977851EB5A5663A0EF /* Pods-Sport1Player.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -563,7 +565,7 @@
 		};
 		5280B5DD2316A2C40095CFBF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6D87A9BFB29B93133E228142 /* Pods-Sport1Player.release.xcconfig */;
+			baseConfigurationReference = 1D64D7B27DED46D0AB267051 /* Pods-Sport1Player.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -590,7 +592,7 @@
 		};
 		5280B5DF2316A2C40095CFBF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 27FFD671506CEF4AB398DF6A /* Pods-Sport1PlayerTests.debug.xcconfig */;
+			baseConfigurationReference = 1F8B71FE0DFAAFD1FAD05979 /* Pods-Sport1PlayerTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -603,13 +605,14 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.applicaster.Sport1PlayerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		5280B5E02316A2C40095CFBF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 05CCA15B2245B0A449FE0614 /* Pods-Sport1PlayerTests.release.xcconfig */;
+			baseConfigurationReference = 703579ED24B38BA0C3F3556C /* Pods-Sport1PlayerTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -622,6 +625,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.applicaster.Sport1PlayerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

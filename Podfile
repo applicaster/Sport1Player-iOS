@@ -20,8 +20,6 @@ def shared_pods
     pod 'ApplicasterSDK', :path => 'Submodules/ApplicasterSDK/ApplicasterSDK.podspec'
     pod 'ZappAnalyticsPluginsSDK', '~> 8.0'
     pod 'ZappLoginPluginsSDK', '~> 8.0'
-
-	#development pods
 end
 
 target 'Sport1Player' do
