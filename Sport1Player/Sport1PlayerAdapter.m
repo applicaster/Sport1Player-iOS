@@ -279,11 +279,7 @@ andPlayerConfiguration:configuration];
         self.livestreamPinValidation = nil;
         return;
     }
-
-//    Class pluginClass = [self.pluginManager adapterClass:pluginModel];
-//    if ([pluginClass conformsToProtocol:@protocol(ZPAdapterProtocol)]) {
-//
-//    }
+    
     id<ZPAdapterProtocol> plugin = [self.pluginManager adapter:pluginModel];
     if ([plugin conformsToProtocol:@protocol(PluginPresenterProtocol)]) {
         [(id<PluginPresenterProtocol>)plugin presentPluginWithParentViewController:rootViewController
@@ -321,6 +317,7 @@ andPlayerConfiguration:configuration];
             if (success && self.playerViewController.viewIfLoaded.window != nil) {
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     if ([self.livestreamPinValidation shouldDisplayPin]) {
+                        [self.playerViewController pause];
                         [self presentPinOn:self.playerViewController
                                  container:self.container
                        playerConfiguration:self.playerConfiguration
@@ -335,6 +332,7 @@ andPlayerConfiguration:configuration];
         NSString *ageString = trackingInfo[kFSKKey];
         if ((id)ageString != [NSNull null]) {
             if ([ageString isEqualToString:kFSK16]) {
+                [self.playerViewController pause];
                 [self presentPinOn:self.playerViewController
                          container:self.container
                playerConfiguration:self.playerConfiguration
