@@ -71,13 +71,13 @@ PODS:
     - TwitterCore (>= 3.2.0)
   - ZappAnalyticsPluginsSDK (8.1.0):
     - ZappPlugins
-  - ZappGeneralPluginsSDK (9.0.0):
+  - ZappGeneralPluginsSDK (8.2.0):
     - ZappPlugins
   - ZappLoginPluginsSDK (8.0.3):
     - Alamofire
     - ZappPlugins
   - ZappPlugins (9.4.11)
-  - ZappPushPluginsSDK (9.0.0):
+  - ZappPushPluginsSDK (8.0.2):
     - ZappPlugins
 
 DEPENDENCIES:
@@ -85,8 +85,10 @@ DEPENDENCIES:
   - JWPlayerPlugin
   - PluginPresenter
   - ZappAnalyticsPluginsSDK (~> 8.0)
+  - ZappGeneralPluginsSDK (~> 8.0)
   - ZappLoginPluginsSDK (~> 8.0)
   - ZappPlugins (from `Submodules/ZappPlugins/ZappPlugins.podspec`)
+  - ZappPushPluginsSDK (~> 8.0)
 
 SPEC REPOS:
   "git@github.com:applicaster/CocoaPods-Private.git":
@@ -132,11 +134,11 @@ SPEC CHECKSUMS:
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
   ZappAnalyticsPluginsSDK: 0051d91c14d7c2a6479747b94b64a4067cec14f6
-  ZappGeneralPluginsSDK: 325facec4423ef6a4d48c6753d6e945ac1123ec4
+  ZappGeneralPluginsSDK: dad1c0dd6ab2404b6707394436f18b97c197e8cc
   ZappLoginPluginsSDK: 0759a44470bde15635ec97696d0815154ab4a26a
   ZappPlugins: 688b1ab9fabb1f0319fd9e74f6cfbd7a0416b6cf
-  ZappPushPluginsSDK: 7c9fc0a644fe75fea7fdebcd669e39f48dab8580
+  ZappPushPluginsSDK: 2062e2487f3ac877c0ab1a807d1a7f8d357bd333
 
-PODFILE CHECKSUM: b825b6b34f20b6ea8f90f260de7d055e2d3dd943
+PODFILE CHECKSUM: 7d979e2fafcdffed3d98844184b03f9c8354b531
 
 COCOAPODS: 1.7.5
