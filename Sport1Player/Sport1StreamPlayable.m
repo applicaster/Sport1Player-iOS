@@ -56,4 +56,12 @@
     return self.originalObject.publicPageURLPath;
 }
 
+- (NSString *)prerollVideoURLPath {
+    return self.originalObject.prerollVideoURLPath;
+}
+
+- (NSDictionary *)extensionsDictionary {
+    return self.originalObject.extensionsDictionary;
+}
+
 @end
