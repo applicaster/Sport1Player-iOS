@@ -58,7 +58,7 @@ static NSString *const kPluginName = @"pin_validation_plugin_id";
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-#pragma mark - ZPPlayerProtocol - Present Player
+#pragma mark - ZPPlayerProtocol overrides
 
 - (void)presentPlayerFullScreen:(UIViewController *)rootViewController configuration:(ZPPlayerConfiguration *)configuration {
     [self presentPlayerFullScreen:rootViewController configuration:configuration completion:nil];
@@ -86,11 +86,30 @@ static NSString *const kPluginName = @"pin_validation_plugin_id";
            }];
         } else {
             // login protocol doesn't handle the checks - let the player go
-            [self shouldPresentPinFor:self.currentPlayableItem rootViewController:rootViewController];
+            [self presentPinIfNecessaryFromRootViewController:rootViewController alreadyDisplayingPlayer:NO];
         }
     } else {
         // item is free
-        [self shouldPresentPinFor:self.currentPlayableItem rootViewController:rootViewController];
+        [self presentPinIfNecessaryFromRootViewController:rootViewController alreadyDisplayingPlayer:NO];
+    }
+}
+
+#pragma mark - ZPPlayerProtocol overrides - Helpers
+
+- (void)handleUserComply:(BOOL)isUserComply
+             loginPlugin:(NSObject<ZPLoginProviderUserDataProtocol> *)plugin
+      rootViewController:(UIViewController *)rootViewController
+              completion:(void (^)(void))completion {
+    if (isUserComply) {
+        [self presentPinIfNecessaryFromRootViewController:rootViewController alreadyDisplayingPlayer:NO];
+    } else {
+        __block typeof(self) blockSelf = self;
+        NSDictionary *playableItems = [NSDictionary dictionaryWithObject:[self currentPlayableItems] forKey:kPlayableItemsKey];
+        [plugin login:playableItems completion:^(enum ZPLoginOperationStatus status) {
+            if (status == ZPLoginOperationStatusCompletedSuccessfully) {
+                [blockSelf presentPinIfNecessaryFromRootViewController:rootViewController alreadyDisplayingPlayer:NO];
+            }
+        }];
     }
 }
 
@@ -107,61 +126,9 @@ static NSString *const kPluginName = @"pin_validation_plugin_id";
     }
 }
 
-#pragma mark - Login & Pin
+#pragma mark - Pin
 
-- (void)handleUserComply:(BOOL)isUserComply
-             loginPlugin:(NSObject<ZPLoginProviderUserDataProtocol> *)plugin
-      rootViewController:(UIViewController *)rootViewController
-              completion:(void (^)(void))completion {
-    if (isUserComply) {
-        [self shouldPresentPinFor:self.currentPlayableItem rootViewController:rootViewController];
-    } else {
-        __block typeof(self) blockSelf = self;
-        NSDictionary *playableItems = [NSDictionary dictionaryWithObject:[self currentPlayableItems] forKey:kPlayableItemsKey];
-        [plugin login:playableItems completion:^(enum ZPLoginOperationStatus status) {
-           if (status == ZPLoginOperationStatusCompletedSuccessfully) {
-               [blockSelf shouldPresentPinFor:self.currentPlayableItem rootViewController:rootViewController];
-           }
-       }];
-    }
-}
-
--(void)shouldPresentPinFor:(NSObject <ZPPlayable>*)currentPlayableItem rootViewController:(UIViewController*)rootViewController {
-    NSDictionary *trackingInfo = currentPlayableItem.extensionsDictionary[kTrackingInfoKey];
-
-    if (![trackingInfo.allKeys containsObject:kAgeRatingKey]) {
-        //Is a live stream
-        [self.livestreamPinValidation updateLivestreamAgeDataWithCompletion:^(BOOL success) {
-            if (success) {
-                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    if ([self.livestreamPinValidation shouldDisplayPin]) {
-                        [self presentPinOn:rootViewController alreadyDisplayingPlayer:NO];
-                    }else {
-                        [self.playerHelper amendIfLivestreamModified:self.currentPlayableItem callback:^(NSObject<ZPPlayable> *amended) {
-                            self.currentPlayableItem = amended;
-                            [super playFullScreen:rootViewController configuration:self.playerConfiguration completion:nil];
-                       }];
-                    }
-                }];
-            }
-        }];
-
-        return;
-    }
-    
-    // Is not a live stream
-    NSString *ageString = trackingInfo[kFSKKey];
-    if ((id)ageString != [NSNull null]) {
-        if ([ageString isEqualToString:kFSK16]) {
-            [self presentPinOn:rootViewController alreadyDisplayingPlayer:NO];
-            return;
-        }
-    }
-
-    [super playFullScreen:rootViewController configuration:self.playerConfiguration completion:nil];
-}
-
--(void)presentPinOn:(UIViewController*)rootViewController alreadyDisplayingPlayer:(BOOL)fromLivestreamPin {
+- (void)presentPinOn:(UIViewController*)rootViewController alreadyDisplayingPlayer:(BOOL)fromLivestreamPin {
     ZPPluginModel *pluginModel = [self.pluginManager pluginModelById:self.configurationJSON[kPluginName]];
 
     if (pluginModel == nil) {
@@ -187,40 +154,58 @@ static NSString *const kPluginName = @"pin_validation_plugin_id";
     }
 }
 
-#pragma mark - Livestream Pin Presentation
--(void)shouldPresentPin {
+- (void)presentPinIfNecessary {
+    [self presentPinIfNecessaryFromRootViewController:self.playerViewController alreadyDisplayingPlayer:YES];
+}
+
+- (void)presentPinIfNecessaryFromRootViewController:(UIViewController*)rootViewController
+                            alreadyDisplayingPlayer:(BOOL)alreadyDisplayingPlayer {
     NSDictionary *trackingInfo = self.currentPlayableItem.extensionsDictionary[kTrackingInfoKey];
     
-    if (![trackingInfo.allKeys containsObject:kAgeRatingKey]) {
+    //Livestream
+    if (self.currentPlayableItem.isLive) {
         [self.livestreamPinValidation updateLivestreamAgeDataWithCompletion:^(BOOL success) {
-            //Check if player is visible
-            if (success && self.playerViewController.viewIfLoaded.window != nil) {
+            if (success) {
+                //Check if player is visible
+                if (alreadyDisplayingPlayer && self.playerViewController.viewIfLoaded.window == nil){
+                    return;
+                }
+                
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     if ([self.livestreamPinValidation shouldDisplayPin]) {
                         [self.playerViewController pause];
-                        [self presentPinOn:self.playerViewController alreadyDisplayingPlayer:YES];
+                        [self presentPinOn:rootViewController alreadyDisplayingPlayer:alreadyDisplayingPlayer];
+                    }else if (!alreadyDisplayingPlayer) {
+                        [self.playerHelper amendIfLivestreamModified:self.currentPlayableItem callback:^(NSObject<ZPPlayable> *amended) {
+                            self.currentPlayableItem = amended;
+                            [super playFullScreen:rootViewController configuration:self.playerConfiguration completion:nil];
+                        }];
                     }
                 }];
             }
         }];
         return;
-    } else {
-        // Is not a live stream
-        NSString *ageString = trackingInfo[kFSKKey];
-        if ((id)ageString != [NSNull null]) {
-            if ([ageString isEqualToString:kFSK16]) {
-                [self.playerViewController pause];
-                [self presentPinOn:self.playerViewController alreadyDisplayingPlayer:YES];
-                return;
-            }
+    }
+    
+    //VOD
+    NSString *ageString = trackingInfo[kFSKKey];
+    if ((id)ageString != [NSNull null]) {
+        if ([ageString isEqualToString:kFSK16]) {
+            [self.playerViewController pause];
+            [self presentPinOn:rootViewController alreadyDisplayingPlayer:alreadyDisplayingPlayer];
+            return;
         }
+    }
+    
+    if (!alreadyDisplayingPlayer) {
+        [super playFullScreen:rootViewController configuration:self.playerConfiguration completion:nil];
     }
 }
 
 #pragma mark - Handlers
 
--(void)applicationWillEnterForegroundNotificationHandler {
-    [self shouldPresentPin];
+- (void)applicationWillEnterForegroundNotificationHandler {
+    [self presentPinIfNecessary];
 }
 
 @end

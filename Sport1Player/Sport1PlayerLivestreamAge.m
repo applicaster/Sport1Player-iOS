@@ -97,7 +97,7 @@ static NSString *const kLivestreamStart = @"start";
                                               interval:0
                                                repeats:NO
                                                  block:^(NSTimer * _Nonnull timer) {
-                                                     [weakSelf.currentPlayerAdapter shouldPresentPin];
+                                                     [weakSelf.currentPlayerAdapter presentPinIfNecessary];
                                                  }];
         [[NSRunLoop mainRunLoop] addTimer:self.timer
                                      forMode:NSRunLoopCommonModes];
