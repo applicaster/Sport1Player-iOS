@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -558,7 +558,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -585,7 +584,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.applicaster.Sport1Player;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -594,7 +592,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1F8B71FE0DFAAFD1FAD05979 /* Pods-Sport1PlayerTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WZZ4E5L8EL;
 				INFOPLIST_FILE = Sport1PlayerTests/Info.plist;
@@ -605,7 +602,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.applicaster.Sport1PlayerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -614,7 +610,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 703579ED24B38BA0C3F3556C /* Pods-Sport1PlayerTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WZZ4E5L8EL;
 				INFOPLIST_FILE = Sport1PlayerTests/Info.plist;
@@ -625,7 +620,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.applicaster.Sport1PlayerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
