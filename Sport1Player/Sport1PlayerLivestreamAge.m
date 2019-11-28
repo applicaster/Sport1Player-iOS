@@ -12,6 +12,7 @@
 static NSString *const kEPG = @"epg";
 static NSString *const kLivestreamEnd = @"end";
 static NSString *const kLivestreamStart = @"start";
+static NSString *const kLivestreamCurrentTime = @"currentTime";
 static NSInteger const kRetryTime = 5;
 
 @interface Sport1PlayerLivestreamPin ()
@@ -59,8 +60,12 @@ static NSInteger const kRetryTime = 5;
 }
 
 - (void)triggerTimerWithLivestreamEPG:(NSDictionary *)livestreamEPG {
+    //We calculate the firedate as: livestreamEnd = end + (now - serverNow)
     NSDictionary *currentLivestream = [self currentLivestreamFromJSON:livestreamEPG];
     NSDate *livestreamEnd = [self dateFromString:currentLivestream[kLivestreamEnd]];
+    NSDate *serverTime = [self dateFromString:livestreamEPG[kLivestreamCurrentTime]];
+    NSTimeInterval interval = [serverTime timeIntervalSinceDate:[NSDate date]];
+    livestreamEnd = [livestreamEnd dateByAddingTimeInterval:interval];
     
     if (self.timer != nil) {
         [self.timer invalidate];
@@ -90,10 +95,10 @@ static NSInteger const kRetryTime = 5;
 
 - (NSDictionary* _Nullable)currentLivestreamFromJSON:(NSDictionary*)livestreamJSON {
     NSArray *epg = livestreamJSON[kEPG];
-    NSDate *now = [NSDate date];
+    NSDate *now = [self dateFromString:livestreamJSON[kLivestreamCurrentTime]];
     
     for (NSDictionary *livestream in epg) {
-        if ([self isCurrent:livestream withNow:now]) {
+        if ([self isCurrent:livestream now:now]) {
             return livestream;
         }
     }
@@ -101,7 +106,11 @@ static NSInteger const kRetryTime = 5;
     return nil;
 }
 
-- (BOOL)isCurrent:(NSDictionary*)livestream withNow:(NSDate*)now {
+- (BOOL)isCurrent:(NSDictionary*)livestream now:(NSDate*)now {
+    if (!now) {
+        return NO;
+    }
+    
     NSDate *start = [self dateFromString:livestream[kLivestreamStart]];
     NSDate *end = [self dateFromString:livestream[kLivestreamEnd]];
     
@@ -112,20 +121,6 @@ static NSInteger const kRetryTime = 5;
     } else {
         return NO;
     }
-}
-
-- (NSDictionary* _Nullable)livestreamFromJSON:(NSDictionary*)livestreamJSON withStart:(NSString*)start {
-    NSArray *epg = livestreamJSON[kEPG];
-    
-    for (NSDictionary *livestream in epg) {
-        NSString *nextStart = livestream[kLivestreamStart];
-        
-        if ([nextStart isEqualToString:start]) {
-            return livestream;
-        }
-    }
-    
-    return nil;
 }
 
 - (BOOL)isAgeRestricted:(NSDictionary*)currentLivestream {
