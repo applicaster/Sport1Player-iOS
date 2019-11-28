@@ -42,7 +42,7 @@ static NSString *const kPluginName = @"pin_validation_plugin_id";
     instance.currentPlayableItem = items.firstObject;
     instance.currentPlayableItems = items;
     instance.pluginManager = [ZPPluginManager class];
-    id<Sport1HTTPClient> httpClient = [[Sport1HTTPClientImplementation alloc] init];
+    id<Sport1HTTPClient> httpClient = [[Sport1HTTPClientImplementation alloc] initWithConfigurationJSON:configurationJSON];
     instance.playerHelper = [[Sport1PlayerHelper alloc] initWithHTTPClient:httpClient];
     instance.livestreamPinValidation = [[Sport1PlayerLivestreamPin alloc] initWithConfigurationJSON:configurationJSON
                                                                                currentPlayerAdapter:instance httpClient:httpClient];

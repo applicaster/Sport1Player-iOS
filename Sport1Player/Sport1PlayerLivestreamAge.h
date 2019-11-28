@@ -8,12 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "Sport1PlayerAdapter.h"
-#import "Sport1HTTPClient.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 static NSString *const kFSKKey = @"fsk";
 static NSString *const kFSK16 = @"FSK16";
+
+@protocol Sport1HTTPClient;
 
 @interface Sport1PlayerLivestreamPin : NSObject
 

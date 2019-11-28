@@ -7,6 +7,7 @@
 //
 
 #import "Sport1PlayerLivestreamAge.h"
+#import "Sport1HTTPClient.h"
 
 static NSString *const kEPG = @"epg";
 static NSString *const kLivestreamEnd = @"end";
