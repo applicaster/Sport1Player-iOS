@@ -23,8 +23,8 @@
 		52CB243A2372EC1C00BCFA82 /* Sport1PlayerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52CB24372372EC1C00BCFA82 /* Sport1PlayerViewController.xib */; };
 		52F5E3CC232BD127001AE10B /* Sport1StreamPlayable.h in Headers */ = {isa = PBXBuildFile; fileRef = 52F5E3CA232BD127001AE10B /* Sport1StreamPlayable.h */; };
 		52F5E3CD232BD127001AE10B /* Sport1StreamPlayable.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F5E3CB232BD127001AE10B /* Sport1StreamPlayable.m */; };
-		6A36AFAC238D73EC00721D6C /* HTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A36AFAA238D73EC00721D6C /* HTTPClient.h */; };
-		6A36AFAD238D73EC00721D6C /* HTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A36AFAB238D73EC00721D6C /* HTTPClient.m */; };
+		6A36AFAC238D73EC00721D6C /* Sport1HTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A36AFAA238D73EC00721D6C /* Sport1HTTPClient.h */; };
+		6A36AFAD238D73EC00721D6C /* Sport1HTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A36AFAB238D73EC00721D6C /* Sport1HTTPClient.m */; };
 		6A36AFB0238D74E300721D6C /* Sport1PlayerHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A36AFAE238D74E300721D6C /* Sport1PlayerHelper.h */; };
 		6A36AFB1238D74E300721D6C /* Sport1PlayerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A36AFAF238D74E300721D6C /* Sport1PlayerHelper.m */; };
 		E6D1E0109B5A3011CFAEF7E0 /* Pods_Sport1PlayerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D01D1DE84E85F535A2B16057 /* Pods_Sport1PlayerTests.framework */; };
@@ -65,8 +65,8 @@
 		52CB24372372EC1C00BCFA82 /* Sport1PlayerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Sport1PlayerViewController.xib; path = Resources/Sport1PlayerViewController.xib; sourceTree = "<group>"; };
 		52F5E3CA232BD127001AE10B /* Sport1StreamPlayable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sport1StreamPlayable.h; sourceTree = "<group>"; };
 		52F5E3CB232BD127001AE10B /* Sport1StreamPlayable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sport1StreamPlayable.m; sourceTree = "<group>"; };
-		6A36AFAA238D73EC00721D6C /* HTTPClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTTPClient.h; sourceTree = "<group>"; };
-		6A36AFAB238D73EC00721D6C /* HTTPClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HTTPClient.m; sourceTree = "<group>"; };
+		6A36AFAA238D73EC00721D6C /* Sport1HTTPClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sport1HTTPClient.h; sourceTree = "<group>"; };
+		6A36AFAB238D73EC00721D6C /* Sport1HTTPClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sport1HTTPClient.m; sourceTree = "<group>"; };
 		6A36AFAE238D74E300721D6C /* Sport1PlayerHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sport1PlayerHelper.h; sourceTree = "<group>"; };
 		6A36AFAF238D74E300721D6C /* Sport1PlayerHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sport1PlayerHelper.m; sourceTree = "<group>"; };
 		703579ED24B38BA0C3F3556C /* Pods-Sport1PlayerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sport1PlayerTests.release.xcconfig"; path = "Target Support Files/Pods-Sport1PlayerTests/Pods-Sport1PlayerTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -150,8 +150,8 @@
 				52F5E3CB232BD127001AE10B /* Sport1StreamPlayable.m */,
 				6A36AFAE238D74E300721D6C /* Sport1PlayerHelper.h */,
 				6A36AFAF238D74E300721D6C /* Sport1PlayerHelper.m */,
-				6A36AFAA238D73EC00721D6C /* HTTPClient.h */,
-				6A36AFAB238D73EC00721D6C /* HTTPClient.m */,
+				6A36AFAA238D73EC00721D6C /* Sport1HTTPClient.h */,
+				6A36AFAB238D73EC00721D6C /* Sport1HTTPClient.m */,
 				522E24F42321126900008382 /* SwiftFile.swift */,
 				52B2BB5D2319279A00842E2A /* ZappJWPlayer+Public.h */,
 				52CB24352372EC1C00BCFA82 /* Sport1PlayerViewController.h */,
@@ -190,7 +190,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5221B5182319330A006DD39B /* Sport1PlayerLivestreamAge.h in Headers */,
-				6A36AFAC238D73EC00721D6C /* HTTPClient.h in Headers */,
+				6A36AFAC238D73EC00721D6C /* Sport1HTTPClient.h in Headers */,
 				529D8E672316BF780091A875 /* Sport1PlayerAdapter.h in Headers */,
 				5280B5D82316A2C40095CFBF /* Sport1Player.h in Headers */,
 				52CB24382372EC1C00BCFA82 /* Sport1PlayerViewController.h in Headers */,
@@ -402,7 +402,7 @@
 			files = (
 				52F5E3CD232BD127001AE10B /* Sport1StreamPlayable.m in Sources */,
 				529D8E682316BF780091A875 /* Sport1PlayerAdapter.m in Sources */,
-				6A36AFAD238D73EC00721D6C /* HTTPClient.m in Sources */,
+				6A36AFAD238D73EC00721D6C /* Sport1HTTPClient.m in Sources */,
 				6A36AFB1238D74E300721D6C /* Sport1PlayerHelper.m in Sources */,
 				5221B5192319330A006DD39B /* Sport1PlayerLivestreamAge.m in Sources */,
 				52CB24392372EC1C00BCFA82 /* Sport1PlayerViewController.m in Sources */,

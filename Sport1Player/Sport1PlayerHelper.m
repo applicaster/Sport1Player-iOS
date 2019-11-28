@@ -13,12 +13,12 @@
 static NSString *const kAuthIdKey = @"auth_id";
 
 @interface Sport1PlayerHelper()
-@property (nonatomic, strong, readonly) id<HTTPClient> httpClient;
+@property (nonatomic, strong, readonly) id<Sport1HTTPClient> httpClient;
 @end
 
 @implementation Sport1PlayerHelper
 
-- (instancetype)initWithHTTPClient:(id<HTTPClient>)httpClient {
+- (instancetype)initWithHTTPClient:(id<Sport1HTTPClient>)httpClient {
     self = [super init];
     if (self) {
         _httpClient = httpClient;

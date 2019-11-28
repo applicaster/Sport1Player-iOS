@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MockZPPluginManager : NSObject <ZPPluginManagerProtocol>
 +(MockPluginPresenter*)getPluginPresenterInstance;
-+(void)setPluginPresenterInstance:(MockPluginPresenter*)plugin;
++(void)setPluginPresenterInstance:(MockPluginPresenter* _Nullable)plugin;
 @end
 
 NS_ASSUME_NONNULL_END

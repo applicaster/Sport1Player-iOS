@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 @import ZappPlugins;
-#import "HTTPClient.h"
+#import "Sport1HTTPClient.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Sport1PlayerHelper : NSObject
 
-- (instancetype)initWithHTTPClient:(id<HTTPClient>)httpClient;
+- (instancetype)initWithHTTPClient:(id<Sport1HTTPClient>)httpClient;
 
 /**
  If the playable is a livestream and the 'auth_id' is defined in the model, it calls a service to retrieve the final URL, overriding the playable model with it.

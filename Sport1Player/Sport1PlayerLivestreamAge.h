@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Sport1PlayerAdapter.h"
+#import "Sport1HTTPClient.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,7 +19,7 @@ static NSString *const kFSK16 = @"FSK16";
 
 @property (nonatomic, weak) Sport1PlayerAdapter *currentPlayerAdapter;
 
--(instancetype)initWithConfigurationJSON:(NSDictionary*)configurationJSON currentPlayerAdapter:(Sport1PlayerAdapter* _Nullable)currentPlayerAdapter;
+-(instancetype)initWithConfigurationJSON:(NSDictionary*)configurationJSON currentPlayerAdapter:(Sport1PlayerAdapter* _Nullable)currentPlayerAdapter httpClient:(id<Sport1HTTPClient>)httpClient;
 -(void)updateLivestreamAgeDataWithCompletion:(void (^)(BOOL success))completionHandler;
 -(BOOL)shouldDisplayPin;
 

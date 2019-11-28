@@ -42,9 +42,10 @@ static NSString *const kPluginName = @"pin_validation_plugin_id";
     instance.currentPlayableItem = items.firstObject;
     instance.currentPlayableItems = items;
     instance.pluginManager = [ZPPluginManager class];
+    id<Sport1HTTPClient> httpClient = [[Sport1HTTPClientImplementation alloc] init];
+    instance.playerHelper = [[Sport1PlayerHelper alloc] initWithHTTPClient:httpClient];
     instance.livestreamPinValidation = [[Sport1PlayerLivestreamPin alloc] initWithConfigurationJSON:configurationJSON
-                                                                           currentPlayerAdapter:instance];
-    instance.playerHelper = [[Sport1PlayerHelper alloc] initWithHTTPClient:[[HTTPClientImplementation alloc] init]];
+                                                                               currentPlayerAdapter:instance httpClient:httpClient];
 
     [[NSNotificationCenter defaultCenter] addObserver:instance
                                              selector:@selector(applicationWillEnterForegroundNotificationHandler)
@@ -128,32 +129,6 @@ static NSString *const kPluginName = @"pin_validation_plugin_id";
 
 #pragma mark - Pin
 
-- (void)presentPinOn:(UIViewController*)rootViewController alreadyDisplayingPlayer:(BOOL)fromLivestreamPin {
-    ZPPluginModel *pluginModel = [self.pluginManager pluginModelById:self.configurationJSON[kPluginName]];
-
-    if (pluginModel == nil) {
-        //currently this fails without warning & doesn't display player.
-        self.livestreamPinValidation = nil;
-        return;
-    }
-    
-    id<ZPAdapterProtocol> plugin = [self.pluginManager adapter:pluginModel];
-    if ([plugin conformsToProtocol:@protocol(PluginPresenterProtocol)]) {
-        [(id<PluginPresenterProtocol>)plugin presentPluginWithParentViewController:rootViewController extraData:nil completion:^(BOOL success, id _Nullable data) {
-            [self.playerHelper amendIfLivestreamModified:self.currentPlayableItem callback:^(NSObject<ZPPlayable> *amended) {
-                self.currentPlayableItem = amended;
-                if (success && !fromLivestreamPin) {
-                    [super playFullScreen:rootViewController configuration:self.playerConfiguration completion:nil];
-                } else if (!success) {
-                    [self.playerViewController dismiss:nil];
-                    self.livestreamPinValidation = nil;
-                    self.playerConfiguration = nil;
-                }
-            }];
-        }];
-    }
-}
-
 - (void)presentPinIfNecessary {
     [self presentPinIfNecessaryFromRootViewController:self.playerViewController alreadyDisplayingPlayer:YES];
 }
@@ -199,6 +174,32 @@ static NSString *const kPluginName = @"pin_validation_plugin_id";
     
     if (!alreadyDisplayingPlayer) {
         [super playFullScreen:rootViewController configuration:self.playerConfiguration completion:nil];
+    }
+}
+
+- (void)presentPinOn:(UIViewController*)rootViewController alreadyDisplayingPlayer:(BOOL)alreadyDisplayingPlayer {
+    ZPPluginModel *pluginModel = [self.pluginManager pluginModelById:self.configurationJSON[kPluginName]];
+    
+    if (pluginModel == nil) {
+        //currently this fails without warning & doesn't display player.
+        self.livestreamPinValidation = nil;
+        return;
+    }
+    
+    id<ZPAdapterProtocol> plugin = [self.pluginManager adapter:pluginModel];
+    if ([plugin conformsToProtocol:@protocol(PluginPresenterProtocol)]) {
+        [(id<PluginPresenterProtocol>)plugin presentPluginWithParentViewController:rootViewController extraData:nil completion:^(BOOL success, id data) {
+            [self.playerHelper amendIfLivestreamModified:self.currentPlayableItem callback:^(NSObject<ZPPlayable> *amended) {
+                self.currentPlayableItem = amended;
+                if (success && !alreadyDisplayingPlayer) {
+                    [super playFullScreen:rootViewController configuration:self.playerConfiguration completion:nil];
+                } else if (!success) {
+                    [self.playerViewController dismiss:nil];
+                    self.livestreamPinValidation = nil;
+                    self.playerConfiguration = nil;
+                }
+            }];
+        }];
     }
 }
 
