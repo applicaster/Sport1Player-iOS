@@ -21,6 +21,7 @@ static NSString *const kPluginName = @"pin_validation_plugin_id";
 @interface Sport1PlayerAdapter ()
 @property (nonatomic, strong) Sport1PlayerLivestreamPin *livestreamPinValidation;
 @property (nonatomic, strong) ZPPlayerConfiguration *playerConfiguration;
+@property (nonatomic, strong) id<Sport1HTTPClient> httpClient;
 @property (nonatomic, strong) Sport1PlayerHelper *playerHelper;
 @end
 
@@ -42,10 +43,10 @@ static NSString *const kPluginName = @"pin_validation_plugin_id";
     instance.currentPlayableItem = items.firstObject;
     instance.currentPlayableItems = items;
     instance.pluginManager = [ZPPluginManager class];
-    id<Sport1HTTPClient> httpClient = [[Sport1HTTPClientImplementation alloc] initWithConfigurationJSON:configurationJSON];
-    instance.playerHelper = [[Sport1PlayerHelper alloc] initWithHTTPClient:httpClient];
+    instance.httpClient = [[Sport1HTTPClientImplementation alloc] initWithConfigurationJSON:configurationJSON];
+    instance.playerHelper = [[Sport1PlayerHelper alloc] initWithHTTPClient:instance.httpClient];
     instance.livestreamPinValidation = [[Sport1PlayerLivestreamPin alloc] initWithConfigurationJSON:configurationJSON
-                                                                               currentPlayerAdapter:instance httpClient:httpClient];
+        currentPlayerAdapter:instance httpClient:instance.httpClient];
 
     [[NSNotificationCenter defaultCenter] addObserver:instance
                                              selector:@selector(applicationWillEnterForegroundNotificationHandler)
@@ -139,15 +140,15 @@ static NSString *const kPluginName = @"pin_validation_plugin_id";
     
     //Livestream
     if (self.currentPlayableItem.isLive) {
-        [self.livestreamPinValidation updateLivestreamAgeDataWithCompletion:^(BOOL success) {
-            if (success) {
+        [self.livestreamPinValidation updateLivestreamAgeWithCompletion:^(NSError *error, BOOL shouldShowPin) {
+            if (!error) {
                 //Check if player is visible
                 if (alreadyDisplayingPlayer && self.playerViewController.viewIfLoaded.window == nil){
                     return;
                 }
                 
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    if ([self.livestreamPinValidation shouldDisplayPin]) {
+                    if (shouldShowPin) {
                         [self.playerViewController pause];
                         [self presentPinOn:rootViewController alreadyDisplayingPlayer:alreadyDisplayingPlayer];
                     }else if (!alreadyDisplayingPlayer) {
@@ -206,6 +207,9 @@ static NSString *const kPluginName = @"pin_validation_plugin_id";
 #pragma mark - Handlers
 
 - (void)applicationWillEnterForegroundNotificationHandler {
+    //We create a new livestream as we want to reset any previous configuration
+    self.livestreamPinValidation = [[Sport1PlayerLivestreamPin alloc] initWithConfigurationJSON:self.configurationJSON
+                                                                               currentPlayerAdapter:self httpClient:self.httpClient];
     [self presentPinIfNecessary];
 }
 

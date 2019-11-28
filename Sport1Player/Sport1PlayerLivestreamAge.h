@@ -20,9 +20,8 @@ static NSString *const kFSK16 = @"FSK16";
 
 @property (nonatomic, weak) Sport1PlayerAdapter *currentPlayerAdapter;
 
--(instancetype)initWithConfigurationJSON:(NSDictionary*)configurationJSON currentPlayerAdapter:(Sport1PlayerAdapter* _Nullable)currentPlayerAdapter httpClient:(id<Sport1HTTPClient>)httpClient;
--(void)updateLivestreamAgeDataWithCompletion:(void (^)(BOOL success))completionHandler;
--(BOOL)shouldDisplayPin;
+- (instancetype)initWithConfigurationJSON:(NSDictionary*)configurationJSON currentPlayerAdapter:(Sport1PlayerAdapter* _Nullable)currentPlayerAdapter httpClient:(id<Sport1HTTPClient>)httpClient;
+- (void)updateLivestreamAgeWithCompletion:(void (^)(NSError *error, BOOL shouldShowPin))completionHandler;
 
 @end
 
