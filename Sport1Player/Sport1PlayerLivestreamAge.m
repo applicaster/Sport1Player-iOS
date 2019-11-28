@@ -15,10 +15,7 @@ static NSString *const kLivestreamStart = @"start";
 static NSInteger const kRetryTime = 5;
 
 @interface Sport1PlayerLivestreamPin ()
-@property (nonatomic, strong) NSDictionary *nextLivestream;
 @property (nonatomic, strong) NSTimer *timer;
-@property (nonatomic, strong) NSDate *livestreamEnd;
-@property (nonatomic, assign) BOOL ageRestricted;
 @property (nonatomic, strong, readonly) id<Sport1HTTPClient> httpClient;
 @end
 
@@ -34,60 +31,50 @@ static NSInteger const kRetryTime = 5;
     return self;
 }
 
-- (void)updateLivestreamAgeDataWithCompletion:(void (^)(BOOL success))completionHandler {
-    BOOL ranCompletion = NO;
-    NSDate *now = [NSDate date];
-    if (self.nextLivestream != nil && [self isCurrent:self.nextLivestream withNow:now]) {
-        [self updateAgeRestriction:self.nextLivestream];
-        completionHandler(YES);
-        ranCompletion = YES;
-    } else {
-        self.ageRestricted = NO;
-    }
-    
+- (void)updateLivestreamAgeWithCompletion:(void (^)(NSError *error, BOOL shouldShowPin))completionHandler {
     [self.httpClient livestreamEPGWithSuccess:^(NSDictionary *livestreamEPG) {
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            [self updateWithLivestreamEPG:livestreamEPG];
-            if (!ranCompletion) {
-                completionHandler(YES);
+            NSDictionary *currentLivestream = [self currentLivestreamFromJSON:livestreamEPG];
+            if (currentLivestream) {
+                [self triggerTimerWithLivestreamEPG:livestreamEPG];
+                
+                BOOL isAgeRestricted = [self isAgeRestricted:currentLivestream];
+                completionHandler(nil, isAgeRestricted);
+            }else {
+                [self retryWithCompletion:completionHandler];
             }
         }];
     } failure:^(NSNumber *statusCode) {
-        NSLog(@"Retrying connection");
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kRetryTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self updateLivestreamAgeDataWithCompletion:completionHandler];
-        });
+        [self retryWithCompletion:completionHandler];
     }];
-}
-
-- (BOOL)shouldDisplayPin {
-    return self.ageRestricted;
 }
 
 #pragma mark - Private methods
 
-- (void)updateWithLivestreamEPG:(NSDictionary *)livestreamEPG {
-    NSDictionary *current = [self currentLivestreamFromJSON:livestreamEPG];
-    if (current) {
-        self.nextLivestream = [self livestreamFromJSON:livestreamEPG withStart:current[kLivestreamEnd]];
-        self.livestreamEnd = [self dateFromString:current[kLivestreamEnd]];
+- (void)retryWithCompletion:(void (^)(NSError *error, BOOL shouldShowPin))completionHandler {
+    NSLog(@"Retrying connection");
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kRetryTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self updateLivestreamAgeWithCompletion:completionHandler];
+    });
+}
+
+- (void)triggerTimerWithLivestreamEPG:(NSDictionary *)livestreamEPG {
+    NSDictionary *currentLivestream = [self currentLivestreamFromJSON:livestreamEPG];
+    NSDate *livestreamEnd = [self dateFromString:currentLivestream[kLivestreamEnd]];
+    
+    if (self.timer != nil) {
+        [self.timer invalidate];
+        self.timer = nil;
         
-        [self updateAgeRestriction:current];
-        
-        if (self.timer != nil) {
-            [self.timer invalidate];
-            self.timer = nil;
-            
-            if (self.currentPlayerAdapter == nil || self.currentPlayerAdapter.currentPlayerState == ZPPlayerStateStopped) {
-                return;
-            }
+        if (self.currentPlayerAdapter == nil || self.currentPlayerAdapter.currentPlayerState == ZPPlayerStateStopped) {
+            return;
         }
-        __weak Sport1PlayerLivestreamPin *weakSelf = self;
-        self.timer = [[NSTimer alloc] initWithFireDate:weakSelf.livestreamEnd interval:0 repeats:NO block:^(NSTimer *timer) {
-             [weakSelf.currentPlayerAdapter presentPinIfNecessary];
-         }];
-        [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     }
+    __weak Sport1PlayerLivestreamPin *weakSelf = self;
+    self.timer = [[NSTimer alloc] initWithFireDate:livestreamEnd interval:0 repeats:NO block:^(NSTimer *timer) {
+         [weakSelf.currentPlayerAdapter presentPinIfNecessary];
+     }];
+    [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
 }
 
 - (NSDate*)dateFromString:(NSString*)dateString {
@@ -141,15 +128,15 @@ static NSInteger const kRetryTime = 5;
     return nil;
 }
 
-- (void)updateAgeRestriction:(NSDictionary*)currentLivestream {
+- (BOOL)isAgeRestricted:(NSDictionary*)currentLivestream {
     if ([currentLivestream.allKeys containsObject:kFSKKey]) {
         if ([[currentLivestream[kFSKKey] stringByReplacingOccurrencesOfString:@" " withString:@""] isEqualToString:kFSK16]) {
-            self.ageRestricted = YES;
+            return YES;
         } else {
-            self.ageRestricted = NO;
+            return NO;
         }
     } else {
-        self.ageRestricted = NO;
+        return NO;
     }
 }
 
