@@ -60,12 +60,12 @@ static NSInteger const kRetryTime = 5;
 }
 
 - (void)triggerTimerWithLivestreamEPG:(NSDictionary *)livestreamEPG {
-    //We calculate the firedate as: livestreamEnd = end + (now - serverNow)
+    //We calculate the firedate as: livestreamEnd = now + (end - serverNow)
     NSDictionary *currentLivestream = [self currentLivestreamFromJSON:livestreamEPG];
     NSDate *livestreamEnd = [self dateFromString:currentLivestream[kLivestreamEnd]];
     NSDate *serverTime = [self dateFromString:livestreamEPG[kLivestreamCurrentTime]];
-    NSTimeInterval interval = [serverTime timeIntervalSinceDate:[NSDate date]];
-    livestreamEnd = [livestreamEnd dateByAddingTimeInterval:interval];
+    NSTimeInterval interval = [livestreamEnd timeIntervalSinceDate:serverTime];
+    livestreamEnd = [[NSDate date] dateByAddingTimeInterval:interval];
     
     if (self.timer != nil) {
         [self.timer invalidate];
