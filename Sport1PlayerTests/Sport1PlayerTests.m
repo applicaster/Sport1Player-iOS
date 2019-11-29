@@ -47,7 +47,7 @@
     
     //setup playable item
     APAtomEntryPlayable *playableItem = [[APAtomEntryPlayable alloc] init];
-    NSDictionary *extensions = [[NSDictionary alloc] initWithObjectsAndKeys:@{kFSKKey: kFSK16,kAgeRatingKey: @"16"}, kTrackingInfoKey, nil];
+    NSDictionary *extensions = [[NSDictionary alloc] initWithObjectsAndKeys:@{kFSKKey: kFSK16, @"age_rating": @"16"}, kTrackingInfoKey, nil];
     playableItem.extensionsDictionary = extensions;
     
     Sport1PlayerAdapter *sut = (Sport1PlayerAdapter*)[Sport1PlayerAdapter pluggablePlayerInitWithPlayableItems:@[playableItem]
@@ -68,7 +68,7 @@
     
     //setup playable item
     APAtomEntryPlayable *playableItem = [[APAtomEntryPlayable alloc] init];
-    NSDictionary *extensions = [[NSDictionary alloc] initWithObjectsAndKeys:@{kAgeRatingKey: @"16"}, kTrackingInfoKey, nil];
+    NSDictionary *extensions = [[NSDictionary alloc] initWithObjectsAndKeys:@{@"age_rating": @"16"}, kTrackingInfoKey, nil];
     playableItem.extensionsDictionary = extensions;
     
     Sport1PlayerAdapter *sut = (Sport1PlayerAdapter*)[Sport1PlayerAdapter pluggablePlayerInitWithPlayableItems:@[playableItem]

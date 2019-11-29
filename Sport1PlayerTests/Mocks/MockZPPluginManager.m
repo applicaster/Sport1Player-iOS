@@ -23,6 +23,21 @@ static MockPluginPresenter *mockPluginPresenter;
     return mockPluginPresenter;
 }
 
++ (NSBundle * _Nullable)bundleForModelClass:(ZPPluginModel * _Nonnull)pluginModel {
+    return nil;
+}
+
+
++ (ZPPluginModel * _Nullable)pluginModel:(NSString * _Nonnull)type {
+    return nil;
+}
+
+
++ (NSArray<ZPPluginModel *> * _Nullable)pluginModels:(NSString * _Nonnull)type {
+    return nil;
+}
+
+
 + (MockPluginPresenter *)getPluginPresenterInstance {
     return mockPluginPresenter;
 }

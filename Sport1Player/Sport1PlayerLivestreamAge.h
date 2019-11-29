@@ -14,11 +14,13 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString *const kFSKKey = @"fsk";
 static NSString *const kFSK16 = @"FSK16";
 
+@protocol Sport1HTTPClient;
+
 @interface Sport1PlayerLivestreamPin : NSObject
 
 @property (nonatomic, weak) Sport1PlayerAdapter *currentPlayerAdapter;
 
--(instancetype)initWithConfigurationJSON:(NSDictionary*)configurationJSON currentPlayerAdapter:(Sport1PlayerAdapter* _Nullable)currentPlayerAdapter;
+-(instancetype)initWithConfigurationJSON:(NSDictionary*)configurationJSON currentPlayerAdapter:(Sport1PlayerAdapter* _Nullable)currentPlayerAdapter httpClient:(id<Sport1HTTPClient>)httpClient;
 -(void)updateLivestreamAgeDataWithCompletion:(void (^)(BOOL success))completionHandler;
 -(BOOL)shouldDisplayPin;
 
